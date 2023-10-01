@@ -1,3 +1,14 @@
+$font-family-main: 'Titillium Web', sans-serif;
+$font-color-main: #333;
+$background-color-main: #dbdbdb;
+$font-color-secondary: #eee;
+$nav-background: #007bff;
+$box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+$container-width: 920px;
+$border-radius-main: 4px;
+$font-weight-main: 600;
+$font-size-main: 16px;
+
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
 
 *, ::after, ::before {
@@ -9,16 +20,16 @@
 body {
   margin: 0;
   padding: 0 0 40px;
-  font-family: 'Titillium Web', sans-serif;
-  background-color: #dbdbdb;
-  color: #333;
+  font-family: $font-family-main;
+  background-color: $background-color-main;
+  color: $font-color-main;
   overflow-x: hidden;
   nav {
     padding: 0 20px;
-    background-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    background-color: $nav-background;
+    box-shadow: $box-shadow;
     ul {
-      max-width: 920px;
+      max-width: $container-width;
       margin: 0 auto;
       padding: 20px 0;
       list-style: none;
@@ -27,7 +38,6 @@ body {
       align-items: center;
       justify-content: space-between;
       background-color: #007bff;
-      border-radius: 0 0 8px 8px;
       li {
         text-transform: uppercase;
         a {
@@ -44,7 +54,7 @@ body {
     }
   }
   .container {
-    max-width: 920px;
+    max-width: $container-width;
     margin: 0 auto;
     padding: 30px 20px 40px;
     h1 {
@@ -59,10 +69,15 @@ body {
       text-transform: uppercase;
     }
     form {
-      background-color: #fff;
       padding: 20px;
+      font-family: $font-family-main;
+      font-size: $font-size-main;
+      background-color: #fff;
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      label {
+        font-weight: 600;
+      }
       input,
       textarea {
         width: 100%;
@@ -181,7 +196,7 @@ body {
     }
   }
   .footer-container {
-    background-color: #333;
+    background-color: darken($font-color-main, 10%);
     padding: 10px;
     position: fixed;
     left: 0;
