@@ -4,6 +4,7 @@ import NewlineText from "../components/NewlineText";
 import { db } from "../firebase";
 import { doc, getDoc, Timestamp } from "firebase/firestore";
 import "firebase/firestore";
+import { Helmet } from "react-helmet-async";
 
 interface Post {
   id?: string;
@@ -51,6 +52,13 @@ const PostPage: React.FC = () => {
 
   return (
     <div className="container animate__animated animate__fadeIn">
+      <Helmet>
+        <title>{post ? post.title : "Loading..."}</title>
+        <meta
+          name="description"
+          content={post ? post.content.substring(0, 155) : "Loading..."}
+        />
+      </Helmet>
       <h1>{post.title}</h1>
       <div className="blog-post">
         <NewlineText text={post.content} />
