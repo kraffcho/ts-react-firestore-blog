@@ -40,13 +40,13 @@ interface UpdatePostPayload {
 interface InitialState {
   posts: Post[];
   status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null; // We declare error to be string or null
+  error: string | null;
 }
 
 const initialState: InitialState = {
   posts: [],
   status: "idle",
-  error: null, // Initialized to null
+  error: null,
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
@@ -91,7 +91,7 @@ export const updatePost = createAsyncThunk(
     const { id, title, content } = payload;
     const postRef = doc(db, "posts", id);
     await updateDoc(postRef, { title, content, updatedAt: serverTimestamp() });
-    return payload; // Return the payload object
+    return payload;
   }
 );
 
@@ -115,7 +115,6 @@ const postSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Only adding posts that are not already in the state
         action.payload.forEach((newPost) => {
           if (!state.posts.find((post) => post.id === newPost.id)) {
             state.posts.push(newPost);
@@ -131,7 +130,6 @@ const postSlice = createSlice({
           (post) => post.id === action.payload.id
         );
         if (existingPostIndex >= 0) {
-          // Post already exists, no need to add
           return;
         }
         state.posts.push(action.payload);
@@ -149,9 +147,9 @@ const postSlice = createSlice({
           (post) => post.id === action.payload.id
         );
         if (index !== -1) {
-          state.posts[index] = action.payload; // Update the post if it's already in the array
+          state.posts[index] = action.payload;
         } else {
-          state.posts.push(action.payload); // Add the fetched post to the state if it doesn't exist in the array
+          state.posts.push(action.payload);
         }
       });
   },

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootState, AppDispatch } from "../store"; // Adjust the import to your file structure
-import { getPost, updatePost } from "../postSlice"; // Adjust the import to your file structure
+import { RootState, AppDispatch } from "../store";
+import { getPost, updatePost } from "../postSlice";
 
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
@@ -15,12 +15,11 @@ const EditPostPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!id) return; // Return early if id is undefined
+    if (!id) return;
     if (post) {
       setTitle(post.title);
       setContent(post.content);
     } else {
-      // Only dispatch getPost if id is defined
       dispatch(getPost(id));
     }
   }, [post, dispatch, id]);

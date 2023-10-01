@@ -5,7 +5,7 @@ import AddPostPage from "./pages/AddPostPage";
 import EditPostPage from "./pages/EditPostPage";
 import PostPage from "./pages/PostPage";
 import Footer from "./components/Footer";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (

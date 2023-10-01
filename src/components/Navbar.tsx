@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Importing Link component from react-router-dom v6
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   return (

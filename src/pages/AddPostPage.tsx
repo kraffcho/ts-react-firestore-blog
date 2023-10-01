@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // useNavigate replaces useHistory in v6
+import { useNavigate } from "react-router-dom";
 import { addPost } from "../postSlice";
 import { AppDispatch } from "../store";
 
@@ -8,7 +8,7 @@ const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate(); // Initializing useNavigate
+  const navigate = useNavigate();
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
@@ -20,7 +20,7 @@ const AddPostPage: React.FC = () => {
       dispatch(addPost({ title, content }));
       setTitle("");
       setContent("");
-      navigate("/"); // Using navigate to go to the home page
+      navigate("/");
     }
   };
 

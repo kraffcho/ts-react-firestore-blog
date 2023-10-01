@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../postSlice";
-import { RootState, AppDispatch } from "../store"; // import AppDispatch
+import { RootState, AppDispatch } from "../store";
 
 const HomePage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>(); // use AppDispatch as the type for useDispatch
+  const dispatch = useDispatch<AppDispatch>();
   const posts = useSelector((state: RootState) => state.posts.posts);
   const status = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
