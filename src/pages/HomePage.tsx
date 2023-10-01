@@ -18,14 +18,18 @@ const HomePage: React.FC = () => {
 
   if (status === "loading") return <p className="loading">Loading</p>;
   if (error) return <p>Error: {error}</p>;
-  if (posts.length === 0) return <p>No posts available!</p>;
+  if (posts.length === 0) return null;
 
   return (
     <div className="container animate__animated animate__fadeIn">
       <h2>MicroBlog Posts</h2>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
+        {posts.map((post, index) => (
+          <li
+            key={post.id}
+            className="animate__animated animate__zoomInUp"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
             {post.title ? (
               <Link to={`/post/${post.id}`}>{post.title}</Link>
             ) : (

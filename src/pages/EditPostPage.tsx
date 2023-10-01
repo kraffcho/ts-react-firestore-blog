@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from "../store"; // Adjust the import to your 
 import { getPost, updatePost } from "../postSlice"; // Adjust the import to your file structure
 
 const EditPostPage: React.FC = () => {
-  const { id } = useParams<{ id?: string }>(); // Define id as possibly undefined
+  const { id } = useParams();
   const post = useSelector((state: RootState) =>
     state.posts.posts.find((p) => p.id === id)
   );

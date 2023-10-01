@@ -8,9 +8,9 @@
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 0 50px;
   font-family: 'Titillium Web', sans-serif;
-  background-color: #f9f9f9;
+  background-color: #dbdbdb;
   color: #333;
   overflow-x: hidden;
 }
@@ -56,14 +56,14 @@ nav ul li a:hover {
 }
 
 .container h1 {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: clamp(22px, 5vw, 36px);
   font-weight: 500;
   line-height: 1.2;
 }
 
 .container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -108,20 +108,23 @@ nav ul li a:hover {
 .container li {
   background-color: #fff;
   margin-bottom: 10px;
-  padding: 10px 15px;
   border-radius: 4px;
+  border: 3px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .container li a {
-  text-decoration: none;
+  display: block;
+  padding: 8px 12px;
   color: #007bff;
   font-size: 18px;
+  text-decoration: none;
   transition: .3s;
 }
 
 .container li a:hover {
   color: #111;
+  background-color: #fffccf;
 }
 
 .post, form {
@@ -167,7 +170,7 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 40px;
-  color: #aaa;
+  color: #777;
 }
 
 .loading::after {
@@ -200,3 +203,25 @@ textarea {
   }
 }
 
+.footer-container {
+  background-color: #333;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer-content span {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #eee;
+}

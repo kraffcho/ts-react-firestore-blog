@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import NewlineText from "../components/NewlineText";
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { Timestamp } from "firebase/firestore";
+import { doc, getDoc, Timestamp } from "firebase/firestore";
 import "firebase/firestore";
 
 interface Post {
@@ -15,7 +14,7 @@ interface Post {
 }
 
 const PostPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
