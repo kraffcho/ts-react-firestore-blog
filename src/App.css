@@ -1,38 +1,202 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
+
+*, ::after, ::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Titillium Web', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+nav {
+  padding: 0 20px;
+  background-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav ul {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 20px 0;
+  list-style: none;
   display: flex;
-  flex-direction: column;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  background-color: #007bff;
+  border-radius: 0 0 8px 8px;
+}
+
+nav ul li {
+  text-transform: uppercase;
+}
+
+nav ul li a {
+  color: #eee;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 30px 20px 40px;
+}
+
+.container h1 {
+  margin-bottom: 15px;
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.container h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.container .blog-post {
+  padding: 20px;
+  margin-bottom: 10px;
+  font-weight: 300;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.container .blog-post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-top: 15px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+.container .blog-post-footer .date-published {
+  font-size: 14px;
+  line-height: 1.2;
+  color: #777;
+}
+
+.container .blog-post-footer .edit-post {
+  color: #333;
+  text-decoration: none;
+  padding: 2px 8px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.container ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.container li {
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container li a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 18px;
+  transition: .3s;
+}
+
+.container li a:hover {
+  color: #111;
+}
+
+.post, form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #007bff;
   color: white;
+  border: none;
+  padding: 8px 15px;
+  transition: .3s;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+textarea {
+  height: 180px;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: #aaa;
+}
+
+.loading::after {
+  content: '.';
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow:
+      .25em 0 0 rgba(0, 0, 0, 0),
+      .5em 0 0 rgba(0, 0, 0, 0);
   }
-  to {
-    transform: rotate(360deg);
+  40% {
+    color: #999;
+    text-shadow:
+      .25em 0 0 rgba(0, 0, 0, 0),
+      .5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow:
+      .25em 0 0 #666,
+      .5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #666,
+      .5em 0 0 #666;
   }
 }
+
