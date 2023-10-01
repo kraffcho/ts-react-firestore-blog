@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     }
   }, [status, dispatch]);
 
-  if (status === "loading") return <p className="loading">Loading</p>;
+  if (status === "loading") return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>Error: {error}</p>;
   if (posts.length === 0) return null;
 

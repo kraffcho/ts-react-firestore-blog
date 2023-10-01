@@ -45,7 +45,7 @@ const PostPage: React.FC = () => {
     fetchData();
   }, [id]);
 
-  if (loading) return <p className="loading">Loading</p>;
+  if (loading) return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>Post not found</p>;
 
