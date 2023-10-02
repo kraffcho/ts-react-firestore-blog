@@ -39,7 +39,6 @@ const PostPage: React.FC = () => {
       }
     };
     fetchData();
-    // Scroll to top smoothly when id changes
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
@@ -86,7 +85,9 @@ const PostPage: React.FC = () => {
           )}
       </h1>
       <div className="blog-post">
-        <NewlineText text={post.content} />
+        <div className="blog-post-body">
+          <NewlineText text={post.content} />
+        </div>
         <div className="blog-post-footer">
           <div className="date-published">
             Published:{" "}

@@ -8,10 +8,20 @@ interface Props {
 }
 
 const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
-  const currentIndex = allPosts.findIndex((post) => post.id === currentPostId);
-  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const sortedPosts = [...allPosts].sort(
+    (a, b) =>
+      a.publishedAt.toDate().getTime() - b.publishedAt.toDate().getTime()
+  );
+
+  const currentIndex = sortedPosts.findIndex(
+    (post) => post.id === currentPostId
+  );
+
+  const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   const nextPost =
-    currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+    currentIndex < sortedPosts.length - 1
+      ? sortedPosts[currentIndex + 1]
+      : null;
 
   return (
     <div className="adjacent-posts">
