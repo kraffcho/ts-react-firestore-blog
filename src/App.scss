@@ -1,11 +1,11 @@
 $font-family-main: 'Titillium Web', sans-serif;
 $font-color-main: #333;
-$background-color-main: #dbdbdb;
 $font-color-secondary: #eee;
+$background-color-main: #dbdbdb;
 $nav-background: #007bff;
 $box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 $container-width: 920px;
-$border-radius-main: 4px;
+$border-radius-main: 5px;
 $font-weight-main: 600;
 $font-size-main: 16px;
 
@@ -37,13 +37,13 @@ body {
       gap: 20px;
       align-items: center;
       justify-content: space-between;
-      background-color: #007bff;
+      background-color: $nav-background;
       li {
         text-transform: uppercase;
         a {
-          color: #eee;
+          color: $font-color-secondary;
           font-size: 20px;
-          font-weight: 600;
+          font-weight: $font-weight-main;
           text-decoration: none;
   
           &:hover {
@@ -58,14 +58,25 @@ body {
     margin: 0 auto;
     padding: 30px 20px 40px;
     h1 {
-        margin-bottom: 10px;
+      position: relative;
+        margin-bottom: 15px;
         font-size: clamp(22px, 5vw, 36px);
         font-weight: 500;
         line-height: 1.2;
+        .title-updated {
+          position: absolute;
+          bottom: -20px;
+          right: 0;
+          padding: 4px 7px 0;
+          font-size: 10px;
+          line-height: 1;
+          background: #fff;
+          border-radius: $border-radius-main $border-radius-main 0 0;
+        }
     }
     h2 {
       margin-bottom: 15px;
-      font-weight: 600;
+      font-weight: $font-weight-main;
       text-transform: uppercase;
     }
     form {
@@ -73,10 +84,10 @@ body {
       font-family: $font-family-main;
       font-size: $font-size-main;
       background-color: #fff;
-      border-radius: 4px;
+      border-radius: $border-radius-main;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       label {
-        font-weight: 600;
+        font-weight: $font-weight-main;
       }
       input,
       textarea {
@@ -84,21 +95,22 @@ body {
         padding: 10px;
         margin-bottom: 20px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: $border-radius-main;
         box-sizing: border-box;
-        font-family: 'Titillium Web', sans-serif;
-        font-size: 16px;
+        font-family: $font-family-main;
+        font-size: $font-size-main;
         font-weight: 300;
       }
       textarea {
         height: 150px;
       }
       button {
-        background-color: #007bff;
+        background-color: $nav-background;
         color: white;
         border: none;
         padding: 8px 15px;
         transition: .3s;
+        border-radius: $border-radius-main;
         cursor: pointer;
         &:hover {
           background-color: #0056b3;
@@ -110,26 +122,61 @@ body {
       margin-bottom: 10px;
       font-weight: 300;
       background: #fff;
-      border-radius: 5px;
+      border-radius: $border-radius-main;
       .blog-post-footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 8px 12px;
         margin-top: 15px;
-        background: #eee;
-        border-radius: 5px;
+        background: linear-gradient(0deg, $font-color-secondary, transparent);
+        border-radius: $border-radius-main;
         .date-published {
           font-size: 14px;
           line-height: 1.2;
           color: #777;
         }
         .edit-post {
-          color: #333;
-          text-decoration: none;
           padding: 2px 8px;
+          text-align: center;
+          color: $font-color-main;
+          text-decoration: none;
           background: #fff;
-          border-radius: 5px;
+          border: 1px solid #ddd;
+          border-radius: $border-radius-main;
+          transition: .3s;
+          &:hover {
+            border-color: #aaa;
+          }
+        }
+      }
+    }
+    .adjacent-posts {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+      .prev-post,
+      .next-post {
+        flex: 1;
+        display: block;
+        padding: 10px 20px;
+        color: $nav-background;
+        font-size: 14px;
+        text-decoration: none;
+        background-color: #fff;
+        border-radius: $border-radius-main;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: .3s;
+        .dark {
+          color: $font-color-main;
+        }
+        &:hover {
+          color: #111;
+          background-color: #f9f9f9;
+        }
+        &:nth-child(2) {
+          text-align: right;
         }
       }
     }
@@ -139,20 +186,29 @@ body {
       li {
         background-color: #fff;
         margin-bottom: 10px;
-        border-radius: 4px;
+        border-radius: $border-radius-main;
         border: 3px solid #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         a {
           display: block;
           padding: 8px 12px;
-          color: #007bff;
+          color: $nav-background;
           font-size: 18px;
           text-decoration: none;
           transition: .3s;
           &:hover {
             color: #111;
-            background-color: #fffccf;
+            background-color: #e7e7e7;
           }
+        }
+        .date-published {
+          padding: 5px 6px;
+          font-size: 11px;
+          text-align: right;
+          line-height: 1;
+          color: #888;
+          background: linear-gradient(0deg, $font-color-secondary, transparent);
+          border-radius: 0 0 4px 4px;
         }
       }
     }
@@ -211,7 +267,7 @@ body {
       span {
         margin: 5px 0;
         font-size: 14px;
-        color: #eee;
+        color: $font-color-secondary;
       }
     }
   }

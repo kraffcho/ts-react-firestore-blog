@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../postSlice";
 import { RootState, AppDispatch } from "../store";
+import { formatDate } from "../utils/formatDate";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,6 +35,11 @@ const HomePage: React.FC = () => {
               <Link to={`/post/${post.id}`}>{post.title}</Link>
             ) : (
               <p>Untitled Post</p>
+            )}
+            {post.publishedAt && (
+              <p className="date-published">
+                {formatDate(new Date(post.publishedAt))}
+              </p>
             )}
           </li>
         ))}
