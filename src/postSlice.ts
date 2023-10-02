@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { db } from "./firebase";
-import { serverTimestamp, FieldValue } from "firebase/firestore";
+import { serverTimestamp, FieldValue, deleteDoc } from "firebase/firestore";
 import {
   collection,
   getDocs,
@@ -104,6 +104,14 @@ export const getPost = createAsyncThunk("posts/get", async (postId: string) => {
   }
 });
 
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (postId: string) => {
+    await deleteDoc(doc(db, "posts", postId));
+    return postId;
+  }
+);
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
@@ -151,6 +159,9 @@ const postSlice = createSlice({
         } else {
           state.posts.push(action.payload);
         }
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.posts = state.posts.filter((post) => post.id !== action.payload);
       });
   },
 });

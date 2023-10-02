@@ -27,14 +27,14 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
     <div className="adjacent-posts">
       {prevPost && (
         <Link to={`/post/${prevPost.id}`} className="prev-post">
-          <span className="dark">Previous Post:</span>
+          <span className="next-prev-title">Previous Post:</span>
           <br />
           {prevPost.title}
         </Link>
       )}
       {nextPost && (
         <Link to={`/post/${nextPost.id}`} className="next-post">
-          <span className="dark">Read Next:</span>
+          <span className="next-prev-title">Read Next:</span>
           <br />
           {nextPost.title}
         </Link>

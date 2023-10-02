@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container animate__animated animate__fadeIn">
-      <h2>MicroBlog Posts</h2>
+      <h2>Latest Posts</h2>
       <ul>
         {[...posts]
           .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))

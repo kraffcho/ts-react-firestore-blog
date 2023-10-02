@@ -43,9 +43,11 @@ const AddPostPage: React.FC = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" onClick={onSavePostClicked}>
-          Add Post
-        </button>
+        <div className="button-wrapper">
+          <button type="button" onClick={onSavePostClicked}>
+            Add Post
+          </button>
+        </div>
       </form>
     </section>
   );

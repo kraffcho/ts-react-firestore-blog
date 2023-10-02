@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState, AppDispatch } from "../store";
-import { getPost, updatePost } from "../postSlice";
+import { getPost, updatePost, deletePost } from "../postSlice";
 
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
@@ -31,6 +31,13 @@ const EditPostPage: React.FC = () => {
     }
   };
 
+  const onDeletePostClicked = async () => {
+    if (id) {
+      await dispatch(deletePost(id));
+      navigate("/");
+    }
+  };
+
   return (
     <section className="container animate__animated animate__fadeIn">
       <h2>Edit Post</h2>
@@ -50,9 +57,14 @@ const EditPostPage: React.FC = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button type="button" onClick={onSavePostClicked}>
-          Update Post
-        </button>
+        <div className="button-wrapper">
+          <button type="button" onClick={onSavePostClicked}>
+            Update Post
+          </button>
+          <button type="button" onClick={onDeletePostClicked} className="delete-post">
+            Delete Post
+          </button>
+        </div>
       </form>
     </section>
   );
