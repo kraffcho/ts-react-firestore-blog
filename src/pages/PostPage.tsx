@@ -94,7 +94,7 @@ const PostPage: React.FC = () => {
             {post.publishedAt ? formatDate(post.publishedAt.toDate()) : "N/A"}
           </div>
           <Link to={`/edit-post/${id}`} className="edit-post">
-            Update
+            Manage
           </Link>
         </div>
       </div>

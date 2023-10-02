@@ -67,6 +67,7 @@ body {
       font-size: clamp(22px, 5vw, 36px);
       font-weight: 500;
       line-height: 1.2;
+      color: darken($color: $nav-background, $amount: 20%);
       text-align: center;
       text-wrap: balance;
       .title-updated {
@@ -75,6 +76,7 @@ body {
         left: 50%;
         padding: 4px 6px;
         font-size: 10px;
+        color: initial;
         line-height: 1;
         background: #fff;
         border-radius: $border-radius-main;
@@ -109,6 +111,7 @@ body {
         font-family: $font-family-main;
         font-size: $font-size-main;
         font-weight: 300;
+        background-color: #f5f5f5;
         outline: none;
         &:focus-within {
           border-color: $nav-background;
@@ -117,31 +120,74 @@ body {
       textarea {
         height: 150px;
         resize: vertical;
+        transition: .3s;
       }
       .button-wrapper {
         display: flex;
         justify-content: space-between;
         gap: 10px;
-        button {
-          background-color: $nav-background;
-          color: white;
+        .increase-height {
+          display: flex;
+          gap: 5px;
+        }
+        .btn {
+          display: inline-block;
+          padding: 5px 15px;
+          font-family: $font-family-main;
+          font-size: clamp(14px, 3vw, 18px);
+          font-weight: 600;
+          line-height: 1.2;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 5px;
           border: none;
-          padding: 8px 15px;
-          transition: .3s;
-          border-radius: $border-radius-main;
+          outline: none;
+          text-shadow: 0 1px 1px #999;
+          transition: .2s;
           cursor: pointer;
-          &:hover {
-            background-color: darken($color: $nav-background, $amount: 10%);
+
+          &:active {
+            -webkit-transform: translate(0px, 5px);
+            transform: translate(0px, 5px);
+            box-shadow: 0px 1px 0px 0px;
           }
-          &.delete-post {
-            background-color: tomato;
+
+          &.blue {
+            background-color: #55acee;
+            box-shadow: 0px 5px 0px 0px #3C93D5;
             &:hover {
-              background-color: darken($color: tomato, $amount: 10%);
+              background-color: #6FC6FF;
+            }
+          }
+
+          &.yellow {
+            background-color: #f1c40f;
+            box-shadow: 0px 5px 0px 0px #D8AB00;
+            &:hover {
+              background-color: #FFDE29;
+            }
+          }
+        
+          &.green {
+            background-color: #2ecc71;
+            box-shadow: 0px 5px 0px 0px #15B358;
+            &.green:hover {
+              background-color: #48E68B;
+            }
+          }
+
+          &.red {
+            background-color: #e74c3c;
+            box-shadow: 0px 5px 0px 0px #CE3323;
+          
+            &:hover {
+              background-color: #FF6656;
             }
           }
         }
       }
     }
+
     .blog-post {
       margin: 0 auto;
       width: calc(100% - 20px);
@@ -194,17 +240,18 @@ body {
         color: $nav-background;
         font-size: 14px;
         text-decoration: none;
-        background-color: #fff;
+        background-color: #f6f6f6;
         border-radius: $border-radius-main;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 3px solid #fff;
         transition: .3s;
         .next-prev-title {
           font-weight: $font-weight-main;
           color: lighten($color: $font-color-main, $amount: 20%);
         }
         &:hover {
-          color: #111;
-          background-color: #f9f9f9;
+          color: #222;
+          background-color: #fff;
         }
         &:nth-child(2) {
           text-align: right;

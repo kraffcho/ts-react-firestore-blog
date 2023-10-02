@@ -11,6 +11,7 @@ const EditPostPage: React.FC = () => {
   );
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [textareaHeight, setTextareaHeight] = useState("150px"); // Initial height
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -38,6 +39,20 @@ const EditPostPage: React.FC = () => {
     }
   };
 
+  const increaseHeight = () => {
+    setTextareaHeight((prevHeight) => {
+      const newHeight = parseInt(prevHeight) * 1.5;
+      return newHeight + "px";
+    });
+  };
+
+  const decreaseHeight = () => {
+    setTextareaHeight((prevHeight) => {
+      const newHeight = parseInt(prevHeight) / 1.5;
+      return newHeight + "px";
+    });
+  };
+
   return (
     <section className="container animate__animated animate__fadeIn">
       <h2>Edit Post</h2>
@@ -56,12 +71,37 @@ const EditPostPage: React.FC = () => {
           name="postContent"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          style={{ height: textareaHeight }}
         />
         <div className="button-wrapper">
-          <button type="button" onClick={onSavePostClicked}>
+          <button
+            type="button"
+            onClick={onSavePostClicked}
+            className="btn green"
+          >
             Update Post
           </button>
-          <button type="button" onClick={onDeletePostClicked} className="delete-post">
+          <div className="increase-height">
+            <button
+              type="button"
+              onClick={increaseHeight}
+              className="btn yellow"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              onClick={decreaseHeight}
+              className="btn yellow"
+            >
+              -
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={onDeletePostClicked}
+            className="btn red"
+          >
             Delete Post
           </button>
         </div>
