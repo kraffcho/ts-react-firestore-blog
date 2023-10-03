@@ -28,7 +28,7 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
       {prevPost && (
         <Link
           to={`/post/${prevPost.id}`}
-          className="prev-post animate__animated animate__fadeInDown"
+          className="prev-post animate__animated animate__fadeIn"
         >
           <span className="next-prev-title">Previous Post:</span>
           <br />
@@ -38,7 +38,7 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
       {nextPost && (
         <Link
           to={`/post/${nextPost.id}`}
-          className="next-post animate__animated animate__fadeInDown"
+          className="next-post animate__animated animate__fadeIn"
         >
           <span className="next-prev-title">Read Next:</span>
           <br />
