@@ -26,14 +26,20 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
   return (
     <div className="adjacent-posts">
       {prevPost && (
-        <Link to={`/post/${prevPost.id}`} className="prev-post">
+        <Link
+          to={`/post/${prevPost.id}`}
+          className="prev-post animate__animated animate__fadeInDown"
+        >
           <span className="next-prev-title">Previous Post:</span>
           <br />
           {prevPost.title}
         </Link>
       )}
       {nextPost && (
-        <Link to={`/post/${nextPost.id}`} className="next-post">
+        <Link
+          to={`/post/${nextPost.id}`}
+          className="next-post animate__animated animate__fadeInDown"
+        >
           <span className="next-prev-title">Read Next:</span>
           <br />
           {nextPost.title}

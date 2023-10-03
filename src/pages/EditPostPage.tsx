@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RootState, AppDispatch } from "../store";
 import { getPost, updatePost, deletePost } from "../postSlice";
 
+const MIN_HEIGHT = 160;
+const HEIGHT_INCREMENT = 100;
+
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
   const post = useSelector((state: RootState) =>
@@ -11,7 +14,7 @@ const EditPostPage: React.FC = () => {
   );
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [textareaHeight, setTextareaHeight] = useState("150px"); // Initial height
+  const [textareaHeight, setTextareaHeight] = useState(MIN_HEIGHT);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -40,17 +43,13 @@ const EditPostPage: React.FC = () => {
   };
 
   const increaseHeight = () => {
-    setTextareaHeight((prevHeight) => {
-      const newHeight = parseInt(prevHeight) * 1.5;
-      return newHeight + "px";
-    });
+    setTextareaHeight((prevHeight) => prevHeight + HEIGHT_INCREMENT);
   };
 
   const decreaseHeight = () => {
-    setTextareaHeight((prevHeight) => {
-      const newHeight = parseInt(prevHeight) / 1.5;
-      return newHeight + "px";
-    });
+    setTextareaHeight((prevHeight) =>
+      Math.max(prevHeight - HEIGHT_INCREMENT, MIN_HEIGHT)
+    );
   };
 
   return (
@@ -71,7 +70,7 @@ const EditPostPage: React.FC = () => {
           name="postContent"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          style={{ height: textareaHeight }}
+          style={{ height: `${textareaHeight}px` }}
         />
         <div className="button-wrapper">
           <button
