@@ -5,6 +5,7 @@ import { fetchPosts } from "../postSlice";
 import { RootState, AppDispatch } from "../store";
 import { formatDate } from "../utils/formatDate";
 import { Helmet } from "react-helmet-async";
+import { categoryNameToColor } from "../utils/categoriesColors";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -115,6 +116,9 @@ const HomePage: React.FC = () => {
                   <Link
                     to={`/category/${post.category}`}
                     className="category-label"
+                    style={{
+                      backgroundColor: categoryNameToColor(post.category),
+                    }}
                   >
                     {post.category}
                   </Link>
