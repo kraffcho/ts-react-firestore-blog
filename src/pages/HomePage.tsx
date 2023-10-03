@@ -38,11 +38,16 @@ const HomePage: React.FC = () => {
               ) : (
                 <p>Untitled Post</p>
               )}
-              {post.publishedAt && (
-                <p className="date-published">
-                  {formatDate(new Date(post.publishedAt))}
-                </p>
-              )}
+              <div className="labels-wrapper">
+                {post.category && (
+                  <p className="category-label">{post.category}</p>
+                )}
+                {post.publishedAt && (
+                  <p className="date-label">
+                    {formatDate(new Date(post.publishedAt))}
+                  </p>
+                )}
+              </div>
             </li>
           ))}
       </ul>

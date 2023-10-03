@@ -14,6 +14,7 @@ interface Post {
   id?: string;
   title: string;
   content: string;
+  category?: string;
   publishedAt: string;
   updatedAt: string;
 }
@@ -22,6 +23,7 @@ interface NewPost {
   id?: string;
   title: string;
   content: string;
+  category?: string;
   publishedAt: FieldValue;
   updatedAt: FieldValue;
 }
@@ -29,12 +31,14 @@ interface NewPost {
 interface NewPostPayload {
   title: string;
   content: string;
+  category: string;
 }
 
 interface UpdatePostPayload {
   id: string;
   title: string;
   content: string;
+  category: string;
 }
 
 interface InitialState {
@@ -58,6 +62,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
       id: doc.id,
       title: data.title,
       content: data.content,
+      category: data.category,
       publishedAt: data.publishedAt
         ? data.publishedAt.toDate().toISOString()
         : "N/A",
@@ -88,9 +93,14 @@ export const addPost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   "posts/updatePost",
   async (payload: UpdatePostPayload) => {
-    const { id, title, content } = payload;
+    const { id, title, content, category } = payload;
     const postRef = doc(db, "posts", id);
-    await updateDoc(postRef, { title, content, updatedAt: serverTimestamp() });
+    await updateDoc(postRef, {
+      title,
+      content,
+      category,
+      updatedAt: serverTimestamp(),
+    });
     return payload;
   }
 );
@@ -143,11 +153,12 @@ const postSlice = createSlice({
         state.posts.push(action.payload);
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        const { id, title, content } = action.payload;
+        const { id, title, content, category } = action.payload; // added category
         const existingPost = state.posts.find((post) => post.id === id);
         if (existingPost) {
           existingPost.title = title;
           existingPost.content = content;
+          existingPost.category = category; // added
         }
       })
       .addCase(getPost.fulfilled, (state, action: PayloadAction<Post>) => {

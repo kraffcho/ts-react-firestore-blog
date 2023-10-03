@@ -7,6 +7,7 @@ import { AppDispatch } from "../store";
 const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState<string | undefined>("");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -16,10 +17,11 @@ const AddPostPage: React.FC = () => {
     setContent(e.target.value);
 
   const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(addPost({ title, content }));
+    if (title && content && category) {
+      dispatch(addPost({ title, content, category }));
       setTitle("");
       setContent("");
+      setCategory(undefined);
       navigate("/");
     }
   };
@@ -28,14 +30,33 @@ const AddPostPage: React.FC = () => {
     <section className="container animate__animated animate__fadeIn">
       <h2>Add a New Post</h2>
       <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
+        <div className="title-category-wrapper">
+          <div className="title-wrapper">
+            <label htmlFor="postTitle">Post Title:</label>
+            <input
+              type="text"
+              id="postTitle"
+              name="postTitle"
+              value={title}
+              onChange={onTitleChanged}
+            />
+          </div>
+          <div className="category-wrapper">
+            <label htmlFor="postCategory">Category:</label>
+            <select
+              id="postCategory"
+              name="postCategory"
+              value={category || ""}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select a category...</option>
+              <option value="tech">Tech</option>
+              <option value="life">Life</option>
+              <option value="funny">Funny</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        </div>
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"

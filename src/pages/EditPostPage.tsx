@@ -14,6 +14,7 @@ const EditPostPage: React.FC = () => {
   );
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState<string | undefined>("");
   const [textareaHeight, setTextareaHeight] = useState(MIN_HEIGHT);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -23,14 +24,15 @@ const EditPostPage: React.FC = () => {
     if (post) {
       setTitle(post.title);
       setContent(post.content);
+      setCategory(post.category);
     } else {
       dispatch(getPost(id));
     }
   }, [post, dispatch, id]);
 
   const onSavePostClicked = async () => {
-    if (title && content && id) {
-      await dispatch(updatePost({ id, title, content }));
+    if (title && content && category && id) {
+      await dispatch(updatePost({ id, title, content, category }));
       navigate(`/post/${id}`);
     }
   };
@@ -56,14 +58,33 @@ const EditPostPage: React.FC = () => {
     <section className="container animate__animated animate__fadeIn">
       <h2>Edit Post</h2>
       <form>
-        <label htmlFor="postTitle">Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <div className="title-category-wrapper">
+          <div className="title-wrapper">
+            <label htmlFor="postTitle">Title:</label>
+            <input
+              type="text"
+              id="postTitle"
+              name="postTitle"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="category-wrapper">
+            <label htmlFor="postCategory">Category:</label>
+            <select
+              id="postCategory"
+              name="postCategory"
+              value={category || ""}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select a category...</option>
+              <option value="tech">Tech</option>
+              <option value="life">Life</option>
+              <option value="funny">Funny</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        </div>
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"
