@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState, AppDispatch } from "../store";
 import { getPost, updatePost, deletePost } from "../postSlice";
+import categoriesList from "../utils/categoriesList";
 
 const MIN_HEIGHT = 160;
 const HEIGHT_INCREMENT = 100;
@@ -77,11 +78,11 @@ const EditPostPage: React.FC = () => {
               value={category || ""}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="">Select a category...</option>
-              <option value="tech">Tech</option>
-              <option value="life">Life</option>
-              <option value="funny">Funny</option>
-              <option value="others">Others</option>
+              {categoriesList.map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>

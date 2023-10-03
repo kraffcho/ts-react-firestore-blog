@@ -90,6 +90,36 @@ body {
       text-align: center;
       text-transform: uppercase;
     }
+    ul.category-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 0;
+      list-style-type: none;
+      a {
+        padding: 5px 10px;
+        font-size: 14px;
+        color: $font-color-main;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: $border-radius-main;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        transition: .3s;
+        text-transform: uppercase;
+        &.active {
+          color: #fff;
+          background-color: lighten($color: $nav-background, $amount: 10%);
+          border-color: $nav-background;
+        }
+        &.inactive {
+          &:hover {
+            border-color: #888;
+          }
+        }
+      }
+    }
     form {
       padding: 20px;
       font-family: $font-family-main;
@@ -150,7 +180,6 @@ body {
           padding: 5px 15px;
           font-family: $font-family-main;
           font-size: clamp(14px, 3vw, 18px);
-          font-weight: 600;
           line-height: 1.2;
           color: #fff;
           text-decoration: none;
@@ -273,7 +302,7 @@ body {
         }
       }
     }
-    ul {
+    ul.list-posts {
       display: grid;
       grid-column-gap: 10px;
       grid-template-columns: repeat(2, 1fr);

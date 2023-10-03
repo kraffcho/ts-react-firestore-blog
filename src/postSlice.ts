@@ -153,12 +153,12 @@ const postSlice = createSlice({
         state.posts.push(action.payload);
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        const { id, title, content, category } = action.payload; // added category
+        const { id, title, content, category } = action.payload;
         const existingPost = state.posts.find((post) => post.id === id);
         if (existingPost) {
           existingPost.title = title;
           existingPost.content = content;
-          existingPost.category = category; // added
+          existingPost.category = category;
         }
       })
       .addCase(getPost.fulfilled, (state, action: PayloadAction<Post>) => {

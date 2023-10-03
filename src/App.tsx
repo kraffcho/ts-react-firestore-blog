@@ -13,8 +13,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/category/:categoryName" element={<HomePage />} />
         <Route path="/add-post" element={<AddPostPage />} />
-        <Route path="/edit-post/:id" element={<EditPostPage />} />{" "}
+        <Route path="/edit-post/:id" element={<EditPostPage />} />
         <Route path="/post/:id" element={<PostPage />} />
       </Routes>
       <Footer />

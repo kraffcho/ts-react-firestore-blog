@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addPost } from "../postSlice";
 import { AppDispatch } from "../store";
+import categoriesList from "../utils/categoriesList";
 
 const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -49,11 +50,11 @@ const AddPostPage: React.FC = () => {
               value={category || ""}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="">Select a category...</option>
-              <option value="tech">Tech</option>
-              <option value="life">Life</option>
-              <option value="funny">Funny</option>
-              <option value="others">Others</option>
+              {categoriesList.map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
