@@ -92,7 +92,13 @@ const PostPage: React.FC = () => {
           <div className="date-published">
             Published:{" "}
             {post.publishedAt ? formatDate(post.publishedAt.toDate()) : "N/A"}
-            {post.category && <span> | Category: {post.category}</span>}
+            {post.category && (
+              <span>
+                {" "}
+                | Category:{" "}
+                <Link className="category" to={`/category/${post.category}`}>{post.category}</Link>
+              </span>
+            )}
           </div>
           <Link to={`/edit-post/${id}`} className="edit-post">
             Manage

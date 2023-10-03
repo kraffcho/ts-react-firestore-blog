@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetchPosts } from "../postSlice";
 import { RootState, AppDispatch } from "../store";
 import { formatDate } from "../utils/formatDate";
+import { Helmet } from "react-helmet-async";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +28,23 @@ const HomePage: React.FC = () => {
     return acc;
   }, {});
 
+  // Truncate post summaries to a maximum length.
+  const truncateSummary = (content: string, maxLength = 120): string => {
+    if (content.length <= maxLength) return content;
+
+    // Find the last space before the maxLength
+    let endIndex = maxLength;
+    while (endIndex > 0 && content[endIndex] !== " ") {
+      endIndex--;
+    }
+
+    // If no space was found, just cut off at the maxLength
+    if (endIndex === 0) endIndex = maxLength;
+
+    return content.slice(0, endIndex) + "...";
+  };
+
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchPosts());
@@ -44,17 +62,33 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container animate__animated animate__fadeIn">
+      <Helmet>
+        <title>
+          {categoryName ? `Posts in category: ${categoryName}` : "Latest Posts"}
+        </title>
+        <meta
+          name="description"
+          content={
+            categoryName
+              ? `Explore posts from the ${categoryName} category.`
+              : "Browse the latest posts from all categories."
+          }
+        />
+      </Helmet>
       <h2>
         {categoryName ? `Posts in category: ${categoryName}` : "Latest Posts"}
       </h2>
       <ul className="category-links">
+        <li>
+          <Link to="/" className={!categoryName ? "active" : "inactive"}>
+            All ({posts.length})
+          </Link>
+        </li>
         {categories.map((cat) => (
           <li key={cat}>
             <Link
               to={`/category/${cat}`}
-              className={
-                cat === categoryName ? "active" : "inactive"
-              }
+              className={cat === categoryName ? "active" : "inactive"}
             >
               {cat} ({categoryCounts[cat]})
             </Link>
@@ -75,6 +109,7 @@ const HomePage: React.FC = () => {
               ) : (
                 <p>Untitled Post</p>
               )}
+              <p className="post-summary">{truncateSummary(post.content)}</p>{" "}
               <div className="labels-wrapper">
                 {post.category && (
                   <Link

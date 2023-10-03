@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState, AppDispatch } from "../store";
 import { getPost, updatePost, deletePost } from "../postSlice";
+import { Helmet } from "react-helmet-async";
 import categoriesList from "../utils/categoriesList";
 
 const MIN_HEIGHT = 160;
@@ -57,6 +58,13 @@ const EditPostPage: React.FC = () => {
 
   return (
     <section className="container animate__animated animate__fadeIn">
+      <Helmet>
+        <title>Edit Post</title>
+        <meta
+          name="description"
+          content="Edit an existing post. Modify the category, adjust the title, and update your content."
+        />
+      </Helmet>
       <h2>Edit Post</h2>
       <form>
         <div className="title-category-wrapper">

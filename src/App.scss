@@ -63,7 +63,7 @@ body {
     padding: 30px 20px 40px;
     h1 {
       position: relative;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-size: clamp(22px, 5vw, 36px);
       font-weight: 500;
       line-height: 1.2;
@@ -72,7 +72,7 @@ body {
       text-wrap: balance;
       .title-updated {
         position: absolute;
-        bottom: -24px;
+        bottom: -29px;
         left: 50%;
         padding: 4px 6px;
         font-size: 10px;
@@ -87,13 +87,12 @@ body {
     h2 {
       margin-bottom: 15px;
       font-weight: $font-weight-main;
-      text-align: center;
       text-transform: uppercase;
     }
     ul.category-links {
       display: flex;
-      justify-content: center;
-      gap: 10px;
+      gap: 20px 10px;
+      flex-flow: row wrap;
       margin-bottom: 20px;
       padding: 0;
       list-style-type: none;
@@ -102,12 +101,13 @@ body {
         font-size: 14px;
         color: $font-color-main;
         text-decoration: none;
+        text-wrap: nowrap;
         background-color: #fff;
         border: 1px solid transparent;
         border-radius: $border-radius-main;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         transition: .3s;
-        text-transform: uppercase;
+        text-transform: capitalize;
         &.active {
           color: #fff;
           background-color: lighten($color: $nav-background, $amount: 10%);
@@ -254,6 +254,9 @@ body {
           font-size: 13px;
           line-height: 1.2;
           color: #666;
+          .category {
+            color: $nav-background;
+          }
         }
         .edit-post {
           padding: 2px 8px;
@@ -319,7 +322,7 @@ body {
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         a {
           display: block;
-          padding: 10px 6px;
+          padding: 8px 5px;
           margin: 5px 5px 0;
           color: $nav-background;
           font-size: 18px;
@@ -332,6 +335,18 @@ body {
             color: $font-color-main;
             background-color: lighten($color: $nav-background, $amount: 40%);
           }
+        }
+        .post-summary {
+          margin-top: 5px;
+          padding: 0 10px;
+          font-size: 14px;
+          line-height: 1.2;
+          text-wrap: balance;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
         }
         .labels-wrapper {
           display: flex;
@@ -439,7 +454,7 @@ body {
           padding: 8px 15px;
         }
       }
-      > ul {
+      > ul.list-posts {
         display: block;
       }
     }

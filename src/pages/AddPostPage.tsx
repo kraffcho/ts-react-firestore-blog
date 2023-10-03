@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addPost } from "../postSlice";
 import { AppDispatch } from "../store";
 import categoriesList from "../utils/categoriesList";
+import { Helmet } from "react-helmet-async";
 
 const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -29,6 +30,13 @@ const AddPostPage: React.FC = () => {
 
   return (
     <section className="container animate__animated animate__fadeIn">
+      <Helmet>
+        <title>Add New Post</title>
+        <meta
+          name="description"
+          content="Add a new post to the blog. Choose a category, set a title, and write your content."
+        />
+      </Helmet>
       <h2>Add a New Post</h2>
       <form>
         <div className="title-category-wrapper">
