@@ -5,6 +5,7 @@ import { addPost } from "../postSlice";
 import { AppDispatch } from "../store";
 import categoriesList from "../utils/categoriesList";
 import { Helmet } from "react-helmet-async";
+import ReadingTime from "../components/ReadingTime";
 
 const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -66,7 +67,10 @@ const AddPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent">Content:</label>
+        <label htmlFor="postContent">
+          Content:
+          <ReadingTime content={content} />
+        </label>
         <textarea
           id="postContent"
           name="postContent"

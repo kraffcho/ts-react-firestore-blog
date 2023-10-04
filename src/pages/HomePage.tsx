@@ -6,6 +6,7 @@ import { RootState, AppDispatch } from "../store";
 import { formatDate } from "../utils/formatDate";
 import { Helmet } from "react-helmet-async";
 import { categoryNameToColor } from "../utils/categoriesColors";
+import ReadingTime from "../components/ReadingTime";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -77,7 +78,7 @@ const HomePage: React.FC = () => {
         />
       </Helmet>
       <h2>
-        {categoryName ? `Posts in category: ${categoryName}` : "Latest Posts"}
+        {categoryName ? `Posts in category: ${categoryName}` : "Showing All Posts"}
       </h2>
       <ul className="category-links">
         <li>
@@ -110,7 +111,12 @@ const HomePage: React.FC = () => {
               ) : (
                 <p>Untitled Post</p>
               )}
-              <p className="post-summary">{truncateSummary(post.content)}</p>{" "}
+              {post.publishedAt && (
+                <p className="post-date">
+                  Published: {formatDate(new Date(post.publishedAt))}
+                </p>
+              )}
+              <p className="post-summary">{truncateSummary(post.content)}</p>
               <div className="labels-wrapper">
                 {post.category && (
                   <Link
@@ -123,11 +129,7 @@ const HomePage: React.FC = () => {
                     {post.category}
                   </Link>
                 )}
-                {post.publishedAt && (
-                  <p className="date-label">
-                    {formatDate(new Date(post.publishedAt))}
-                  </p>
-                )}
+                <ReadingTime content={post.content} />
               </div>
             </li>
           ))}

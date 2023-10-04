@@ -5,6 +5,7 @@ import { RootState, AppDispatch } from "../store";
 import { getPost, updatePost, deletePost } from "../postSlice";
 import { Helmet } from "react-helmet-async";
 import categoriesList from "../utils/categoriesList";
+import ReadingTime from "../components/ReadingTime";
 
 const MIN_HEIGHT = 160;
 const HEIGHT_INCREMENT = 100;
@@ -94,7 +95,9 @@ const EditPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent">Content:</label>
+        <label htmlFor="postContent">
+          Content: <ReadingTime content={content} />
+        </label>
         <textarea
           id="postContent"
           name="postContent"
