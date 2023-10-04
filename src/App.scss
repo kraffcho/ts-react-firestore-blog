@@ -253,6 +253,7 @@ body {
       box-shadow: $box-shadow;
       .blog-post-body {
         padding: 20px 20px 0;
+        font-size: clamp(16px, 4vw, 20px);
         font-weight: 500;
       }
       .blog-post-footer {

@@ -72,7 +72,10 @@ const HomePage: React.FC = () => {
   const start = (currentPage - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
 
-  const pagedPosts = filteredPosts.slice(start, end);
+  const sortedPosts = [...filteredPosts].sort((a, b) =>
+    a.publishedAt < b.publishedAt ? 1 : -1
+  );
+  const pagedPosts = sortedPosts.slice(start, end);
 
   // Calculate the total number of pages based on the number of filtered posts and the number of posts per page
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
