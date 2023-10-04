@@ -15,43 +15,50 @@ const HomePage: React.FC = () => {
   const error = useSelector((state: RootState) => state.posts.error);
   const { categoryName } = useParams();
 
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const POSTS_PER_PAGE = 4;
+
   interface CategoryCount {
     [key: string]: number;
   }
 
-  // Extract unique categories from posts, ensuring we only deal with non-undefined categories.
   const categories = Array.from(
     new Set(posts.map((post) => post.category).filter(Boolean))
   ) as string[];
 
-  // Count the number of posts for each category.
   const categoryCounts = categories.reduce<CategoryCount>((acc, cat) => {
     acc[cat] = posts.filter((post) => post.category === cat).length;
     return acc;
   }, {});
 
-  // Truncate post summaries to a maximum length.
   const truncateSummary = (content: string, maxLength = 120): string => {
     if (content.length <= maxLength) return content;
 
-    // Find the last space before the maxLength
     let endIndex = maxLength;
     while (endIndex > 0 && content[endIndex] !== " ") {
       endIndex--;
     }
 
-    // If no space was found, just cut off at the maxLength
     if (endIndex === 0) endIndex = maxLength;
 
     return content.slice(0, endIndex) + "...";
   };
-
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchPosts());
     }
   }, [status, dispatch]);
+
+  // Reset current page when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [categoryName]);
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   if (status === "loading")
     return <p className="loading animate__animated animate__fadeIn">Loading</p>;
@@ -61,6 +68,22 @@ const HomePage: React.FC = () => {
   const filteredPosts = categoryName
     ? posts.filter((post) => post.category === categoryName)
     : posts;
+
+  const start = (currentPage - 1) * POSTS_PER_PAGE;
+  const end = start + POSTS_PER_PAGE;
+
+  const pagedPosts = filteredPosts.slice(start, end);
+
+  // Calculate the total number of pages based on the number of filtered posts and the number of posts per page
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+  // Determine the range of pages to be shown
+  let startPage = Math.max(1, currentPage - 2);
+  let endPage = Math.min(totalPages, startPage + 4);
+
+  if (endPage - startPage < 4) {
+    startPage = Math.max(1, endPage - 4);
+  }
 
   return (
     <div className="container animate__animated animate__fadeIn">
@@ -78,7 +101,9 @@ const HomePage: React.FC = () => {
         />
       </Helmet>
       <h2>
-        {categoryName ? `Posts in category: ${categoryName}` : "Showing All Posts"}
+        {categoryName
+          ? `Posts in category: ${categoryName}`
+          : "Showing All Posts"}
       </h2>
       <ul className="category-links">
         <li>
@@ -86,24 +111,28 @@ const HomePage: React.FC = () => {
             All ({posts.length})
           </Link>
         </li>
-        {categories.map((cat) => (
-          <li key={cat}>
-            <Link
-              to={`/category/${cat}`}
-              className={cat === categoryName ? "active" : "inactive"}
-            >
-              {cat} ({categoryCounts[cat]})
-            </Link>
-          </li>
-        ))}
+        {categories
+          .sort((a, b) => categoryCounts[b] - categoryCounts[a])
+          .map((cat) => (
+            <li key={cat}>
+              <Link
+                to={`/category/${cat}`}
+                className={cat === categoryName ? "active" : "inactive"}
+              >
+                {cat} ({categoryCounts[cat]})
+              </Link>
+            </li>
+          ))}
       </ul>
       <ul className="list-posts">
-        {[...filteredPosts]
+        {[...pagedPosts]
           .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
           .map((post, index) => (
             <li
               key={post.id}
-              className="animate__animated animate__zoomInUp"
+              className={`animate__animated ${
+                index % 2 === 0 ? "animate__zoomInRight" : "animate__zoomInLeft"
+              }`}
               style={{ animationDelay: `${index * 0.05}s` }}
             >
               {post.title ? (
@@ -134,6 +163,38 @@ const HomePage: React.FC = () => {
             </li>
           ))}
       </ul>
+      {filteredPosts.length > POSTS_PER_PAGE && (
+        <div className="pagination animate__animated animate__slideInDown">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            &laquo; Prev
+          </button>
+
+          {Array.from(
+            { length: endPage - startPage + 1 },
+            (_, idx) => startPage + idx
+          ).map((page) => (
+            <span
+              key={page}
+              className={page === currentPage ? "active-page" : ""}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </span>
+          ))}
+
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next &raquo;
+          </button>
+        </div>
+      )}
     </div>
   );
 };
