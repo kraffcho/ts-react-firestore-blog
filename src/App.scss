@@ -72,26 +72,23 @@ body {
     margin: 0 auto;
     padding: 30px 20px 40px;
     h1.post-page-title {
-      width: calc(100% + 20px);
+      width: 100%;
       position: -webkit-sticky;
       position: sticky;
       top: 50px;
       padding: 25px 15px;
+      margin-bottom: -5px;
       font-size: clamp(22px, 5vw, 36px);
       font-weight: 500;
       line-height: 1.2;
       color: $font-color-secondary;
       background-color: lighten($color: $nav-background, $amount: 10%);
-      border-radius: 2px 2px $border-radius-main $border-radius-main;
+      border-radius: $border-radius-main $border-radius-main 0 0;
       box-shadow: $box-shadow;
       text-align: center;
       text-shadow: $nav-background;
       text-wrap: balance;
-      transform: translate(-10px, 5px);
       transition: opacity 0.3s ease-in-out;
-      &.title-faded {
-        opacity: 0;
-      }
       .title-updated {
         position: absolute;
         bottom: -8px;

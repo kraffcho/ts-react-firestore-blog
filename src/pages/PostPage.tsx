@@ -10,7 +10,6 @@ import { Post } from "../utils/types";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import useScrollFade from "../hooks/useScrollFade";
 
-
 const PostPage: React.FC = () => {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
@@ -20,7 +19,7 @@ const PostPage: React.FC = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
     );
-  const isTitleFaded = useScrollFade(200);
+  const isTitleFaded = useScrollFade(250);
 
   useEffect(() => {
     if (post && post.content) {
@@ -51,8 +50,9 @@ const PostPage: React.FC = () => {
         setLoading(false);
       }
     };
-    fetchData();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchData().then(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   }, [id]);
 
   useEffect(() => {
@@ -85,7 +85,13 @@ const PostPage: React.FC = () => {
           content={post ? post.content.substring(0, 155) : "Loading..."}
         />
       </Helmet>
-      <h1 className={`post-page-title${isTitleFaded ? " title-faded" : ""}`}>
+      <h1
+        className={`post-page-title${
+          isTitleFaded
+            ? " animate__animated animate__fadeOutUp"
+            : " animate__animated animate__fadeInDown"
+        }`}
+      >
         {post.title}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
