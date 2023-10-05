@@ -6,6 +6,8 @@ import { RootState, AppDispatch } from "../store";
 import { formatDate } from "../utils/formatDate";
 import { Helmet } from "react-helmet-async";
 import { categoryNameToColor } from "../utils/categoriesColors";
+import { convertFromRaw } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
 import ReadingTime from "../components/ReadingTime";
 
 const HomePage: React.FC = () => {
@@ -31,17 +33,63 @@ const HomePage: React.FC = () => {
     return acc;
   }, {});
 
-  const truncateSummary = (content: string, maxLength = 120): string => {
-    if (content.length <= maxLength) return content;
+  const convertDraftJsContentToHTML = (rawContent: any): string => {
+    let contentState;
 
-    let endIndex = maxLength;
-    while (endIndex > 0 && content[endIndex] !== " ") {
-      endIndex--;
+    if (typeof rawContent === "string") {
+      try {
+        contentState = convertFromRaw(JSON.parse(rawContent));
+      } catch (error) {
+        console.error("Failed to parse string content:", error);
+        // Handle this case, maybe return an error string or empty string
+        return "Error in content";
+      }
+    } else if (typeof rawContent === "object") {
+      contentState = convertFromRaw(rawContent);
+    } else {
+      console.error("Unknown content type:", typeof rawContent);
+      // Handle this case
+      return "Unknown content format";
     }
 
-    if (endIndex === 0) endIndex = maxLength;
+    return stateToHTML(contentState);
+  };
 
-    return content.slice(0, endIndex) + "...";
+  const parseDraftJsContent = (rawContent: any) => {
+    if (typeof rawContent === "string") {
+      try {
+        return JSON.parse(rawContent);
+      } catch (error) {
+        console.error("Failed to parse string content:", error);
+        return null; // or some default/fallback value
+      }
+    } else if (typeof rawContent === "object") {
+      return rawContent;
+    } else {
+      console.error("Unknown content type:", typeof rawContent);
+      return null; // or some default/fallback value
+    }
+  };
+
+  const truncateSummary = (content: string, maxLength = 120): string => {
+    console.log("Processing content:", content);
+    try {
+      const contentObject = parseDraftJsContent(content);
+      const contentHTML = convertDraftJsContentToHTML(contentObject);
+      if (contentHTML.length <= maxLength) return contentHTML;
+
+      let endIndex = maxLength;
+      while (endIndex > 0 && contentHTML[endIndex] !== " ") {
+        endIndex--;
+      }
+
+      if (endIndex === 0) endIndex = maxLength;
+
+      return contentHTML.slice(0, endIndex) + "...";
+    } catch (e) {
+      console.error("Error processing content:", e);
+      return "Error displaying content";
+    }
   };
 
   useEffect(() => {
@@ -63,7 +111,7 @@ const HomePage: React.FC = () => {
   if (status === "loading")
     return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>Error: {error}</p>;
-  if (posts.length === 0) return null;
+  if (posts.length === 0) return <p className="no-posts">No posts available at the moment.</p>;
 
   const filteredPosts = categoryName
     ? posts.filter((post) => post.category === categoryName)
@@ -103,7 +151,7 @@ const HomePage: React.FC = () => {
           }
         />
       </Helmet>
-      <h2>
+      <h2 className="heading">
         {categoryName
           ? `Posts in category: ${categoryName}`
           : "Showing All Posts"}
@@ -148,7 +196,12 @@ const HomePage: React.FC = () => {
                   Published: {formatDate(new Date(post.publishedAt))}
                 </p>
               )}
-              <p className="post-summary">{truncateSummary(post.content)}</p>
+              <p
+                className="post-summary"
+                dangerouslySetInnerHTML={{
+                  __html: truncateSummary(post.content),
+                }}
+              ></p>
               <div className="labels-wrapper">
                 {post.category && (
                   <Link

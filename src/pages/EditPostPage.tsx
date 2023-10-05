@@ -4,11 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RootState, AppDispatch } from "../store";
 import { getPost, updatePost, deletePost } from "../postSlice";
 import { Helmet } from "react-helmet-async";
+import {
+  Editor,
+  EditorState,
+  convertToRaw,
+  convertFromRaw,
+  RichUtils,
+} from "draft-js";
+import useTextareaHeight from "../hooks/useTextareaHeight";
 import categoriesList from "../utils/categoriesList";
-import ReadingTime from "../components/ReadingTime";
-
-const MIN_HEIGHT = 160;
-const HEIGHT_INCREMENT = 100;
 
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
@@ -16,17 +20,23 @@ const EditPostPage: React.FC = () => {
     state.posts.posts.find((p) => p.id === id)
   );
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [category, setCategory] = useState<string | undefined>("");
-  const [textareaHeight, setTextareaHeight] = useState(MIN_HEIGHT);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { textareaHeight, increaseHeight, decreaseHeight } =
+  useTextareaHeight(150);
+  const [editorState, setEditorState] = useState(() =>
+    post
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.content)))
+      : EditorState.createEmpty()
+  );
 
   useEffect(() => {
     if (!id) return;
     if (post) {
       setTitle(post.title);
-      setContent(post.content);
+      const contentState = convertFromRaw(JSON.parse(post.content));
+      setEditorState(EditorState.createWithContent(contentState));
       setCategory(post.category);
     } else {
       dispatch(getPost(id));
@@ -34,6 +44,10 @@ const EditPostPage: React.FC = () => {
   }, [post, dispatch, id]);
 
   const onSavePostClicked = async () => {
+    const content = JSON.stringify(
+      convertToRaw(editorState.getCurrentContent())
+    );
+
     if (title && content && category && id) {
       await dispatch(updatePost({ id, title, content, category }));
       navigate(`/post/${id}`);
@@ -47,14 +61,13 @@ const EditPostPage: React.FC = () => {
     }
   };
 
-  const increaseHeight = () => {
-    setTextareaHeight((prevHeight) => prevHeight + HEIGHT_INCREMENT);
-  };
-
-  const decreaseHeight = () => {
-    setTextareaHeight((prevHeight) =>
-      Math.max(prevHeight - HEIGHT_INCREMENT, MIN_HEIGHT)
-    );
+  const handleKeyCommand = (command: string, editorState: EditorState) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      setEditorState(newState);
+      return "handled";
+    }
+    return "not-handled";
   };
 
   return (
@@ -66,7 +79,7 @@ const EditPostPage: React.FC = () => {
           content="Edit an existing post. Modify the category, adjust the title, and update your content."
         />
       </Helmet>
-      <h2>Edit Post</h2>
+      <h2 className="heading">Edit Post</h2>
       <form>
         <div className="title-category-wrapper">
           <div className="title-wrapper">
@@ -95,16 +108,39 @@ const EditPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent">
-          Content: <ReadingTime content={content} />
-        </label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          style={{ height: `${textareaHeight}px` }}
-        />
+        <div className="toolbar">
+          <button
+            type="button"
+            onClick={() =>
+              setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"))
+            }
+          >
+            Bold
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"))
+            }
+          >
+            Italic
+          </button>
+        </div>
+        <label htmlFor="postContent">Content:</label>
+        <div
+          style={{
+            height: `${textareaHeight}px`,
+            overflow: "auto",
+            marginBottom: "15px",
+            transition: ".3s",
+          }}
+        >
+          <Editor
+            editorState={editorState}
+            onChange={setEditorState}
+            handleKeyCommand={handleKeyCommand}
+          />
+        </div>
         <div className="button-wrapper">
           <button
             type="button"
