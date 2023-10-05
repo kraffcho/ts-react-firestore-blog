@@ -89,7 +89,7 @@ const PostPage: React.FC = () => {
         className={`post-page-title${
           isTitleFaded
             ? " animate__animated animate__fadeOutUp"
-            : " animate__animated animate__fadeInDown"
+            : " animate__animated animate__fadeIn"
         }`}
       >
         {post.title}

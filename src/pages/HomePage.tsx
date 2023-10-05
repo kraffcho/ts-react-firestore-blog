@@ -72,7 +72,6 @@ const HomePage: React.FC = () => {
   };
 
   const truncateSummary = (content: string, maxLength = 120): string => {
-    console.log("Processing content:", content);
     try {
       const contentObject = parseDraftJsContent(content);
       const contentHTML = convertDraftJsContentToHTML(contentObject);

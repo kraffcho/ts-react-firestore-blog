@@ -42,7 +42,7 @@ body {
     background-color: $nav-background;
     box-shadow: $box-shadow;
     z-index: 1;
-    ul {
+    ul.nav-container {
       max-width: calc($container-width - 40px);
       margin: 0 auto;
       padding: 15px 0;
@@ -52,8 +52,11 @@ body {
       align-items: center;
       justify-content: space-between;
       background-color: $nav-background;
-      li {
+      li.nav-link {
         text-transform: uppercase;
+        &:nth-child(2) {
+          flex: 1;
+        }
         a {
           color: $font-color-secondary;
           font-size: 20px;
@@ -62,6 +65,66 @@ body {
   
           &:hover {
             text-decoration: underline;
+          }
+        }
+      }
+      li.nav-search {
+        .search-container {
+          position: relative;
+          width: 100%;
+          max-width: 220px;
+      
+          label {
+            display: none;
+          }
+      
+          .search-input {
+            font-family: $font-family-main;
+            width: 100%;
+            padding: 4px 12px;
+            font-size: 1rem;
+            color: $font-color-secondary;
+            outline: none;
+            border: 1px solid $font-color-main;
+            border-radius: 4px;
+            background-color: $font-color-main;
+            transition: background-color 0.3s;
+      
+            &:focus {
+              background-color: lighten($color: $font-color-main, $amount: 10%)
+            }
+          }
+      
+          .search-results {
+            position: absolute;
+            top: 48px;
+            right: 0;
+            width: max-content;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+            background-color: $nav-background;
+            border-radius: 0 0 $border-radius-main $border-radius-main;
+      
+            .search-result-item {
+              border-bottom: 1px solid $font-color-main;
+              font-size: 14px;
+              a {
+                display: block;
+                padding: 10px 14px;
+                color: lighten($color: $link-color, $amount: 30%);
+                line-height: 1;
+                text-decoration: none;
+                transition: .3s;
+                &:hover {
+                  color: #eee;
+                  background-color: lighten($color: $nav-background, $amount: 10%);
+                }
+              }
+      
+              &:last-child {
+                border-bottom: none;
+              }
+            }
           }
         }
       }
