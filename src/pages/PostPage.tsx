@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
 import { Post } from "../utils/types";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
+import useScrollFade from "../hooks/useScrollFade";
 
 
 const PostPage: React.FC = () => {
@@ -18,7 +19,8 @@ const PostPage: React.FC = () => {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  );
+    );
+  const isTitleFaded = useScrollFade(200);
 
   useEffect(() => {
     if (post && post.content) {
@@ -83,7 +85,7 @@ const PostPage: React.FC = () => {
           content={post ? post.content.substring(0, 155) : "Loading..."}
         />
       </Helmet>
-      <h1 className="post-page-title">
+      <h1 className={`post-page-title${isTitleFaded ? " title-faded" : ""}`}>
         {post.title}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
