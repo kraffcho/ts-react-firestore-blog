@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
   const { categoryName } = useParams();
 
   const [currentPage, setCurrentPage] = React.useState(1);
-  const POSTS_PER_PAGE = 4;
+  const POSTS_PER_PAGE = 6;
 
   interface CategoryCount {
     [key: string]: number;
@@ -41,14 +41,12 @@ const HomePage: React.FC = () => {
         contentState = convertFromRaw(JSON.parse(rawContent));
       } catch (error) {
         console.error("Failed to parse string content:", error);
-        // Handle this case, maybe return an error string or empty string
         return "Error in content";
       }
     } else if (typeof rawContent === "object") {
       contentState = convertFromRaw(rawContent);
     } else {
       console.error("Unknown content type:", typeof rawContent);
-      // Handle this case
       return "Unknown content format";
     }
 
@@ -61,13 +59,13 @@ const HomePage: React.FC = () => {
         return JSON.parse(rawContent);
       } catch (error) {
         console.error("Failed to parse string content:", error);
-        return null; // or some default/fallback value
+        return null;
       }
     } else if (typeof rawContent === "object") {
       return rawContent;
     } else {
       console.error("Unknown content type:", typeof rawContent);
-      return null; // or some default/fallback value
+      return null;
     }
   };
 
@@ -97,12 +95,10 @@ const HomePage: React.FC = () => {
     }
   }, [status, dispatch]);
 
-  // Reset current page when category changes
   useEffect(() => {
     setCurrentPage(1);
   }, [categoryName]);
 
-  // Scroll to top when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
@@ -124,10 +120,8 @@ const HomePage: React.FC = () => {
   );
   const pagedPosts = sortedPosts.slice(start, end);
 
-  // Calculate the total number of pages based on the number of filtered posts and the number of posts per page
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-  // Determine the range of pages to be shown
   let startPage = Math.max(1, currentPage - 2);
   let endPage = Math.min(totalPages, startPage + 4);
 

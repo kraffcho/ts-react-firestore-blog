@@ -27,7 +27,7 @@ const ReadingTime: React.FC<ReadingTimeProps> = ({ content }) => {
       .split(/\s+/)
       .filter((word) => word.length > 0).length;
 
-    return words / 200; // This will return a float value, not an integer
+    return words / 200;
   };
 
   const wordsCount = content

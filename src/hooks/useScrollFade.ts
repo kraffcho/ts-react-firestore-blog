@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 
-/**
- * A hook that returns true if the user scrolls more than a specific distance
- * from the top and is scrolling down, and false otherwise.
- */
 const useScrollFade = (distance: number = 200) => {
   const [isFaded, setIsFaded] = useState(false);
 
   useEffect(() => {
-    let lastScrollTop = 0; // to track the scroll direction
+    let lastScrollTop = 0;
 
     const handleScroll = () => {
       const currentScrollTop =

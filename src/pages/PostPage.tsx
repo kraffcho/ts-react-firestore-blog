@@ -18,7 +18,7 @@ const PostPage: React.FC = () => {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-    );
+  );
   const isTitleFaded = useScrollFade(250);
 
   useEffect(() => {
@@ -72,7 +72,8 @@ const PostPage: React.FC = () => {
     fetchAllPosts();
   }, []);
 
-  if (loading) return <p className="loading animate__animated animate__fadeIn">Loading</p>;
+  if (loading)
+    return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>Post not found</p>;
 
@@ -107,7 +108,7 @@ const PostPage: React.FC = () => {
         <div className="blog-post-body">
           <Editor
             editorState={editorState}
-            onChange={() => {}} // no-op function
+            onChange={() => {}}
             readOnly={true}
           />
           <div className="blog-post-footer">

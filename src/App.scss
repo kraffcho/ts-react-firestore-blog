@@ -235,9 +235,6 @@ body {
       }
       .toolbar {
         margin-top: 10px;
-        // display: flex;
-        // justify-content: flex-end;
-        // gap: 10px;
         button {
           padding: 5px 10px;
           margin-right: 5px;
@@ -661,10 +658,6 @@ body {
 
 .blog-post-body,
 .DraftEditor-root {
-  // .public-DraftStyleDefault-block {
-  //   margin: 16px 0;
-  // }
-
   .public-DraftStyleDefault-h1 {
     font-size: 2em;
     font-weight: bold;
@@ -731,5 +724,70 @@ body {
   ol ol {
     margin-top: 0;
     margin-bottom: 0;
+  }
+}
+
+.login-container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-main;
+
+  .login-title {
+    font-size: 2rem;
+    color: $font-color-secondary;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .login-error {
+    color: $font-color-secondary;
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .login-input {
+    font-family: $font-family-main;
+    width: 80%;
+    max-width: 300px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #3f51b5;
+      box-shadow: 0px 0px 10px rgba(63, 81, 181, 0.5);
+    }
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+
+  .login-btn {
+    font-family: $font-family-main;
+    width: 80%;
+    max-width: 300px;
+    padding: 10px 15px;
+    background-color: #3f51b5;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover {
+      background-color: darken(#3f51b5, 10%);
+    }
   }
 }
