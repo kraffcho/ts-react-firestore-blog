@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const MIN_HEIGHT = 150;
-const HEIGHT_INCREMENT = 100;
+const HEIGHT_INCREMENT = 150;
 
 const useTextareaHeight = (initialHeight = MIN_HEIGHT) => {
   const [textareaHeight, setTextareaHeight] = useState(initialHeight);

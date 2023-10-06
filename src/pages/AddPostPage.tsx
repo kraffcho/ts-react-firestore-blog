@@ -7,6 +7,8 @@ import { Helmet } from "react-helmet-async";
 import { Editor, EditorState, convertToRaw, RichUtils } from "draft-js";
 import categoriesList from "../utils/categoriesList";
 import useTextareaHeight from "../hooks/useTextareaHeight";
+import RichTextToolbar from "../components/RichTextToolbar";
+import HeightAdjuster from "../components/HeightAdjuster";
 
 const AddPostPage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -82,24 +84,10 @@ const AddPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="toolbar">
-          <button
-            type="button"
-            onClick={() =>
-              setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"))
-            }
-          >
-            Bold
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"))
-            }
-          >
-            Italic
-          </button>
-        </div>
+        <RichTextToolbar
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
         <label htmlFor="postContent">Content:</label>
         <div
           style={{
@@ -123,22 +111,10 @@ const AddPostPage: React.FC = () => {
           >
             Add Post
           </button>
-          <div className="increase-height">
-            <button
-              type="button"
-              onClick={increaseHeight}
-              className="btn yellow"
-            >
-              +
-            </button>
-            <button
-              type="button"
-              onClick={decreaseHeight}
-              className="btn yellow"
-            >
-              -
-            </button>
-          </div>
+          <HeightAdjuster
+            decreaseHeight={decreaseHeight}
+            increaseHeight={increaseHeight}
+          />
         </div>
       </form>
     </section>

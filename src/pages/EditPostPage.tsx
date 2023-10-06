@@ -13,6 +13,8 @@ import {
 } from "draft-js";
 import useTextareaHeight from "../hooks/useTextareaHeight";
 import categoriesList from "../utils/categoriesList";
+import RichTextToolbar from "../components/RichTextToolbar";
+import HeightAdjuster from "../components/HeightAdjuster";
 
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
@@ -108,24 +110,10 @@ const EditPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="toolbar">
-          <button
-            type="button"
-            onClick={() =>
-              setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"))
-            }
-          >
-            Bold
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"))
-            }
-          >
-            Italic
-          </button>
-        </div>
+        <RichTextToolbar
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
         <label htmlFor="postContent">Content:</label>
         <div
           style={{
@@ -149,22 +137,10 @@ const EditPostPage: React.FC = () => {
           >
             Update Post
           </button>
-          <div className="increase-height">
-            <button
-              type="button"
-              onClick={increaseHeight}
-              className="btn yellow"
-            >
-              +
-            </button>
-            <button
-              type="button"
-              onClick={decreaseHeight}
-              className="btn yellow"
-            >
-              -
-            </button>
-          </div>
+          <HeightAdjuster
+            decreaseHeight={decreaseHeight}
+            increaseHeight={increaseHeight}
+          />
           <button
             type="button"
             onClick={onDeletePostClicked}

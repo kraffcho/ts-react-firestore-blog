@@ -264,6 +264,12 @@ body {
         &:focus-within {
           border-color: $nav-background;
         }
+        .DraftEditor-editorContainer {
+          height: 100%;
+          .notranslate.public-DraftEditor-content {
+            height: 100%;
+          }
+        }
       }
       textarea, .DraftEditor-root {
         margin-bottom: 0;
