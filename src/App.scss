@@ -97,7 +97,7 @@ body {
       
           .search-results {
             position: absolute;
-            top: 48px;
+            top: 43px;
             right: 0;
             width: max-content;
             max-height: calc(100vh - 70px);
@@ -108,6 +108,7 @@ body {
             .search-result-item {
               border-bottom: 1px solid $font-color-main;
               font-size: 14px;
+              padding: 5px;
               a {
                 display: block;
                 padding: 10px 14px;
@@ -174,32 +175,39 @@ body {
     }
     ul.category-links {
       display: flex;
-      gap: 20px 10px;
+      gap: 10px;
       flex-flow: row wrap;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       font-weight: 600;
       padding: 0;
       list-style-type: none;
-      a {
-        padding: 5px 10px;
-        font-size: 14px;
-        color: $font-color-main;
-        text-decoration: none;
-        text-wrap: nowrap;
-        background-color: #fff;
-        border: 1px solid transparent;
-        border-radius: $border-radius-main;
-        box-shadow: $box-shadow;
-        transition: .3s;
-        text-transform: capitalize;
-        &.active {
-          color: #fff;
-          background-color: lighten($color: $nav-background, $amount: 10%);
-          border-color: $nav-background;
-        }
-        &.inactive {
-          &:hover {
-            background-color: darken($color: $font-color-secondary, $amount: 10%);
+      li {
+        flex: 1;
+        a {
+          display: block;
+          text-align: center;
+          padding: 5px 10px;
+          font-size: 14px;
+          color: $font-color-main;
+          text-decoration: none;
+          text-wrap: nowrap;
+          background-color: #fff;
+          border: 1px solid transparent;
+          border-radius: $border-radius-main;
+          box-shadow: $box-shadow;
+          transition: .3s;
+          text-transform: capitalize;
+      
+          &.active {
+            color: #fff;
+            background-color: lighten($color: $nav-background, $amount: 10%);
+            border-color: $nav-background;
+          }
+      
+          &.inactive {
+            &:hover {
+              background-color: darken($color: $font-color-secondary, $amount: 10%);
+            }
           }
         }
       }
@@ -226,6 +234,7 @@ body {
         }
       }
       .toolbar {
+        margin-top: 10px;
         // display: flex;
         // justify-content: flex-end;
         // gap: 10px;
@@ -615,10 +624,7 @@ body {
       padding: 10px 0;
     }
     .container {
-      padding-top: 5px;
-      h1.post-page-title {
-        position: static;
-      }
+      padding-top: 15px;
       form .title-category-wrapper {
         flex-direction: column;
         gap: 0;

@@ -110,7 +110,6 @@ const EditPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent">Content:</label>
         <RichTextToolbar
           editorState={editorState}
           setEditorState={setEditorState}
