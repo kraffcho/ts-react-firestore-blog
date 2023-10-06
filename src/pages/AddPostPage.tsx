@@ -19,7 +19,7 @@ const AddPostPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
-  useTextareaHeight(150);
+  useTextareaHeight(160);
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
 
@@ -84,11 +84,11 @@ const AddPostPage: React.FC = () => {
             </select>
           </div>
         </div>
+        <label htmlFor="postContent">Content:</label>
         <RichTextToolbar
           editorState={editorState}
           setEditorState={setEditorState}
         />
-        <label htmlFor="postContent">Content:</label>
         <div
           style={{
             height: `${textareaHeight}px`,
