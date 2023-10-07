@@ -2,13 +2,13 @@ import React from "react";
 import useScrollFade from "../hooks/useScrollFade";
 
 const Footer: React.FC = () => {
-  const isFoterFaded = useScrollFade(25);
+  const isFooterFaded = useScrollFade(25);
   return (
     <footer
       className={`footer-container${
-        isFoterFaded
-          ? " animate__animated animate__fadeInUp"
-          : " animate__animated animate__fadeOutDown"
+        isFooterFaded
+          ? " animate__animated animate__fadeOutDown"
+          : " animate__animated animate__fadeInUp"
       }`}
     >
       <div className="footer-content">

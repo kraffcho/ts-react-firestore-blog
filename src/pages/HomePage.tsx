@@ -103,10 +103,8 @@ const HomePage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
-  if (status === "loading")
-    return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>Error: {error}</p>;
-  if (posts.length === 0) return <p className="no-posts">No posts available at the moment.</p>;
+  if (posts.length === 0) return null;
 
   const filteredPosts = categoryName
     ? posts.filter((post) => post.category === categoryName)

@@ -26,7 +26,7 @@ const EditPostPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
-  useTextareaHeight(160);
+  useTextareaHeight(250);
   const [editorState, setEditorState] = useState(() =>
     post
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.content)))

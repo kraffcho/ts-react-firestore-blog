@@ -25,9 +25,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container animate__animated animate__jackInTheBox">
       <h2 className="login-title">Login</h2>
-      {error && <p className="login-error">{error}</p>}
       <input
         type="email"
         placeholder="Email"
@@ -45,6 +44,7 @@ const LoginPage: React.FC = () => {
       <button onClick={handleLogin} className="login-btn">
         Login
       </button>
+      {error && <p className="login-error">{error}</p>}
     </div>
   );
 };

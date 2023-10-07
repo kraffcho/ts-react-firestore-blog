@@ -13,7 +13,6 @@ import useScrollFade from "../hooks/useScrollFade";
 const PostPage: React.FC = () => {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [editorState, setEditorState] = useState(() =>
@@ -47,12 +46,10 @@ const PostPage: React.FC = () => {
       } catch (e) {
         setError("Error fetching post");
       } finally {
-        setLoading(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     };
-    fetchData().then(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    fetchData();
   }, [id]);
 
   useEffect(() => {
@@ -72,8 +69,6 @@ const PostPage: React.FC = () => {
     fetchAllPosts();
   }, []);
 
-  if (loading)
-    return <p className="loading animate__animated animate__fadeIn">Loading</p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>Post not found</p>;
 

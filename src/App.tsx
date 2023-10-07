@@ -38,7 +38,7 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p className="loading">Loading...</p>;
+  if (loading) return <p className="loading">Loading</p>;
 
   return (
     <Router>

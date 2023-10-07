@@ -19,7 +19,7 @@ const AddPostPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
-  useTextareaHeight(160);
+  useTextareaHeight(250);
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
 
