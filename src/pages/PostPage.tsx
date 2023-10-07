@@ -70,7 +70,7 @@ const PostPage: React.FC = () => {
   }, []);
 
   if (error) return <p>{error}</p>;
-  if (!post) return <p>Post not found</p>;
+  if (!post) return null;
 
   return (
     <div className="container animate__animated animate__fadeIn">
