@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import LogoutModal from "./LogoutModal";
 
 type NavbarProps = {
   user: any | null;
 };
 
 const Navbar: React.FC<NavbarProps> = ({ user }) => {
+  const [showModal, setShowModal] = useState(false);
+  
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        console.log("Logged out successfully");
+        setShowModal(true);
       })
       .catch((error) => {
         console.error("Error logging out:", error);
@@ -44,6 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
           <SearchBar />
         </li>
       </ul>
+      {showModal && <LogoutModal onClose={() => setShowModal(false)} />}
     </nav>
   );
 };

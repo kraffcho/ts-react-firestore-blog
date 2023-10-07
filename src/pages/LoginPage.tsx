@@ -4,6 +4,7 @@ import {
   browserLocalPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { Helmet } from "react-helmet-async";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,8 @@ const LoginPage: React.FC = () => {
     return emailPattern.test(email);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission
     setFormError("");
 
     if (!isValidEmail(email)) {
@@ -47,28 +49,33 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container animate__animated animate__jackInTheBox">
+      <Helmet>
+        <title>Login Page</title>
+        <meta
+          name="description"
+          content="Login to the blog. Enter your email address and password to login."
+        />
+      </Helmet>
       <h2 className="login-title">Login</h2>
-
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="login-input"
-      />
-
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="login-input"
-      />
-
-      <button onClick={handleLogin} className="login-btn">
-        Login
-      </button>
-
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="login-input"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="login-input"
+        />
+        <button type="submit" className="login-btn">
+          Login
+        </button>
+      </form>
       {formError && <p className="login-error">{formError}</p>}
     </div>
   );
