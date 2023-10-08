@@ -194,6 +194,9 @@ const PostPage: React.FC = () => {
     return (
       <div className="comment-list" id="comment-list">
         <h2 className="comment-list__title">Join the Discussion Below</h2>
+        <h3 className="comment-list__comments">
+          {comments.length} comment{comments.length !== 1 && "s"} added:
+        </h3>
         {comments.map((comment) => (
           <div key={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
