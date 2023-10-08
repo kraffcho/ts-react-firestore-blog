@@ -12,6 +12,7 @@ export interface Post {
 
 export type Comment = {
   id: string;
+  uid: string;
   postId: string;
   author: string;
   content: string;

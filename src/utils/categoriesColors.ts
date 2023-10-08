@@ -1,4 +1,7 @@
-// Generate a hash from a string
+// The goal is to generate a unique color for each category name
+// and use it as a background color for the category label
+
+// First, we need to convert a string into a hash
 export function stringToHash(str: string): number {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -9,7 +12,7 @@ export function stringToHash(str: string): number {
   return hash;
 }
 
-// Convert a hash into an RGB color
+// Then we convert the hash into a color
 export function hashToColor(hash: number): string {
   const r = (hash & 0xff0000) >> 16;
   const g = (hash & 0x009900) >> 8;
@@ -17,7 +20,7 @@ export function hashToColor(hash: number): string {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-// Convert category name to a unique color
+// And finally, we combine the two functions
 export function categoryNameToColor(categoryName: string): string {
   const hash = stringToHash(categoryName);
   return hashToColor(hash);

@@ -14,7 +14,8 @@ import {
   serverTimestamp,
   orderBy,
   increment,
-  updateDoc
+  updateDoc,
+  deleteDoc
 } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
@@ -22,7 +23,7 @@ import { Post, Comment } from "../utils/types";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 
 const PostPage: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<any>();
   const { hash } = useLocation();
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -43,13 +44,16 @@ const PostPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Check for the validity of the id before proceeding
       if (!id) {
         setError("Invalid post ID");
         return;
       }
 
+      // Since we're sure id is defined here, we can fetch the document
+      const docRef = doc(db, "posts", id);
+
       try {
-        const docRef = doc(db, "posts", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -115,6 +119,36 @@ const PostPage: React.FC = () => {
     }
   }, [hash]);
 
+  const handleDeleteComment = async (commentId: string) => {
+    if (!window.confirm("Are you sure you want to delete this comment?")) {
+      return;
+    }
+
+    try {
+      const commentRef = doc(db, "comments", commentId);
+      // Instead of deleting the comment, we can mark it as deleted
+      // and hide it from the UI with a filter in the query
+      // await updateDoc(commentRef, {
+      //   deleted: true,
+      // });
+
+      // Remove the comment from the database
+      await deleteDoc(commentRef);
+
+      // Decrease commentCount in the post after deleting one
+      const postRef = doc(db, "posts", post!.id);
+      await updateDoc(postRef, {
+        commentCount: increment(-1),
+      });
+
+      // Filter out the deleted comment
+      setComments((prevComments) =>
+        prevComments.filter((c) => c.id !== commentId)
+      );
+    } catch (error) {
+      console.error("Error deleting comment: ", error);
+    }
+  };
 
   const CommentForm: React.FC<{
     postId: string;
@@ -229,6 +263,14 @@ const PostPage: React.FC = () => {
             <p className="comment-list__timestamp">
               Posted: {formatDate(comment.timestamp.toDate())}
             </p>
+            {currentUser && currentUser.uid === comment.uid && (
+              <button
+                className="comment-list__delete btn red"
+                onClick={() => handleDeleteComment(comment.id)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -272,7 +314,8 @@ const PostPage: React.FC = () => {
               {post.publishedAt ? formatDate(post.publishedAt.toDate()) : "N/A"}
               {post.category && (
                 <span>
-                  | Category:
+                  {" "}
+                  on category:{" "}
                   <Link className="category" to={`/category/${post.category}`}>
                     {post.category}
                   </Link>
