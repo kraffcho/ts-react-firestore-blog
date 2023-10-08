@@ -75,13 +75,15 @@ const SearchBar: React.FC = () => {
         }}
       />
       <div className="search-results">
-        {results.map((post) => (
-          <div key={post.id} className="search-result-item">
-            <Link to={`/post/${post.id}`} onClick={clearSearch}>
-              {post.title}
-            </Link>
-          </div>
-        ))}
+        {results.length > 0
+          ? results.map((post) => (
+              <div key={post.id} className="search-result-item">
+                <Link to={`/post/${post.id}`} onClick={clearSearch}>
+                  {post.title}
+                </Link>
+              </div>
+            ))
+          : searchTerm && <div className="no-results">No results found!</div>}
       </div>
     </div>
   );

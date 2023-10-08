@@ -104,7 +104,11 @@ body {
             overflow-y: auto;
             background-color: $nav-background;
             border-radius: 0 0 $border-radius-main $border-radius-main;
-      
+            .no-results {
+              padding: 6px 12px;
+              font-size: 14px;
+              color: $font-color-secondary;
+            }
             .search-result-item {
               border-bottom: 1px solid $font-color-main;
               font-size: 14px;
