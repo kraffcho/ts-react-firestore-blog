@@ -25,6 +25,21 @@ body {
   background-color: $background-color-main;
   color: $font-color-main;
   overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: $font-color-secondary;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $background-color-main;
+    border: 1px solid $font-color-main;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: darken($color: $background-color-main, $amount: 10%);
+  }
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
   .no-posts {
     position: absolute;
     top: 50%;
@@ -100,7 +115,7 @@ body {
             top: 43px;
             right: 0;
             width: max-content;
-            max-height: calc(100vh - 70px);
+            max-height: calc(100vh - 200px);
             overflow-y: auto;
             background-color: $nav-background;
             border-radius: 0 0 $border-radius-main $border-radius-main;
@@ -112,10 +127,10 @@ body {
             .search-result-item {
               border-bottom: 1px solid $font-color-main;
               font-size: 14px;
-              padding: 5px;
+              padding: 3px;
               a {
                 display: block;
-                padding: 10px 14px;
+                padding: 8px 10px;
                 color: lighten($color: $link-color, $amount: 30%);
                 line-height: 1;
                 text-decoration: none;

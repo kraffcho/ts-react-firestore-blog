@@ -76,14 +76,22 @@ const SearchBar: React.FC = () => {
       />
       <div className="search-results">
         {results.length > 0
-          ? results.map((post) => (
-              <div key={post.id} className="search-result-item">
+          ? results.map((post, index) => (
+              <div
+                key={post.id}
+                className="search-result-item animate__animated animate__fadeInDown"
+                style={{ animationDelay: `${index * 0.025}s` }}
+              >
                 <Link to={`/post/${post.id}`} onClick={clearSearch}>
                   {post.title}
                 </Link>
               </div>
             ))
-          : searchTerm && <div className="no-results">No results found!</div>}
+          : searchTerm && (
+              <div className="no-results animate__animated animate__fadeIn">
+                No results found!
+              </div>
+            )}
       </div>
     </div>
   );
