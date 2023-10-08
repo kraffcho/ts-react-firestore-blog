@@ -12,19 +12,18 @@ const ScrollToTop: React.FC = () => {
     });
   };
 
-  if (!isVisible) return null;
+  const classes = `scroll-to-top animate__animated ${
+    isVisible ? "animate__fadeInUp" : "animate__fadeOutDown"
+  }`;
 
   return (
-    <div
-      onClick={handleScrollToTop}
-      className="scroll-to-top animate__animated animate__fadeInUp"
-    >
+    <div onClick={handleScrollToTop} className={classes}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="0"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         width="40px"
