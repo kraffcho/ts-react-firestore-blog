@@ -205,6 +205,14 @@ const HomePage: React.FC = () => {
                     {post.category}
                   </Link>
                 )}
+                {post.commentCount > 0 && (
+                  <Link
+                    to={`/post/${post.id}#comments`}
+                    className="comments-label"
+                  >
+                    {post.commentCount} comment{post.commentCount !== 1 && "s"}
+                  </Link>
+                )}
                 <ReadingTime content={post.content} />
               </div>
             </li>

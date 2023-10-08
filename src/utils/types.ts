@@ -7,6 +7,7 @@ export interface Post {
   category?: string;
   publishedAt: Timestamp;
   updatedAt: Timestamp;
+  commentCount: number;
 }
 
 export type Comment = {

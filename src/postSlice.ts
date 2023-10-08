@@ -17,6 +17,7 @@ interface Post {
   category?: string;
   publishedAt: string;
   updatedAt: string;
+  commentCount: number;
 }
 
 interface NewPost {
@@ -26,6 +27,7 @@ interface NewPost {
   category?: string;
   publishedAt: FieldValue;
   updatedAt: FieldValue;
+  commentCount: number;
 }
 
 interface NewPostPayload {
@@ -67,6 +69,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
         ? data.publishedAt.toDate().toISOString()
         : "N/A",
       updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : "N/A",
+      commentCount: data.commentCount || 0,
     } as Post);
   });
   return posts;
@@ -77,6 +80,7 @@ export const addPost = createAsyncThunk(
   async (post: NewPostPayload) => {
     const newPost: NewPost = {
       ...post,
+      commentCount: 0,
       publishedAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
@@ -108,7 +112,10 @@ export const updatePost = createAsyncThunk(
 export const getPost = createAsyncThunk("posts/get", async (postId: string) => {
   const postDoc = await getDoc(doc(db, "posts", postId));
   if (postDoc.exists()) {
-    return { id: postDoc.id, ...postDoc.data() } as Post;
+    return {
+      ...postDoc.data(),
+      commentCount: postDoc.data().commentCount || 0,
+    } as Post;
   } else {
     throw new Error("Post not found");
   }

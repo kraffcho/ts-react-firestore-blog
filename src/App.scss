@@ -445,19 +445,30 @@ body {
         .labels-wrapper {
           display: flex;
           justify-content: space-between;
-          align-items: flex-end;
-          gap: 10px;
-          padding: 5px 5px;
+          align-items: center;
+          gap: 5px;
+          padding: 10px;
           background: linear-gradient(0deg, #aaa, transparent);
           border-radius: 0 0 4px 4px;
           .category-label {
+            margin: 0;
             padding: 4px 8px;
             font-size: 12px;
             color: #fff;
             border-radius: $border-radius-main;
           }
+          .comments-label {
+            margin: 0;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #fff;
+            border-radius: $border-radius-main;
+            background-color: lighten($color: $nav-background, $amount: 25%);
+          }
           .reading-time {
+            flex: 1;
             display: flex;
+            justify-content: flex-end;
             gap: 5px;
             font-size: 12px;
             line-height: 1;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import AdjacentPosts from "../components/AdjacentPosts";
 import { db } from "../firebase";
@@ -13,6 +13,8 @@ import {
   getDocs,
   serverTimestamp,
   orderBy,
+  increment,
+  updateDoc
 } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
@@ -21,6 +23,7 @@ import { Editor, EditorState, convertFromRaw } from "draft-js";
 
 const PostPage: React.FC = () => {
   const { id } = useParams();
+  const { hash } = useLocation();
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -98,6 +101,21 @@ const PostPage: React.FC = () => {
     fetchAllPosts();
   }, []);
 
+  useEffect(() => {
+    if (hash) {
+      const timeout = setTimeout(() => {
+        const element = document.getElementById(hash.substring(1));
+        if (element) {
+          element.scrollIntoView();
+          window.scrollBy(0, -80);
+        }
+      }, 500);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [hash]);
+
+
   const CommentForm: React.FC<{
     postId: string;
     setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
@@ -134,6 +152,11 @@ const PostPage: React.FC = () => {
           timestamp: serverTimestamp(),
         });
 
+        const postRef = doc(db, "posts", postId);
+        await updateDoc(postRef, {
+          commentCount: increment(1),
+        });
+
         setAuthor("");
         setContent("");
 
@@ -156,7 +179,7 @@ const PostPage: React.FC = () => {
         setComments(fetchedComments);
 
         // Scroll to the comment list after fetching the comments
-        const commentListElement = document.getElementById("comment-list");
+        const commentListElement = document.getElementById("comments");
         if (commentListElement) {
           commentListElement.scrollIntoView({ behavior: "smooth" });
         }
@@ -192,7 +215,7 @@ const PostPage: React.FC = () => {
     comments,
   }) => {
     return (
-      <div className="comment-list" id="comment-list">
+      <div className="comment-list" id="comments">
         <h2 className="comment-list__title">Join the Discussion Below</h2>
         <h3 className="comment-list__comments">
           {comments.length} comment{comments.length !== 1 && "s"} added:
