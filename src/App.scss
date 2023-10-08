@@ -828,3 +828,22 @@ body {
     }
   }
 }
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: $nav-background;
+  box-shadow: $box-shadow;
+  transition: .3s;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($color: $nav-background, $amount: 10%);
+  }
+  svg {
+    fill: $font-color-secondary;
+  }
+}
