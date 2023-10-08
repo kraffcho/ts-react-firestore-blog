@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     setFormError("");
 
     if (!isValidEmail(email)) {

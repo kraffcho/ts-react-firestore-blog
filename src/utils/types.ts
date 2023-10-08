@@ -8,3 +8,11 @@ export interface Post {
   publishedAt: Timestamp;
   updatedAt: Timestamp;
 }
+
+export type Comment = {
+  id: string;
+  postId: string;
+  author: string;
+  content: string;
+  timestamp: Timestamp;
+};
