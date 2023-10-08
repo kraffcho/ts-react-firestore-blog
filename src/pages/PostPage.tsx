@@ -248,6 +248,37 @@ const PostPage: React.FC = () => {
     postId,
     comments,
   }) => {
+    const [editingCommentId, setEditingCommentId] = useState<string | null>(
+      null
+    );
+    const [editedContent, setEditedContent] = useState<string>("");
+
+    const handleEditComment = (comment: Comment) => {
+      setEditingCommentId(comment.id);
+      setEditedContent(comment.content);
+    };
+
+    const handleSaveComment = async (commentId: string) => {
+      try {
+        const commentRef = doc(db, "comments", commentId);
+        await updateDoc(commentRef, {
+          content: editedContent,
+        });
+
+        // Update the local comments state with the new content
+        setComments((prevComments) =>
+          prevComments.map((c) =>
+            c.id === commentId ? { ...c, content: editedContent } : c
+          )
+        );
+
+        // Reset editing state
+        setEditingCommentId(null);
+        setEditedContent("");
+      } catch (error) {
+        console.error("Error updating comment: ", error);
+      }
+    };
     return (
       <div className="comment-list" id="comments">
         <h2 className="comment-list__title">Join the Discussion Below</h2>
@@ -257,19 +288,47 @@ const PostPage: React.FC = () => {
         {comments.map((comment) => (
           <div key={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
-              {comment.author} wrote:
+              {comment.author} says:
             </strong>
-            <p className="comment-list__content">{comment.content}</p>
+            {editingCommentId === comment.id ? (
+              <div className="comment-list__edit">
+                <label htmlFor="comment-edit">Edit your comment:</label>
+                <textarea
+                  value={editedContent}
+                  id="comment-edit"
+                  onChange={(e) => setEditedContent(e.target.value)}
+                />
+              </div>
+            ) : (
+              <p className="comment-list__content">{comment.content}</p>
+            )}
             <p className="comment-list__timestamp">
               Posted: {formatDate(comment.timestamp.toDate())}
             </p>
             {currentUser && currentUser.uid === comment.uid && (
-              <button
-                className="comment-list__delete btn red"
-                onClick={() => handleDeleteComment(comment.id)}
-              >
-                Delete
-              </button>
+              <div className="comment-list__buttons">
+                {editingCommentId === comment.id ? (
+                  <button
+                    className="comment-list__save btn green"
+                    onClick={() => handleSaveComment(comment.id)}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    className="comment-list__edit btn yellow"
+                    onClick={() => handleEditComment(comment)}
+                  >
+                    Edit
+                  </button>
+                )}
+                <button
+                  className="comment-list__delete btn red"
+                  onClick={() => handleDeleteComment(comment.id)}
+                >
+                  Delete
+                </button>
+              </div>
             )}
           </div>
         ))}
