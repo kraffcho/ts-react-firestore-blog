@@ -763,10 +763,21 @@ body {
   }
 }
 
+$btn-colors: (
+  blue: (#55acee, #3C93D5),
+  yellow: (#f1c40f, #D8AB00),
+  green: (#2ecc71, #15B358),
+  red: (#e74c3c, #CE3323)
+);
+
 .btn {
-  display: inline-block;
-  padding: 5px 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 10px;
   font-size: clamp(14px, 3vw, 18px);
+  font-weight: 600;
   line-height: 1.2;
   color: #fff;
   text-decoration: none;
@@ -776,34 +787,19 @@ body {
   text-shadow: 0 1px 1px #999;
   transition: .2s;
   cursor: pointer;
-  &.blue {
-    background-color: #55acee;
-    box-shadow: 0px 5px 0px 0px #3C93D5;
-    &:hover {
-      background-color: #6FC6FF;
+
+  @each $color, $values in $btn-colors {
+    &.#{$color} {
+      background-color: nth($values, 1);
+      box-shadow: 0px 5px 0px 0px nth($values, 2);
+      border: 1px solid darken(nth($values, 1), 10%);
+
+      &:hover {
+        background-color: lighten(nth($values, 1), 5%);
+      }
     }
   }
-  &.yellow {
-    background-color: #f1c40f;
-    box-shadow: 0px 5px 0px 0px #D8AB00;
-    &:hover {
-      background-color: #FFDE29;
-    }
-  }
-  &.green {
-    background-color: #2ecc71;
-    box-shadow: 0px 5px 0px 0px #15B358;
-    &.green:hover {
-      background-color: #48E68B;
-    }
-  }
-  &.red {
-    background-color: #e74c3c;
-    box-shadow: 0px 5px 0px 0px #CE3323;
-    &:hover {
-      background-color: #FF6656;
-    }
-  }
+
   &:active {
     -webkit-transform: translate(0px, 5px);
     transform: translate(0px, 5px);
@@ -972,6 +968,10 @@ body {
     &:nth-child(odd) {
       background-color: #fff;
     }
+    &:hover button {
+      opacity: 1;
+      transform: translateX(-10px);
+    }
   }
 
   &__author {
@@ -986,17 +986,19 @@ body {
   }
 
   &__timestamp {
-    margin-top: 10px;
     font-size: 12px;
   }
 
   &__edit {
     display: flex;
     flex-direction: column;
-    > textarea {
+    label {
+      display: none;
+    }
+    textarea {
       flex: 1;
       padding: 5px 8px;
-      margin-bottom: 5px;
+      margin: 10px 0;
       min-height: 100px;
       resize: vertical;
       outline: none;
@@ -1009,12 +1011,18 @@ body {
     display: flex;
     gap: 6px;
     position: absolute;
-    bottom: 15px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     font-size: 14px;
-    > button {
-      padding: 3px 10px;
+    transform: translateX(10px);
+    button {
+      opacity: 0;
+      gap: 5px;
+      padding: 4px 6px;
       font-size: 14px;
+      .material-symbols-outlined {
+        font-size: 18px;
+      }
     }
   }
 }

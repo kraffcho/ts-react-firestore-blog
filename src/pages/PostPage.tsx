@@ -237,8 +237,8 @@ const PostPage: React.FC = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button className="comment-form__submit-btn" onClick={handleSubmit}>
-          Post Comment
+        <button className="btn green" onClick={handleSubmit}>
+          <span className="material-symbols-outlined">add_circle</span>Post Comment
         </button>
       </div>
     );
@@ -312,21 +312,21 @@ const PostPage: React.FC = () => {
                     className="comment-list__save btn green"
                     onClick={() => handleSaveComment(comment.id)}
                   >
-                    Save
+                    <span className="material-symbols-outlined">save</span>
                   </button>
                 ) : (
                   <button
                     className="comment-list__edit btn yellow"
                     onClick={() => handleEditComment(comment)}
                   >
-                    Edit
+                    <span className="material-symbols-outlined">edit_note</span>
                   </button>
                 )}
                 <button
                   className="comment-list__delete btn red"
                   onClick={() => handleDeleteComment(comment.id)}
                 >
-                  Delete
+                  <span className="material-symbols-outlined">delete</span>
                 </button>
               </div>
             )}
@@ -404,7 +404,7 @@ const PostPage: React.FC = () => {
           You must be logged in to share your thoughts.
           <br />
           <Link to="/login" className="btn green">
-            LOGIN
+            <span className="material-symbols-outlined">passkey</span>LOGIN
           </Link>
         </h2>
       )}
