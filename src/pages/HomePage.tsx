@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
   const { categoryName } = useParams();
 
   const [currentPage, setCurrentPage] = React.useState(1);
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 10;
 
   interface CategoryCount {
     [key: string]: number;
@@ -178,7 +178,7 @@ const HomePage: React.FC = () => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {post.title ? (
-                  <Link to={`/post/${post.id}`}>{post.title}</Link>
+                  <Link to={`/post/${post.id}`} style={{color: categoryNameToColor(post.category!)}}>{post.title}</Link>
                 ) : (
                   <p>Untitled Post</p>
                 )}

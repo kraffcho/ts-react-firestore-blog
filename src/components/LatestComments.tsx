@@ -61,18 +61,16 @@ const LatestComments: React.FC = () => {
             ? comment.content.substring(0, TRUNCATE_LENGTH) + "... (truncated)"
             : comment.content;
 
-        const animationDelay = `animate__delay-${index}s`;
-
         return (
           <div
             key={comment.id}
-            className={`comment animate__animated animate__flipInX ${animationDelay}`}
+            className={`comment animate__animated animate__fadeIn`}
           >
             <strong>{comment.author}</strong>: {truncatedContent}
             <div className="comment-metadata">
               <div className="comment-date">
-                <span className="material-symbols-outlined">schedule</span>
-                {formatDate(comment.timestamp.toDate())} on
+                <span className="material-symbols-outlined">pending_actions</span>
+                {formatDate(comment.timestamp.toDate())}
               </div>
               <Link to={`/post/${comment.postId}#${comment.id}`}>
                 {posts[comment.postId]?.title}

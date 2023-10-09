@@ -4,22 +4,6 @@ interface ReadingTimeProps {
   content: string;
 }
 
-const ClockIcon: React.FC = () => {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="6" cy="6" r="5.5" stroke="currentColor" />
-      <line x1="6" y1="3" x2="6" y2="6" stroke="currentColor" />
-      <line x1="6" y1="6" x2="9" y2="6" stroke="currentColor" />
-    </svg>
-  );
-};
-
 const ReadingTime: React.FC<ReadingTimeProps> = ({ content }) => {
   const calculateReadingTime = (text: string): number => {
     const words = text
@@ -48,7 +32,9 @@ const ReadingTime: React.FC<ReadingTimeProps> = ({ content }) => {
   }
 
   return (
-    <span className="reading-time">{message} <ClockIcon /></span>
+    <span className="reading-time">
+      {message} <span className="material-symbols-outlined">schedule</span>
+    </span>
   );
 };
 

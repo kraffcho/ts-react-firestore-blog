@@ -376,7 +376,7 @@ const PostPage: React.FC = () => {
           />
           <div className="blog-post-footer">
             <div className="date-published">
-              Published:
+              Published:{" "}
               {post.publishedAt ? formatDate(post.publishedAt.toDate()) : "N/A"}
               {post.category && (
                 <span>
@@ -397,9 +397,7 @@ const PostPage: React.FC = () => {
       {allPosts.length > 0 && (
         <AdjacentPosts currentPostId={id!} allPosts={allPosts} />
       )}
-      {comments.length > 0 && (
-        <CommentList postId={id!} comments={comments} />
-      )}
+      {comments.length > 0 && <CommentList postId={id!} comments={comments} />}
       {currentUser ? (
         <CommentForm postId={id!} setComments={setComments} />
       ) : (
