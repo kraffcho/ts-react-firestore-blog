@@ -84,7 +84,7 @@ const AddPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent">Content:</label>
+        <label htmlFor="postContent" className="hidden">Content:</label>
         <RichTextToolbar
           editorState={editorState}
           setEditorState={setEditorState}

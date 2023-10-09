@@ -286,7 +286,7 @@ const PostPage: React.FC = () => {
           {comments.length} comment{comments.length !== 1 && "s"} added:
         </h3>
         {comments.map((comment) => (
-          <div key={comment.id} className="comment-list__item">
+          <div key={comment.id} id={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
               {comment.author} says:
             </strong>

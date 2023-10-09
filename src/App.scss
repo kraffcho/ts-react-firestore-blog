@@ -5,7 +5,7 @@ $link-color: #275ad1;
 $background-color-main: #666;
 $nav-background: #222;
 $box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-$container-width: 920px;
+$container-width: 960px;
 $border-radius-main: 5px;
 $font-weight-main: 600;
 $font-size-main: 16px;
@@ -40,6 +40,9 @@ body {
   }
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
+  .hidden {
+    display: none;
+  }
   .no-posts {
     position: absolute;
     top: 50%;
@@ -249,11 +252,13 @@ body {
         }
       }
       .toolbar {
-        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin: 10px 0 5px;
         button {
+          flex: 1;
           padding: 5px 10px;
-          margin-right: 5px;
-          margin-bottom: 5px;
           font-size: 14px;
           color: $font-color-main;
           background-color: #fff;
@@ -261,6 +266,9 @@ body {
           border-radius: $border-radius-main;
           transition: .3s;
           cursor: pointer;
+          &:last-of-type {
+            margin-right: 0;
+          }
           &:hover {
             background-color: darken($color: $font-color-secondary, $amount: 3%);
           }
@@ -477,18 +485,85 @@ body {
         }
       }
     }
+    .latest-comments {
+      padding: 20px;
+      background-color: $font-color-secondary;
+      border-radius: $border-radius-main;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      .comment {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        background-color: #fff;
+        transition: background-color .3s ease-in-out;
+
+        &:nth-child(odd) {
+          background-color: #f9f9f9;
+        }
+
+        &:first-of-type {
+          border-radius: $border-radius-main $border-radius-main 0 0;
+        }
+
+        &:last-of-type {
+          border-bottom: none;
+          border-radius: 0 0 $border-radius-main $border-radius-main;
+        }
+
+        &:hover {
+          background-color: #eee;
+        }
+
+        .comment-metadata {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          margin-top: 8px;
+          font-size: 0.9em;
+          color: #888;
+          line-height: 1;
+
+          .comment-date {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+          }
+
+          .material-symbols-outlined {
+            font-size: 16px;
+          }
+
+          a {
+            color: #007BFF;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
   }
+
   .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 1rem 0;
+    padding: 1rem 0 1.5rem;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 
     button,
-    span {
+    span.page-number {
       padding: 8px 16px;
       box-shadow: $box-shadow;
       border-radius: $border-radius-main;
@@ -498,6 +573,8 @@ body {
     }
 
     button {
+      display: flex;
+      align-items: center;
       border: 1px solid $font-color-main;
 
       &:hover {
@@ -510,7 +587,7 @@ body {
       }
     }
 
-    span {
+    span.page-number {
       &.active-page {
         background-color: #333;
         color: #fff;
@@ -524,6 +601,7 @@ body {
       }
     }
   }
+
   .loading {
     position: absolute;
     top: 50%;
@@ -532,10 +610,12 @@ body {
     font-size: 40px;
     color: #999;
   }
+
   .loading::after {
     content: '.';
     animation: dots 1s steps(5, end) infinite;
   }
+
   @keyframes dots {
     0%,
     20% {
@@ -562,6 +642,7 @@ body {
         .5em 0 0 #777;
     }
   }
+
   .footer-container {
     background: linear-gradient(0deg, #111, #1a1a1a, #333);
     padding: 10px;
@@ -611,7 +692,26 @@ body {
       .pagination {
         padding: 10px;
         button, span {
-          padding: 3px 10px;
+          padding: 3px 7px;
+        }
+        .material-symbols-outlined {
+          font-size: 18px;
+          padding: 3px;
+        }
+      }
+      .latest-comments {
+        padding: 10px;
+        h2 {
+          font-size: 18px;
+        }
+        .comment {
+          padding: 8px;
+          line-height: 1.2;
+          .comment-metadata {
+            font-size: 13px;
+            flex-direction: column;
+            align-items: flex-start;
+          }
         }
       }
     }
@@ -881,7 +981,7 @@ $btn-colors: (
     transition: border-color 0.3s ease-in-out;
 
     &:focus {
-      border-color: #007BFF;
+      border-color: #4fd081;
       outline: none;
     }
   }
@@ -895,7 +995,7 @@ $btn-colors: (
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #007BFF;
+    background-color: #4fd081;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
@@ -970,7 +1070,6 @@ $btn-colors: (
     }
     &:hover button {
       opacity: 1;
-      transform: translateX(-10px);
     }
   }
 
@@ -1014,7 +1113,6 @@ $btn-colors: (
     top: 8px;
     right: 8px;
     font-size: 14px;
-    transform: translateX(10px);
     button {
       opacity: 0;
       gap: 5px;

@@ -9,6 +9,7 @@ import { categoryNameToColor } from "../utils/categoriesColors";
 import { convertFromRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import ReadingTime from "../components/ReadingTime";
+import LatestComments from "../components/LatestComments";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -224,7 +225,7 @@ const HomePage: React.FC = () => {
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
           >
-            &laquo; Prev
+            <span className="material-symbols-outlined">navigate_before</span>
           </button>
 
           {Array.from(
@@ -233,7 +234,9 @@ const HomePage: React.FC = () => {
           ).map((page) => (
             <span
               key={page}
-              className={page === currentPage ? "active-page" : ""}
+              className={
+                page === currentPage ? "page-number active-page" : "page-number"
+              }
               onClick={() => setCurrentPage(page)}
             >
               {page}
@@ -246,10 +249,11 @@ const HomePage: React.FC = () => {
             }
             disabled={currentPage === totalPages}
           >
-            Next &raquo;
+            <span className="material-symbols-outlined">navigate_next</span>
           </button>
         </div>
       )}
+      <LatestComments />
     </div>
   );
 };
