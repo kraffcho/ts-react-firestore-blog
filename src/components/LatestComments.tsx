@@ -54,7 +54,7 @@ const LatestComments: React.FC = () => {
 
   return (
     <div className="latest-comments">
-      <h2>Recent Comments and Feedback from Our Community</h2>
+      <h2>Recent Comments from Our Community</h2>
       {latestComments.map((comment) => {
         const truncatedContent =
           comment.content.length > TRUNCATE_LENGTH

@@ -62,7 +62,7 @@ const SearchBar: React.FC = () => {
         id="search-input"
         type="text"
         value={searchTerm}
-        placeholder="Search posts..."
+        placeholder="Search for posts..."
         onChange={(e) => {
           const newTerm = e.target.value;
           setSearchTerm(newTerm);

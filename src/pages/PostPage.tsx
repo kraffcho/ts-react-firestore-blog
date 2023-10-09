@@ -225,7 +225,11 @@ const PostPage: React.FC = () => {
 
     return (
       <div className="comment-form">
-        <h2 className="comment-form__title">Leave a Comment</h2>
+        <h2 className="comment-form__title">
+          {comments.length > 0
+            ? "Leave a Comment"
+            : "No comments yet. Be the first one to share your thoughts."}
+        </h2>
         <input
           className="comment-form__input"
           placeholder="Name"
@@ -239,7 +243,8 @@ const PostPage: React.FC = () => {
           onChange={(e) => setContent(e.target.value)}
         />
         <button className="btn green" onClick={handleSubmit}>
-          <span className="material-symbols-outlined">add_circle</span>Post Comment
+          <span className="material-symbols-outlined">add_circle</span>Post
+          Comment
         </button>
       </div>
     );
@@ -392,12 +397,8 @@ const PostPage: React.FC = () => {
       {allPosts.length > 0 && (
         <AdjacentPosts currentPostId={id!} allPosts={allPosts} />
       )}
-      {comments.length > 0 ? (
+      {comments.length > 0 && (
         <CommentList postId={id!} comments={comments} />
-      ) : (
-        <h2 className="no-comments">
-          No comments yet. Be the first one to share your thoughts.
-        </h2>
       )}
       {currentUser ? (
         <CommentForm postId={id!} setComments={setComments} />
