@@ -18,6 +18,7 @@ interface Post {
   publishedAt: string;
   updatedAt: string;
   commentCount: number;
+  viewCount?: number;
 }
 
 interface NewPost {
@@ -70,6 +71,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
         : "N/A",
       updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : "N/A",
       commentCount: data.commentCount || 0,
+      viewCount: data.viewCount || 0,
     } as Post);
   });
   return posts;

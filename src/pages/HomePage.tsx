@@ -186,6 +186,13 @@ const HomePage: React.FC = () => {
               {post.publishedAt && (
                 <p className="post-date">
                   Published: {formatDate(new Date(post.publishedAt))}
+                  {post.viewCount !== undefined && (
+                    <span className="post-views">
+                      {" "}
+                      &rarr; {post.viewCount} view
+                      {post.viewCount !== 1 ? "s" : ""}
+                    </span>
+                  )}
                 </p>
               )}
               <p

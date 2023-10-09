@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { getAuth } from "firebase/auth";
-import AdjacentPosts from "../components/AdjacentPosts";
 import { db } from "../firebase";
 import {
   collection,
@@ -20,7 +20,8 @@ import {
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
 import { Post, Comment } from "../utils/types";
-import { Editor, EditorState, convertFromRaw } from "draft-js";
+import AdjacentPosts from "../components/AdjacentPosts";
+import PostViewTracker from "../components/PostViewTracker";
 
 const PostPage: React.FC = () => {
   const { id } = useParams<any>();
@@ -341,6 +342,7 @@ const PostPage: React.FC = () => {
 
   return (
     <div className="container animate__animated animate__fadeIn">
+      <PostViewTracker postId={id!} />
       <Helmet>
         <title>{post ? post.title : "Loading..."}</title>
         <meta

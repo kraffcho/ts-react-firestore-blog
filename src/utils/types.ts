@@ -8,6 +8,7 @@ export interface Post {
   publishedAt: Timestamp;
   updatedAt: Timestamp;
   commentCount: number;
+  viewCount?: number;
 }
 
 export type Comment = {
