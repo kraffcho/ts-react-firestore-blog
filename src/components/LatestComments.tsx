@@ -53,16 +53,21 @@ const LatestComments: React.FC = () => {
   }, []);
 
   return (
-    <div className="latest-comments">
+    <div className="latest-comments animate__animated animate__fadeIn">
       <h2>Recent Comments from Our Community</h2>
-      {latestComments.map((comment) => {
+      {latestComments.map((comment, index) => {
         const truncatedContent =
           comment.content.length > TRUNCATE_LENGTH
             ? comment.content.substring(0, TRUNCATE_LENGTH) + "... (truncated)"
             : comment.content;
 
+        const animationDelay = `animate__delay-${index}s`;
+
         return (
-          <div key={comment.id} className="comment">
+          <div
+            key={comment.id}
+            className={`comment animate__animated animate__flipInX ${animationDelay}`}
+          >
             <strong>{comment.author}</strong>: {truncatedContent}
             <div className="comment-metadata">
               <div className="comment-date">

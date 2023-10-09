@@ -197,6 +197,12 @@ body {
         text-shadow: none;
       }
     }
+    h2.heading {
+      margin-bottom: 15px;
+      font-weight: $font-weight-main;
+      color: $font-color-secondary;
+      text-shadow: 1px 1px 1px $nav-background;
+    }
     ul.category-links {
       display: flex;
       gap: 10px;
@@ -1040,6 +1046,7 @@ $btn-colors: (
       margin: 10px 0;
       min-height: 100px;
       resize: vertical;
+      font-size: inherit;
       outline: none;
       border: 1px solid #ccc;
       background: linear-gradient(90deg, #dbfee3, transparent);
