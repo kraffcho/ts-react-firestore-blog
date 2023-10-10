@@ -26,7 +26,7 @@ const monthNames = [
   "December",
 ];
 
-const dayNames = ["Mon", "Tue", "Wed", "Thi", "Fri", "Sat", "Sun"];
+const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const getMonthName = (monthNumber: number) => monthNames[monthNumber - 1];
 

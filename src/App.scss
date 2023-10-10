@@ -82,10 +82,9 @@ body {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          align-items: center;
-          color: $font-color-secondary;
           font-size: 20px;
           font-weight: $font-weight-main;
+          color: $font-color-secondary;
           text-decoration: none;
           transition: .2s ease-in-out;
   
@@ -1350,6 +1349,17 @@ $btn-colors: (
 
 @media only screen and (max-width: 640px) {
   body {
+    ul.nav-container li.nav-link {
+      flex: 1;
+      a {
+        .material-symbols-outlined {
+          font-size: 28px;
+        }
+        .link-text {
+          display: none;
+        }
+      }
+    }
     .container {
       ul.list-posts {
         display: block;
