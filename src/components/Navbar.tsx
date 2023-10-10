@@ -27,20 +27,27 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
     <nav>
       <ul className="nav-container">
         <li className="nav-link">
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <span className="material-symbols-outlined">house</span> Home
+          </Link>
         </li>
         {user && (
           <li className="nav-link">
-            <Link to="/add-post">Add Post</Link>
+            <Link to="/add-post">
+              <span className="material-symbols-outlined">post_add</span> Add
+              Post
+            </Link>
           </li>
         )}
         <li className="nav-link">
           {user ? (
             <Link to="" onClick={handleLogout}>
-              Log Out
+              <span className="material-symbols-outlined">logout</span> Log Out
             </Link>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login">
+              <span className="material-symbols-outlined">login</span> Login
+            </Link>
           )}
         </li>
         <li className="nav-search">

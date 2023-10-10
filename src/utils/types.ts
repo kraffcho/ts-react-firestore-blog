@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export interface Post {
+  timestamp: any;
   id: string;
   title: string;
   content: string;

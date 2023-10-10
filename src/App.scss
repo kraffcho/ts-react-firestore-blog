@@ -79,13 +79,18 @@ body {
           flex: 1;
         }
         a {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          align-items: center;
           color: $font-color-secondary;
           font-size: 20px;
           font-weight: $font-weight-main;
           text-decoration: none;
+          transition: .2s ease-in-out;
   
           &:hover {
-            text-decoration: underline;
+            color: yellowgreen;
           }
         }
       }
@@ -166,11 +171,6 @@ body {
       grid-template-rows: 1fr;
       grid-column-gap: 20px;
       grid-row-gap: 0px;
-      aside {
-        .latest-comments {
-          box-shadow: $box-shadow;
-        }
-      }
     }
     h1.post-page-title {
       position: relative;
@@ -518,15 +518,23 @@ body {
         }
       }
     }
-    .latest-comments {
+
+    // Latest comments and most viewed posts widgets
+    // Define a mixin for common widget styles
+    @mixin widgetStyles {
       padding: 20px;
+      margin-bottom: 20px;
       background-color: $font-color-secondary;
       border-radius: $border-radius-main;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: $box-shadow;
       text-wrap: balance;
       text-align: center;
-
+    
       h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
         font-size: 20px;
         padding: 10px;
         margin-bottom: 15px;
@@ -537,8 +545,8 @@ body {
         background-color: lighten($color: $font-color-main, $amount: 15%);
         border-radius: $border-radius-main;
       }
-
-      .comment {
+    
+      .item {
         padding: 15px 10px;
         margin-bottom: 10px;
         border: 1px solid #fff;
@@ -548,20 +556,22 @@ body {
         border-radius: $border-radius-main;
         box-shadow: $box-shadow-inset;
         transition: .3s ease-in-out;
-
+      
         &:hover {
           border-color: lighten($color: $background-color-main, $amount: 15%);
         }
-
-        > strong {
-          display: block;
-          margin-bottom: 5px;
-          font-size: 16px;
+      
+        a {
           font-weight: 600;
-          color: $font-color-main;
+          color: $link-color;
+          text-decoration: none;
+        
+          &:hover {
+            text-decoration: underline;
+          }
         }
-
-        .comment-metadata {
+      
+        .metadata {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -571,26 +581,41 @@ body {
           color: #888;
           line-height: 1;
 
-          .comment-date {
+          .date, .views {
             display: flex;
             align-items: center;
             gap: 3px;
+          
+            .category {
+              font-weight: 600;
+            }
           }
-
+        
           .material-symbols-outlined {
             font-size: 14px;
           }
-
-          a {
-            color: #007BFF;
-            text-decoration: none;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
         }
       }
+    }
+
+    .latest-comments {
+      @include widgetStyles;
+
+      .item {
+        box-shadow: none;
+      }
+    
+      .item > strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $font-color-main;
+      }
+    }
+
+    .most-viewed-posts {
+      @include widgetStyles;
     }
   }
 
@@ -844,12 +869,13 @@ body {
 }
 
 $btn-colors: (
-  blue: (#55acee, #3C93D5),
-  yellow: (#f1c40f, #D8AB00),
+  red: (#e74c3c, #CE3323),
   green: (#2ecc71, #15B358),
-  red: (#e74c3c, #CE3323)
+  blue: (#55acee, #3C93D5),
+  yellow: (#f1c40f, #D8AB00)
 );
 
+// Loop through the $btn-colors map and create a class for each color
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1022,7 +1048,7 @@ $btn-colors: (
     border: 1px solid lighten($color: $background-color-main, $amount: 40%);
     background-color: #f1f1f1;
     border-radius: $border-radius-main;
-    box-shadow: $box-shadow-inset;
+    // box-shadow: $box-shadow-inset;
     &:nth-child(odd) {
       background-color: #fff;
     }
@@ -1098,7 +1124,7 @@ $btn-colors: (
       &.home-grid {
         display: block;
         .pagination {
-          padding: 10px;
+          padding: 10px 0 15px;
       
           button,
           span {
@@ -1111,7 +1137,8 @@ $btn-colors: (
           }
         }
       
-        .latest-comments {
+        .latest-comments,
+        .most-viewed-posts {
           padding: 10px;
         }
         aside {

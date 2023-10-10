@@ -10,6 +10,7 @@ import { convertFromRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import ReadingTime from "../components/ReadingTime";
 import LatestComments from "../components/LatestComments";
+import MostViewedPosts from "../components/MostViewedPosts";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -262,9 +263,10 @@ const HomePage: React.FC = () => {
             </button>
           </div>
         )}
+        <LatestComments />
       </main>
       <aside>
-        <LatestComments />
+        <MostViewedPosts />
       </aside>
     </div>
   );

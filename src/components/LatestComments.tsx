@@ -54,7 +54,9 @@ const LatestComments: React.FC = () => {
 
   return (
     <div className="latest-comments animate__animated animate__fadeIn">
-      <h2>Recent Comments from Our Community</h2>
+      <h2>
+        <span className="material-symbols-outlined">comment</span> Latest Comments
+      </h2>
       {latestComments.map((comment, index) => {
         const truncatedContent =
           comment.content.length > TRUNCATE_LENGTH
@@ -64,12 +66,14 @@ const LatestComments: React.FC = () => {
         return (
           <div
             key={comment.id}
-            className={`comment animate__animated animate__fadeIn`}
+            className={`item animate__animated animate__fadeIn`}
           >
             <strong>{comment.author}</strong> {truncatedContent}
-            <div className="comment-metadata">
-              <div className="comment-date">
-                <span className="material-symbols-outlined">pending_actions</span>
+            <div className="metadata">
+              <div className="date">
+                <span className="material-symbols-outlined">
+                  pending_actions
+                </span>
                 {formatDate(comment.timestamp.toDate())}
               </div>
               <Link to={`/post/${comment.postId}#${comment.id}`}>
