@@ -9,6 +9,7 @@ import { categoryNameToColor } from "../utils/categoriesColors";
 import { convertFromRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import ReadingTime from "../components/ReadingTime";
+import PostCalendar from "../components/PostCalendar";
 import LatestComments from "../components/LatestComments";
 import MostViewedPosts from "../components/MostViewedPosts";
 
@@ -266,6 +267,7 @@ const HomePage: React.FC = () => {
         <LatestComments />
       </main>
       <aside>
+        <PostCalendar />
         <MostViewedPosts />
       </aside>
     </div>
