@@ -66,7 +66,7 @@ const LatestComments: React.FC = () => {
             key={comment.id}
             className={`comment animate__animated animate__fadeIn`}
           >
-            <strong>{comment.author}</strong>: {truncatedContent}
+            <strong>{comment.author}</strong> {truncatedContent}
             <div className="comment-metadata">
               <div className="comment-date">
                 <span className="material-symbols-outlined">pending_actions</span>

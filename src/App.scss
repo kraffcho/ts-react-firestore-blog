@@ -428,12 +428,19 @@ body {
         margin-bottom: 10px;
         border-radius: $border-radius-main;
         border: 3px solid #fff;
-        transition: .3s;
+        transition: .5s;
         box-shadow: $box-shadow;
         &:hover {
-          background-color: #dadada;
+          background-color: #fcf9da;
+          a.post-title {
+            &:after {
+              transform-origin: bottom left;
+              transform: scaleX(1);
+            }
+          }
         }
-        a {
+        a.post-title {
+          position: relative;
           display: block;
           padding: 8px 5px;
           margin: 5px 5px 0;
@@ -444,8 +451,17 @@ body {
           line-height: 1;
           text-wrap: balance;
           font-weight: 700;
-          &:hover {
-            color: $nav-background;
+          &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: lighten($color: $font-color-main, $amount: 30%);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s, height 0.1s;
           }
         }
         .post-date {
@@ -472,21 +488,18 @@ body {
           align-items: center;
           gap: 5px;
           padding: 10px;
-          background: linear-gradient(0deg, #aaa, transparent);
+          background: linear-gradient(0deg, #fff8e6, transparent);
           border-radius: 0 0 4px 4px;
-          .category-label {
-            margin: 0;
-            padding: 4px 8px;
-            font-size: 12px;
+          .category-label,
+          .comments-label {
+            padding: 2px 8px;
             color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
             border-radius: $border-radius-main;
           }
           .comments-label {
-            margin: 0;
-            padding: 4px 8px;
-            font-size: 12px;
-            color: #fff;
-            border-radius: $border-radius-main;
             background-color: lighten($color: $nav-background, $amount: 25%);
           }
           .reading-time {
@@ -511,6 +524,7 @@ body {
       border-radius: $border-radius-main;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-wrap: balance;
+      text-align: center;
 
       h2 {
         font-size: 20px;
@@ -525,7 +539,7 @@ body {
       }
 
       .comment {
-        padding: 10px;
+        padding: 15px 10px;
         margin-bottom: 10px;
         border: 1px solid #fff;
         background-color: #fff;
@@ -539,10 +553,18 @@ body {
           border-color: lighten($color: $background-color-main, $amount: 15%);
         }
 
+        > strong {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 16px;
+          font-weight: 600;
+          color: $font-color-main;
+        }
+
         .comment-metadata {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
           gap: 10px;
           margin-top: 8px;
           font-size: 0.9em;
@@ -949,18 +971,8 @@ $btn-colors: (
     resize: vertical;
   }
 
-  &__submit-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #4fd081;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #0056b3;
-    }
+  &__submit {
+    width: max-content;
   }
 }
 
@@ -1101,15 +1113,6 @@ $btn-colors: (
       
         .latest-comments {
           padding: 10px;
-      
-          h2 {
-            font-size: 18px;
-          }
-      
-          .comment {
-            padding: 8px;
-            line-height: 1.2;
-          }
         }
         aside {
           margin-top: 10px;

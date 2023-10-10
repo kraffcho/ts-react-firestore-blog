@@ -178,7 +178,7 @@ const HomePage: React.FC = () => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {post.title ? (
-                  <Link to={`/post/${post.id}`} style={{color: categoryNameToColor(post.category!)}}>{post.title}</Link>
+                  <Link to={`/post/${post.id}`} className="post-title" style={{color: categoryNameToColor(post.category!)}}>{post.title}</Link>
                 ) : (
                   <p>Untitled Post</p>
                 )}

@@ -242,7 +242,10 @@ const PostPage: React.FC = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button className="btn green" onClick={handleSubmit}>
+        <button
+          className="comment-form__submit btn green"
+          onClick={handleSubmit}
+        >
           <span className="material-symbols-outlined">add_circle</span>Post
           Comment
         </button>
