@@ -11,6 +11,11 @@ type DateItem = {
   year: number;
 };
 
+// This is the minimum year that the calendar will display
+// It is used to prevent the user from going to the past and seeing posts
+// from previous years (maybe there are no posts in previous years)
+const MIN_YEAR = 2023;
+
 const monthNames = [
   "January",
   "February",
@@ -95,8 +100,10 @@ const PostCalendar: React.FC = () => {
 
   const goToPreviousMonth = () => {
     if (currentMonth === 1) {
-      setCurrentYear(currentYear - 1);
-      setCurrentMonth(12);
+      if (currentYear > MIN_YEAR) {
+        setCurrentYear(currentYear - 1);
+        setCurrentMonth(12);
+      }
     } else {
       setCurrentMonth(currentMonth - 1);
     }
@@ -250,6 +257,7 @@ const PostCalendar: React.FC = () => {
           <button
             className="month-nav"
             onClick={goToPreviousMonth}
+            disabled={currentMonth === 1 && currentYear === MIN_YEAR}
           >
             Prev
           </button>
