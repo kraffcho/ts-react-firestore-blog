@@ -10,6 +10,7 @@ export interface Post {
   updatedAt: Timestamp;
   commentCount: number;
   viewCount?: number;
+  savedBy?: string[];
 }
 
 export type Comment = {

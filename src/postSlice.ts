@@ -19,6 +19,7 @@ interface Post {
   updatedAt: string;
   commentCount: number;
   viewCount?: number;
+  savedBy?: string[];
 }
 
 interface NewPost {

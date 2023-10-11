@@ -10,7 +10,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const [showModal, setShowModal] = useState(false);
-  
+
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
     const auth = getAuth();
@@ -33,12 +33,20 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
           </Link>
         </li>
         {user && (
-          <li className="nav-link">
-            <Link to="/add-post">
-              <span className="material-symbols-outlined">post_add</span>
-              <span className="link-text">Add Post</span>
-            </Link>
-          </li>
+          <>
+            <li className="nav-link">
+              <Link to="/add-post">
+                <span className="material-symbols-outlined">post_add</span>
+                <span className="link-text">Add Post</span>
+              </Link>
+            </li>
+            <li className="nav-link">
+              <Link to="/saved">
+                <span className="material-symbols-outlined">bookmark</span>
+                <span className="link-text">Saved</span>
+              </Link>
+            </li>
+          </>
         )}
         <li className="nav-link">
           {user ? (

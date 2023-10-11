@@ -11,9 +11,14 @@ import AddPostPage from "./pages/AddPostPage";
 import EditPostPage from "./pages/EditPostPage";
 import PostPage from "./pages/PostPage";
 import LoginPage from "./pages/LoginPage";
+import SavedPage from "./pages/SavedPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import { getAuth, browserLocalPersistence, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  browserLocalPersistence,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { User } from "firebase/auth";
 import "./App.scss";
 
@@ -62,6 +67,11 @@ function App() {
           }
         />
         <Route path="/post/:id" element={<PostPage />} />
+
+        <Route
+          path="/saved"
+          element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
+        />
       </Routes>
       <Footer />
       <ScrollToTop />

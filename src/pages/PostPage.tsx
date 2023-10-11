@@ -15,13 +15,14 @@ import {
   orderBy,
   increment,
   updateDoc,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
 import { Post, Comment } from "../utils/types";
 import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
+import BookmarkToggle from "../components/BookmarkToggle";
 
 const PostPage: React.FC = () => {
   const { id } = useParams<any>();
@@ -35,6 +36,7 @@ const PostPage: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const auth = getAuth();
   const currentUser = auth.currentUser;
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
   useEffect(() => {
     if (post && post.content) {
@@ -58,7 +60,18 @@ const PostPage: React.FC = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setPost({ id: docSnap.id, ...docSnap.data() } as Post);
+          const fetchedPost = { id: docSnap.id, ...docSnap.data() } as Post;
+          setPost(fetchedPost);
+
+          // Check if the current user has bookmarked this post
+          // and set the isBookmarked state accordingly to display the correct icon
+          if (
+            currentUser &&
+            fetchedPost.savedBy &&
+            fetchedPost.savedBy.includes(currentUser.uid)
+          ) {
+            setIsBookmarked(true);
+          }
         } else {
           setError("Post does not exist");
         }
@@ -86,8 +99,9 @@ const PostPage: React.FC = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     };
+
     fetchData();
-  }, [id]);
+  }, [id, currentUser]);
 
   useEffect(() => {
     const fetchAllPosts = async () => {
@@ -359,6 +373,10 @@ const PostPage: React.FC = () => {
         />
       </Helmet>
       <h1 className="post-page-title">
+        <BookmarkToggle
+          postId={id!}
+          isInitiallyBookmarked={isBookmarked}
+        />
         {post.title}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
