@@ -33,7 +33,6 @@ const LatestComments: React.FC = () => {
 
         setLatestComments(fetchedComments);
 
-        // Fetch associated posts for the fetched comments
         const uniquePostIds = Array.from(
           new Set(fetchedComments.map((comment) => comment.postId))
         );

@@ -43,7 +43,7 @@ const PostCalendar: React.FC = () => {
       try {
         const postsCollection = collection(db, "posts");
         const startOfMonth = new Date(year, month - 1, 1);
-        const endOfMonth = new Date(year, month, 0, 23, 59, 59); // Use day 0 of the next month to get the last day of the current month
+        const endOfMonth = new Date(year, month, 0, 23, 59, 59);
         const q = query(
           postsCollection,
           where("publishedAt", ">=", startOfMonth),
@@ -56,7 +56,7 @@ const PostCalendar: React.FC = () => {
           const postDate = postData.publishedAt.toDate();
           return {
             day: postDate.getDate(),
-            month: postDate.getMonth() + 1, // JS month is 0-based
+            month: postDate.getMonth() + 1,
             year: postDate.getFullYear(),
           };
         });
@@ -186,12 +186,14 @@ const PostCalendar: React.FC = () => {
 
   const renderMonth = (month: number, year: number) => {
     const daysInMonth = new Date(year, month, 0).getDate();
-    const firstDayOfMonth = new Date(year, month - 1, 1).getDay(); // 0 (Sunday) - 6 (Saturday)
-    const offset = (firstDayOfMonth - 1 + 7) % 7; // Adjusting for Monday start
+    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+    const offset = (firstDayOfMonth - 1 + 7) % 7;
+
+    const lastDayOfMonth = new Date(year, month, 0).getDay();
+    const paddingAfter = (7 - lastDayOfMonth) % 7;
 
     const days = [];
 
-    // Padding for starting on a Monday
     for (let i = 0; i < offset; i++) {
       days.push(<span key={`pad-${i}`} className="padding-day"></span>);
     }
@@ -223,6 +225,10 @@ const PostCalendar: React.FC = () => {
       }
     }
 
+    for (let i = 0; i < paddingAfter; i++) {
+      days.push(<span key={`pad-after-${i}`} className="padding-day"></span>);
+    }
+
     return (
       <div className="month">
         <div className="month-header">
@@ -233,7 +239,9 @@ const PostCalendar: React.FC = () => {
           >
             Prev
           </button>
-          <p className="total">Found {postDates.length} Posts</p>
+          <p className="total">
+            {postDates.length > 0 ? `Found ${postDates.length} Posts` : "No Posts"}
+          </p>
           <button
             className="month-nav"
             onClick={goToNextMonth}
