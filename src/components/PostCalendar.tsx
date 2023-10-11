@@ -30,12 +30,27 @@ const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const getMonthName = (monthNumber: number) => monthNames[monthNumber - 1];
 
+const getCurrentDate = () => {
+  const date = new Date();
+  return {
+    month: date.getMonth() + 1,
+    year: date.getFullYear()
+  };
+};
+
+const isCurrentMonthAndYear = (month: number, year: number) => {
+  const currentDate = new Date();
+  return (
+    month === currentDate.getMonth() + 1 && year === currentDate.getFullYear()
+  );
+};
+
 const PostCalendar: React.FC = () => {
   const [postDates, setPostDates] = useState<DateItem[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [selectedDatePosts, setSelectedDatePosts] = useState<Post[]>([]);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(getCurrentDate().month);
+  const [currentYear, setCurrentYear] = useState(getCurrentDate().year);
   const modalContentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -235,20 +250,18 @@ const PostCalendar: React.FC = () => {
           <button
             className="month-nav"
             onClick={goToPreviousMonth}
-            disabled={currentMonth <= 1}
           >
             Prev
           </button>
           <p className="total">
-            {postDates.length > 0 ? `Found ${postDates.length} Posts` : "No Posts"}
+            {postDates.length > 0
+              ? `Found ${postDates.length} Posts`
+              : "No Posts"}
           </p>
           <button
             className="month-nav"
             onClick={goToNextMonth}
-            disabled={
-              currentMonth === new Date().getMonth() + 1 &&
-              currentYear === new Date().getFullYear()
-            }
+            disabled={isCurrentMonthAndYear(currentMonth, currentYear)}
           >
             Next
           </button>
