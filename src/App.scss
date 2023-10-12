@@ -197,14 +197,14 @@ body {
       .saved-posts {
         &__header {
           font-size: 2em;
-          color: $font-color-main;
+          color: lighten($color: $font-color-main, $amount: 10%);
           margin-bottom: 10px;
         }
         
         &__list {
           display: flex;
           flex-direction: column;
-          gap: 5px;
+          gap: 7px;
         }
 
         &__item {
@@ -215,9 +215,9 @@ body {
           align-items: center;
           background-color: #fff;
           border-radius: $border-radius-main;
-          box-shadow: $box-shadow-inset;
+          box-shadow: $box-shadow-elegant;
           &:nth-child(odd) {
-            background-color: #e5e5e5;
+            background-color: #fefeeb;
           }
           button {
             margin-bottom: 3px;

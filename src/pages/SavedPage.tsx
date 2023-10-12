@@ -14,6 +14,10 @@ const SavedPage: React.FC = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
 
+  const getLinkStyle = (category?: string | null) => ({
+    color: category ? categoryNameToColor(category) : "#333",
+  });
+
   useEffect(() => {
     if (!currentUser) return;
 
@@ -62,17 +66,18 @@ const SavedPage: React.FC = () => {
                   <Link
                     to={`/post/${post.id}`}
                     className="saved-posts__link"
-                    style={{
-                      color: post.category
-                        ? categoryNameToColor(post.category)
-                        : "#333",
-                    }}
+                    style={getLinkStyle(post.category || null)}
                   >
                     {post.title}
                   </Link>
                   <p className="published">
                     Published: {formatDate(post.publishedAt.toDate())} in{" "}
-                    {post.category ?? "Uncategorized"}
+                    <Link
+                      to={`/category/${post.category}`}
+                      style={getLinkStyle(post.category || null)}
+                    >
+                      {post.category ?? "Uncategorized"}
+                    </Link>
                   </p>
                 </div>
                 <button
