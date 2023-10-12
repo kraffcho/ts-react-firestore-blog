@@ -78,9 +78,10 @@ const SavedPage: React.FC = () => {
               >
                 {post.title}
               </Link>
-              <br />
-              Published: {formatDate(post.publishedAt.toDate())} in{" "}
-              {post.category}
+              <p className="published">
+                Published: {formatDate(post.publishedAt.toDate())} in{" "}
+                {post.category}
+              </p>
             </div>
             <button
               className="btn red"
@@ -92,7 +93,10 @@ const SavedPage: React.FC = () => {
         ))}
       </div>
       {!savedPosts.length && (
-        <p className="saved-posts__empty-message">You have no saved posts.</p>
+        <p className="saved-posts__empty-message">
+          You have no saved posts. To add a post to your collection of saved
+          posts, click the bookmark icon on the post.
+        </p>
       )}
     </div>
   );

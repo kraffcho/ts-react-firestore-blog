@@ -56,6 +56,16 @@ body {
     font-size: clamp(20px, 5vw, 40px);
     color: $font-color-secondary;
   }
+  .notification {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    padding: 10px 20px;
+    font-size: clamp(14px, 3vw, 16px);
+    background-color: lighten($color: $font-color-main, $amount: 10%);
+    box-shadow: $box-shadow;
+    border-radius: $border-radius-main;
+  }
   nav {
     position: -webkit-sticky;
     position: sticky;
@@ -175,8 +185,9 @@ body {
     }
 
     &.saved-posts-wrapper {
-      margin: 20px;
-      padding: 20px;
+      width: calc(100% - 60px);
+      max-width: calc($container-width);
+      margin: 30px auto;
       font-size: 16px;
       background-color: #eee;
       border-radius: $border-radius-main;
@@ -196,7 +207,7 @@ body {
         }
 
         &__item {
-          padding: 8px 10px;
+          padding: 8px 12px;
           display: flex;
           gap: 10px;
           justify-content: space-between;
@@ -215,6 +226,15 @@ body {
           }
         }
 
+        &__info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          .published {
+            font-size: 13px;
+          }
+        }
+
         &__link {
           text-decoration: none;
           font-weight: 600;
@@ -222,8 +242,9 @@ body {
         }
         
         &__empty-message {
-          font-style: italic;
-          color: #aaa;
+          display: flex;
+          flex-direction: column;
+          color: $background-color-main;
         }
       }
     }
@@ -241,13 +262,12 @@ body {
       border-radius: $border-radius-main $border-radius-main 0 0;
       box-shadow: $box-shadow;
       text-align: center;
-      text-shadow: $nav-background;
       text-wrap: balance;
       transition: opacity 0.3s ease-in-out;
       .bookmark {
         position: absolute;
-        top: 7px;
-        right: 7px;
+        top: 5px;
+        left: 5px;
         color: darken($color: $font-color-secondary, $amount: 20%);
         transition: .3s;
         cursor: pointer;
@@ -1397,6 +1417,10 @@ $btn-colors: (
         aside {
           margin-top: 10px;
         }
+      }
+
+      &.saved-posts-wrapper {
+        width: calc(100% - 40px);
       }
 
       form .title-category-wrapper {

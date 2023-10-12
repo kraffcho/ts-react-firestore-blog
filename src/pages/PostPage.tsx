@@ -25,18 +25,18 @@ import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
 
 const PostPage: React.FC = () => {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
   const { id } = useParams<any>();
   const { hash } = useLocation();
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const [comments, setComments] = useState<Comment[]>([]);
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
   useEffect(() => {
     if (post && post.content) {
