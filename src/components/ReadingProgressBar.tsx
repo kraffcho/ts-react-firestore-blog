@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 const ReadingProgressBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [showClose, setShowClose] = useState(false);
 
   const calculateScrollDistance = () => {
     const totalHeight =
@@ -10,32 +12,43 @@ const ReadingProgressBar = () => {
     setScrollPosition(scrollPercent);
   };
 
+  const handleClose = () => {
+    setIsVisible(false);
+    // To prevent it from showing again during the session
+    sessionStorage.setItem("hideProgressBar", "true");
+  };
+
   useEffect(() => {
+    if (sessionStorage.getItem("hideProgressBar") === "true") {
+      setIsVisible(false);
+    }
+
     window.addEventListener("scroll", calculateScrollDistance);
     return () => window.removeEventListener("scroll", calculateScrollDistance);
   }, []);
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <div
-      style={{
-        height: "8px",
-        width: "100%",
-        backgroundColor: "#333",
-        borderBottom: "1px solid #444",
-        position: "fixed",
-        top: "63px",
-        left: "0",
-        zIndex: "999999",
-      }}
+      className="reading-progress-bar"
+      onMouseEnter={() => setShowClose(true)}
+      onMouseLeave={() => setShowClose(false)}
     >
       <div
-        style={{
-          width: `${scrollPosition}%`,
-          height: "100%",
-          backgroundColor: "yellowgreen",
-          transition: "width .3s ease-out",
-        }}
+        className="progress-indicator"
+        style={{ width: `${scrollPosition}%` }}
       ></div>
+      {showClose && (
+        <span
+          onClick={handleClose}
+          className="close-btn animate__animated animate__fadeInRight"
+        >
+          <span className="material-symbols-outlined">close</span>
+        </span>
+      )}
     </div>
   );
 };
