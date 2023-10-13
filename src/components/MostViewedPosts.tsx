@@ -56,7 +56,12 @@ const MostViewedPosts: React.FC = () => {
             key={post.id}
             className={`item animate__animated animate__fadeIn`}
           >
-            <Link to={`/post/${post.id}`}>{post.title}</Link>
+            <Link
+              to={`/post/${post.id}`}
+              style={{ color: categoryNameToColor(post.category!) }}
+            >
+              {post.title}
+            </Link>
             <div className="metadata">
               <div className="date">
                 <span className="material-symbols-outlined">

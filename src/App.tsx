@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import SavedPage from "./pages/SavedPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import ReadingProgressBar from "./components/ReadingProgressBar";
 import {
   getAuth,
   browserLocalPersistence,
@@ -66,8 +67,15 @@ function App() {
             isAuthenticated ? <EditPostPage /> : <Navigate to="/login" />
           }
         />
-        <Route path="/post/:id" element={<PostPage />} />
-
+        <Route
+          path="/post/:id"
+          element={
+            <>
+              <ReadingProgressBar />
+              <PostPage />
+            </>
+          }
+        />
         <Route
           path="/saved"
           element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}

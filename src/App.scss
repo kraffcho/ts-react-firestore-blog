@@ -1394,7 +1394,9 @@ $btn-colors: (
 
     .container {
       padding: 10px 20px;
-
+      h1.post-page-title {
+        margin-top: 10px;
+      }
       &.home-grid {
         display: block;
         .pagination {
