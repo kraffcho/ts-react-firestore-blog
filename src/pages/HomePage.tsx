@@ -12,6 +12,7 @@ import ReadingTime from "../components/ReadingTime";
 import PostCalendar from "../components/PostCalendar";
 import LatestComments from "../components/LatestComments";
 import MostViewedPosts from "../components/MostViewedPosts";
+import Poll from "../components/Poll";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -180,7 +181,13 @@ const HomePage: React.FC = () => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {post.title ? (
-                  <Link to={`/post/${post.id}`} className="post-title" style={{color: categoryNameToColor(post.category!)}}>{post.title}</Link>
+                  <Link
+                    to={`/post/${post.id}`}
+                    className="post-title"
+                    style={{ color: categoryNameToColor(post.category!) }}
+                  >
+                    {post.title}
+                  </Link>
                 ) : (
                   <p>Untitled Post</p>
                 )}
@@ -267,6 +274,7 @@ const HomePage: React.FC = () => {
         <LatestComments />
       </main>
       <aside>
+        <Poll pollId="d1byEhAWOGtvVq5I0UrA" />
         <PostCalendar />
         <MostViewedPosts />
       </aside>

@@ -133,8 +133,9 @@ body {
       
           .search-results {
             position: absolute;
-            top: 43px;
+            top: 48px;
             right: 0;
+            padding-top: 8px;
             width: calc(100vw - 40px);
             max-width: max-content;
             max-height: calc(100vh - 200px);
@@ -646,7 +647,7 @@ body {
         margin-bottom: 10px;
         border: 1px solid #fff;
         background-color: #fff;
-        font-size: 14px;
+        font-size: clamp(14px, 3vw, 16px);
         line-height: 1.3;
         border-radius: $border-radius-main;
         box-shadow: $box-shadow-elegant;
@@ -705,8 +706,71 @@ body {
       }
     }
 
-    .most-viewed-posts {
+    .most-viewed-posts,
+    .poll-container {
       @include widgetStyles;
+    }
+    
+    .poll-container {
+      .poll-question {
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: $font-color-main;
+      }
+      .poll-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+        .poll-option {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.3;
+          color: $font-color-main;
+          background-color: #fff;
+          border: 1px solid #aaa;
+          border-radius: $border-radius-main;
+          box-shadow: $box-shadow-elegant;
+          transition: .3s;
+          z-index: 1;
+          cursor: pointer;
+          .option-text {
+            font-family: $font-family-secondary;
+          }
+          .percentage-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: rgba(76, 175, 80, 0.3);
+            z-index: -1;
+          }
+          &:hover {
+            border-color: $nav-background;
+          }
+          &.selected {
+            border-color: $nav-background;
+            background-color: $nav-background;
+            color: #fff;
+          }
+        }
+      }
+      .vote-button {
+        width: 100%;
+      }
+      .voted-message {
+        padding: 5px 10px 0;
+        font-size: 14px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: lighten($color: $font-color-main, $amount: 30%);
+      }
     }
 
     .post-calendar {
@@ -1392,6 +1456,7 @@ $btn-colors: (
   height: 8px;
   background-color: $font-color-main;
   border-bottom: 1px solid darken($color: $font-color-main, $amount: 10%);
+  box-shadow: $box-shadow;
   position: fixed;
   top: 63px;
   left: 0;
