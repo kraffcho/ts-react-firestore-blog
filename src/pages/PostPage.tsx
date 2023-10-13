@@ -9,7 +9,6 @@ import {
   query,
   where,
   doc,
-  getDoc,
   getDocs,
   serverTimestamp,
   orderBy,
@@ -23,6 +22,11 @@ import { Post, Comment } from "../utils/types";
 import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
+import {
+  fetchPostById,
+  fetchCommentsByPostId,
+  fetchAllPosts,
+} from "../utils/api";
 
 const PostPage: React.FC = () => {
   const auth = getAuth();
@@ -47,24 +51,14 @@ const PostPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Check for the validity of the id before proceeding
       if (!id) {
         setError("Invalid post ID");
         return;
       }
-
-      // Since we're sure id is defined here, we can fetch the document
-      const docRef = doc(db, "posts", id);
-
       try {
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const fetchedPost = { id: docSnap.id, ...docSnap.data() } as Post;
+        const fetchedPost = await fetchPostById(id);
+        if (fetchedPost) {
           setPost(fetchedPost);
-
-          // Check if the current user has bookmarked this post
-          // and set the isBookmarked state accordingly to display the correct icon
           if (
             currentUser &&
             fetchedPost.savedBy &&
@@ -75,23 +69,7 @@ const PostPage: React.FC = () => {
         } else {
           setError("Post does not exist");
         }
-
-        const commentsCollection = collection(db, "comments");
-        const q = query(
-          commentsCollection,
-          where("postId", "==", id),
-          orderBy("timestamp", "desc")
-        );
-
-        const querySnapshot = await getDocs(q);
-        const fetchedComments = querySnapshot.docs.map(
-          (doc) =>
-            ({
-              id: doc.id,
-              ...doc.data(),
-            } as Comment)
-        );
-
+        const fetchedComments = await fetchCommentsByPostId(id);
         setComments(fetchedComments);
       } catch (e) {
         setError("Error fetching post");
@@ -104,20 +82,15 @@ const PostPage: React.FC = () => {
   }, [id, currentUser]);
 
   useEffect(() => {
-    const fetchAllPosts = async () => {
+    const fetchPosts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "posts"));
-        setAllPosts(
-          querySnapshot.docs.map((doc) => {
-            if (!doc.id) throw new Error("Document missing ID");
-            return { id: doc.id, ...doc.data() } as Post;
-          })
-        );
+        const posts = await fetchAllPosts();
+        setAllPosts(posts);
       } catch (e) {
         console.error("Error fetching all posts:", e);
       }
     };
-    fetchAllPosts();
+    fetchPosts();
   }, []);
 
   useEffect(() => {
