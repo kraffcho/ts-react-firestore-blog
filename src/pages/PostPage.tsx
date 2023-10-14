@@ -22,6 +22,7 @@ import { Post, Comment } from "../utils/types";
 import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
+import ShareButtons from "../components/ShareButtons";
 import {
   fetchPostById,
   fetchCommentsByPostId,
@@ -346,10 +347,7 @@ const PostPage: React.FC = () => {
         />
       </Helmet>
       <h1 className="post-page-title">
-        <BookmarkToggle
-          postId={id!}
-          isInitiallyBookmarked={isBookmarked}
-        />
+        <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />
         {post.title}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
@@ -388,6 +386,7 @@ const PostPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <ShareButtons postTitle={post.title} id={id!} />
       {allPosts.length > 0 && (
         <AdjacentPosts currentPostId={id!} allPosts={allPosts} />
       )}

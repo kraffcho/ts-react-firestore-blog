@@ -1,5 +1,5 @@
-$font-family-main: 'Titillium Web', sans-serif;
-$font-family-secondary: 'Baloo Da 2', cursive;
+$font-family-main: 'Baloo Da 2', cursive;
+$font-family-secondary: 'Titillium Web', sans-serif;
 $font-color-main: #333;
 $font-color-secondary: #eee;
 $link-color: #275ad1;
@@ -184,6 +184,71 @@ body {
       grid-template-rows: 1fr;
       grid-column-gap: 20px;
       grid-row-gap: 0px;
+    }
+
+    .share-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+
+      .share-button {
+        flex: 1;
+        display: inline-block;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: clamp(14px, 3vw, 16px);
+        line-height: 1;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid $font-color-secondary;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+          border-color: #ccc;
+        }
+      
+        &.twitter {
+          background-color: #1DA1F2;
+          color: white;
+
+          &:hover {
+            background-color: darken(#1DA1F2, 10%);
+          }
+        }
+      
+        &.facebook {
+          background-color: #1877F2;
+          color: white;
+        
+          &:hover {
+            background-color: darken(#1877F2, 10%);
+          }
+        }
+      
+        &.linkedin {
+          background-color: #0A66C2;
+          color: white;
+        
+          &:hover {
+            background-color: darken(#0A66C2, 10%);
+          }
+        }
+      
+        &.whatsapp {
+          background-color: #25D366;
+          color: white;
+        
+          &:hover {
+            background-color: darken(#25D366, 10%);
+          }
+        }
+      }
     }
 
     &.saved-posts-wrapper {
@@ -440,7 +505,6 @@ body {
       .blog-post-body {
         padding: 30px 20px 0;
         font-size: clamp(16px, 4vw, 20px);
-        font-weight: 500;
         box-shadow: inset 0 5px 10px $font-color-main;
         .blog-post-footer {
           display: flex;
@@ -647,7 +711,7 @@ body {
         margin-bottom: 10px;
         border: 1px solid #fff;
         background-color: #fff;
-        font-size: clamp(14px, 3vw, 16px);
+        font-size: 14px;
         line-height: 1.3;
         border-radius: $border-radius-main;
         box-shadow: $box-shadow-elegant;
@@ -740,9 +804,6 @@ body {
           transition: .3s;
           z-index: 1;
           cursor: pointer;
-          .option-text {
-            font-family: $font-family-secondary;
-          }
           .percentage-background {
             position: absolute;
             bottom: 0;
@@ -875,7 +936,7 @@ body {
           cursor: default;
         }
         .today {
-          background-color: #feffe6;
+          background-color: rgba(76, 175, 80, 0.2);
           border: 1px solid $background-color-main;
         }
         .future,
@@ -1314,6 +1375,8 @@ $btn-colors: (
     font-size: clamp(18px, 5vw, 24px);
     font-weight: 500;
     text-align: center;
+    text-wrap: balance;
+    line-height: 1.3;
   }
   
   &__input,

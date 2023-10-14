@@ -274,9 +274,9 @@ const HomePage: React.FC = () => {
         <LatestComments />
       </main>
       <aside>
-        <Poll pollId="d1byEhAWOGtvVq5I0UrA" />
         <PostCalendar />
         <MostViewedPosts />
+        <Poll pollId="d1byEhAWOGtvVq5I0UrA" />
       </aside>
     </div>
   );
