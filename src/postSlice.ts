@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { db } from "./firebase";
-import { serverTimestamp, FieldValue, deleteDoc } from "firebase/firestore";
+import { serverTimestamp, deleteDoc } from "firebase/firestore";
 import {
   collection,
   getDocs,
@@ -20,16 +20,6 @@ interface Post {
   commentCount: number;
   viewCount?: number;
   savedBy?: string[];
-}
-
-interface NewPost {
-  id?: string;
-  title: string;
-  content: string;
-  category?: string;
-  publishedAt: FieldValue;
-  updatedAt: FieldValue;
-  commentCount: number;
 }
 
 interface NewPostPayload {
@@ -81,7 +71,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 export const addPost = createAsyncThunk(
   "posts/addPost",
   async (post: NewPostPayload) => {
-    const newPost: NewPost = {
+    const newPost = {
       ...post,
       commentCount: 0,
       publishedAt: serverTimestamp(),
@@ -108,16 +98,24 @@ export const updatePost = createAsyncThunk(
       category,
       updatedAt: serverTimestamp(),
     });
-    return payload;
+    return {
+      ...payload,
+      updatedAt: new Date().toISOString(),
+    };
   }
 );
 
 export const getPost = createAsyncThunk("posts/get", async (postId: string) => {
   const postDoc = await getDoc(doc(db, "posts", postId));
   if (postDoc.exists()) {
+    const data = postDoc.data();
     return {
-      ...postDoc.data(),
-      commentCount: postDoc.data().commentCount || 0,
+      ...data,
+      publishedAt: data.publishedAt
+        ? data.publishedAt.toDate().toISOString()
+        : "N/A",
+      updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : "N/A",
+      commentCount: data.commentCount || 0,
     } as Post;
   } else {
     throw new Error("Post not found");
@@ -169,6 +167,7 @@ const postSlice = createSlice({
           existingPost.title = title;
           existingPost.content = content;
           existingPost.category = category;
+          existingPost.updatedAt = new Date().toISOString();
         }
       })
       .addCase(getPost.fulfilled, (state, action: PayloadAction<Post>) => {
