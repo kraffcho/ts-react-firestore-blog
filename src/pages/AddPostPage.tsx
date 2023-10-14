@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addPost } from "../postSlice";
@@ -16,25 +16,50 @@ const AddPostPage: React.FC = () => {
     EditorState.createEmpty()
   );
   const [category, setCategory] = useState<string | undefined>("");
+  const [error, setError] = useState<string | null>(null);
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  const categoryRef = useRef<HTMLSelectElement>(null);
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
-  useTextareaHeight(250);
-  const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
+    useTextareaHeight(250);
+
+  const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+    setError(null); // clear the error when user starts typing again
+  };
 
   const onSavePostClicked = () => {
-    const content = JSON.stringify(
-      convertToRaw(editorState.getCurrentContent())
-    );
+    const contentRaw = editorState.getCurrentContent();
+    const contentString = contentRaw.getPlainText();
+    const serializedContent = JSON.stringify(convertToRaw(contentRaw));
 
-    if (title && content && category) {
-      dispatch(addPost({ title, content, category }));
-      setTitle("");
-      setEditorState(EditorState.createEmpty());
-      setCategory(undefined);
-      navigate("/");
+    if (title.length < 30) {
+      setError(`Title should be at least 30 symbols! You have ${title.length} symbols. Please add ${30 - title.length} more.`);
+      titleRef.current?.focus();
+      return;
     }
+    if (!category) {
+      setError("Please choose a category!");
+      categoryRef.current?.focus();
+      return;
+    }
+    if (contentString.length < 1000) {
+     setError(
+       `Content should be at least 1000 symbols! You have ${
+         contentString.length
+       } symbols. You need ${1000 - contentString.length} more symbols.`
+     );
+      return;
+    }
+
+    dispatch(addPost({ title, content: serializedContent, category }));
+    setTitle("");
+    setEditorState(EditorState.createEmpty());
+    setCategory(undefined);
+    navigate("/");
   };
 
   const handleKeyCommand = (command: string, editorState: EditorState) => {
@@ -66,6 +91,7 @@ const AddPostPage: React.FC = () => {
               name="postTitle"
               value={title}
               onChange={onTitleChanged}
+              ref={titleRef}
             />
           </div>
           <div className="category-wrapper">
@@ -74,7 +100,11 @@ const AddPostPage: React.FC = () => {
               id="postCategory"
               name="postCategory"
               value={category || ""}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setError(null);
+              }}
+              ref={categoryRef}
             >
               {categoriesList.map((cat) => (
                 <option key={cat.value} value={cat.value}>
@@ -84,7 +114,6 @@ const AddPostPage: React.FC = () => {
             </select>
           </div>
         </div>
-        <label htmlFor="postContent" className="hidden">Content:</label>
         <RichTextToolbar
           editorState={editorState}
           setEditorState={setEditorState}
@@ -97,12 +126,9 @@ const AddPostPage: React.FC = () => {
             transition: ".3s",
           }}
         >
-          <Editor
-            editorState={editorState}
-            onChange={setEditorState}
-            handleKeyCommand={handleKeyCommand}
-          />
+          <Editor editorState={editorState} onChange={setEditorState} handleKeyCommand={handleKeyCommand} />
         </div>
+        {error && <p className="error">⚠️ {error}</p>}
         <div className="button-wrapper">
           <button
             type="button"

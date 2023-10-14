@@ -485,9 +485,16 @@ body {
         transition: .3s;
         overflow: auto;
       }
+      .error {
+        flex: 1;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: tomato;
+      }
       .button-wrapper {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 10px;
         .increase-height {
           display: flex;
