@@ -7,10 +7,16 @@ import { Post } from "../utils/types";
 import { categoryNameToColor } from "../utils/categoriesColors";
 import { formatDate } from "../utils/formatDate";
 import { db } from "../firebase";
+import Cookies from "js-cookie";
+import { Helmet } from "react-helmet-async";
 
 const SavedPage: React.FC = () => {
   const [savedPosts, setSavedPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showSummary, setShowSummary] = useState<boolean>(
+    !Cookies.get("hideSummary")
+  );
+
   const auth = getAuth();
   const currentUser = auth.currentUser;
 
@@ -49,19 +55,40 @@ const SavedPage: React.FC = () => {
     }
   };
 
+  const handleCloseSummary = () => {
+    setShowSummary(false);
+    Cookies.set("hideSummary", "true", { expires: 365 });
+  };
+
   return (
     <div className="container saved-posts-wrapper animate__animated animate__fadeIn">
-      <h1 className="saved-posts__header">Saved Posts</h1>
+      <Helmet>
+        <title>Saved Posts Dashboard</title>
+        <meta
+          name="description"
+          content="Monitor and manage bookmarked articles for easy access. Add new ones or remove existing ones with simple toggles and actions."
+        />
+      </Helmet>
+      <h1 className="saved-posts__header">Saved Posts ({savedPosts.length})</h1>
+      {showSummary && (
+        <p className="saved-posts__summary animate__animated animate__fadeIn">
+          Monitor the articles you've bookmarked, whether for future reading or
+          for convenient access. Use the bookmark symbol on an article to add it
+          to your list. If you wish to unsave an article, click on the trash bin
+          symbol or simply toggle the bookmark symbol on an already saved
+          article.
+          <button onClick={handleCloseSummary} className="btn yellow">
+            Close this tip!
+          </button>
+        </p>
+      )}
       {loading ? (
         <div className="loading">Loading...</div>
       ) : (
         <>
-          <div className="saved-posts__list">
+          <div className="saved-posts__list animate__animated animate__fadeIn">
             {savedPosts.map((post) => (
-              <div
-                key={post.id}
-                className="saved-posts__item animate__animated animate__fadeIn"
-              >
+              <div key={post.id} className="saved-posts__item">
                 <div className="saved-posts__info">
                   <Link
                     to={`/post/${post.id}`}
@@ -89,11 +116,17 @@ const SavedPage: React.FC = () => {
                 </button>
               </div>
             ))}
+            {savedPosts.length > 0 && (
+              <span>
+                You have a total of {savedPosts.length} saved{" "}
+                {savedPosts.length > 1 ? "posts" : "post"}.
+              </span>
+            )}
           </div>
           {!savedPosts.length && (
             <p className="saved-posts__empty-message">
-              You have no saved posts. To add a post to your collection of saved
-              posts, click the bookmark icon on the post.
+              <strong>You have no saved posts.</strong> To add a post to your
+              collection of saved posts, click the bookmark icon on the post.
             </p>
           )}
         </>

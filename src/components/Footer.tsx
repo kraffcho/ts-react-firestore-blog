@@ -14,7 +14,18 @@ const Footer: React.FC = () => {
       <div className="footer-content">
         <span>
           A serverless microblogging platform built with React, TypeScript,
-          Redux Toolkit, and Firebase © {new Date().getFullYear()} Kraffcho
+          Redux Toolkit, and Firebase © {new Date().getFullYear()}
+          <span className="author">
+            Made with
+            <span className="material-symbols-outlined">favorite</span> by
+            <a
+              href="https://www.linkedin.com/in/kraffcho/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Kraffcho
+            </a>
+          </span>
         </span>
       </div>
     </footer>

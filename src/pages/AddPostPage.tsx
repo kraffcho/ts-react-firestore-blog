@@ -112,7 +112,11 @@ const AddPostPage: React.FC = () => {
             handleKeyCommand={handleKeyCommand}
           />
         </div>
-        {localError && <p className="error">⚠️ {localError}</p>}
+        {localError && (
+          <p className="error animate__animated animate__fadeIn">
+            ⚠️ {localError}
+          </p>
+        )}
         <div className="button-wrapper">
           <button
             type="button"

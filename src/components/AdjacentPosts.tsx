@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Post } from "../utils/types";
+import { categoryNameToColor } from "../utils/categoriesColors";
 
 interface Props {
   currentPostId: string;
@@ -31,8 +32,9 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
           className="prev-post animate__animated animate__fadeIn"
         >
           <span className="next-prev-title">Previous Post:</span>
-          <br />
-          {prevPost.title}
+          <span style={{ color: categoryNameToColor(prevPost.category!) }}>
+            {prevPost.title}
+          </span>
         </Link>
       )}
       {nextPost && (
@@ -41,8 +43,9 @@ const AdjacentPosts: React.FC<Props> = ({ currentPostId, allPosts }) => {
           className="next-post animate__animated animate__fadeIn"
         >
           <span className="next-prev-title">Read Next:</span>
-          <br />
-          {nextPost.title}
+          <span style={{ color: categoryNameToColor(nextPost.category!) }}>
+            {nextPost.title}
+          </span>
         </Link>
       )}
     </div>
