@@ -23,6 +23,7 @@ import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
 import ShareButtons from "../components/ShareButtons";
+import TimedNotification from "../components/Notification";
 import {
   fetchPostById,
   fetchCommentsByPostId,
@@ -145,6 +146,9 @@ const PostPage: React.FC = () => {
   }> = ({ postId, setComments }) => {
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
+    const authorRef = React.useRef<HTMLInputElement>(null);
+    const contentRef = React.useRef<HTMLTextAreaElement>(null);
+    const [notification, setNotification] = useState<string | null>(null);
 
     const handleSubmit = async () => {
       if (!currentUser) {
@@ -153,14 +157,16 @@ const PostPage: React.FC = () => {
       }
 
       if (!author.trim()) {
-        console.error("Author is required!");
-        alert("Author is required!");
+        setNotification("Please enter your name.");
+        setTimeout(() => setNotification(null), 5000);
+        authorRef.current?.focus();
         return;
       }
 
-      if (!content.trim() || content.trim().length < 20) {
-        console.error("Content must be at least 20 symbols long!");
-        alert("Content must be at least 20 symbols long!");
+      if (!content.trim() || content.trim().length < 30) {
+        setNotification("Comment must be at least 30 characters long.");
+        setTimeout(() => setNotification(null), 5000);
+        contentRef.current?.focus();
         return;
       }
 
@@ -219,17 +225,26 @@ const PostPage: React.FC = () => {
             : "No comments yet. Be the first one to share your thoughts."}
         </h2>
         <input
+          ref={authorRef}
           className="comment-form__input"
           placeholder="Name"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
         />
         <textarea
+          ref={contentRef}
           className="comment-form__textarea"
           placeholder="Your comment"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
+        {notification && (
+          <TimedNotification
+            message={notification}
+            time={5000}
+            classes="comment-form__notification animate__animated animate__fadeIn"
+          />
+        )}
         <button
           className="comment-form__submit btn green"
           onClick={handleSubmit}
