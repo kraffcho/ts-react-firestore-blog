@@ -43,7 +43,9 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               </li>
               <li className="nav-link">
                 <Link to="/saved">
-                  <span className="material-symbols-outlined">bookmark</span>
+                  <span className="material-symbols-outlined">
+                    bookmark_added
+                  </span>
                   <span className="link-text">Saved</span>
                 </Link>
               </li>

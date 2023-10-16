@@ -30,8 +30,10 @@ import {
   fetchAllPosts,
 } from "../utils/api";
 
-// Minimum comment length in characters (not words) to be valid and posted
+// Minimum and maximum comment length in characters
 const MIN_COMMENT_LENGTH = 30;
+const MAX_COMMENT_LENGTH = 1000;
+const SHOW_PROGRESS_BAR = true;
 
 const PostPage: React.FC = () => {
   const auth = getAuth();
@@ -145,6 +147,26 @@ const PostPage: React.FC = () => {
     }
   };
 
+  const ProgressBar: React.FC<{ value: number; max: number }> = ({
+    value,
+    max,
+  }) => (
+    <div className="comment-form__progress-bar">
+      <div
+        className="comment-form__progress-bar__fill"
+        style={{
+          width: `${(value / max) * 100}%`,
+          // if the comment is too short or too long, change the color
+          backgroundColor: `${
+            value < MIN_COMMENT_LENGTH || value > MAX_COMMENT_LENGTH
+              ? "tomato"
+              : "#2ecc71"
+          }`,
+        }}
+      ></div>
+    </div>
+  );
+
   const CommentForm: React.FC<{
     postId: string;
     setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
@@ -161,7 +183,30 @@ const PostPage: React.FC = () => {
       }
 
       if (!content.trim() || content.trim().length < MIN_COMMENT_LENGTH) {
-        setNotification("Comment must be at least " + MIN_COMMENT_LENGTH + " characters long! You have " + content.trim().length + " characters. Please add " + (MIN_COMMENT_LENGTH - content.trim().length) + " more characters at least.");
+        setNotification(
+          "Comment must be at least " +
+            MIN_COMMENT_LENGTH +
+            " characters long! You have " +
+            content.trim().length +
+            " characters. Please add " +
+            (MIN_COMMENT_LENGTH - content.trim().length) +
+            " more characters at least."
+        );
+        setTimeout(() => setNotification(null), 10000);
+        contentRef.current?.focus();
+        return;
+      }
+
+      if (content.trim().length > MAX_COMMENT_LENGTH) {
+        setNotification(
+          "Comment cannot exceed " +
+            MAX_COMMENT_LENGTH +
+            " characters! You have " +
+            content.trim().length +
+            " characters. Please remove " +
+            (content.trim().length - MAX_COMMENT_LENGTH) +
+            " characters."
+        );
         setTimeout(() => setNotification(null), 10000);
         contentRef.current?.focus();
         return;
@@ -230,7 +275,13 @@ const PostPage: React.FC = () => {
           placeholder="Start typing..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          style={{
+            borderColor: `${notification ? "tomato" : ""}`,
+          }}
         />
+        {SHOW_PROGRESS_BAR && (
+          <ProgressBar value={content.length} max={MAX_COMMENT_LENGTH} />
+        )}
         {notification && (
           <TimedNotification
             message={notification}
@@ -266,9 +317,18 @@ const PostPage: React.FC = () => {
     const handleSaveComment = async (commentId: string) => {
       // check if the comment length is still valid after editing
       if (editedContent.trim().length < MIN_COMMENT_LENGTH) {
-        alert("Comment must be at least " + MIN_COMMENT_LENGTH + " characters long!");
+        alert(
+          "Comment must be at least " + MIN_COMMENT_LENGTH + " characters long!"
+        );
         return;
       }
+      if (editedContent.trim().length > MAX_COMMENT_LENGTH) {
+        alert(
+          "Comment cannot exceed " + MAX_COMMENT_LENGTH + " characters long! You have " + editedContent.trim().length + " characters. Please remove " + (editedContent.trim().length - MAX_COMMENT_LENGTH) + " characters."
+        );
+        return;
+      }
+
       try {
         const commentRef = doc(db, "comments", commentId);
         await updateDoc(commentRef, {

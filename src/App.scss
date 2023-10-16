@@ -92,7 +92,7 @@ body {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: $font-weight-main;
             color: $font-color-secondary;
             text-decoration: none;
@@ -1458,10 +1458,18 @@ $btn-colors: (
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease-in-out;
+
+    &::placeholder {
+      transition: .5s;
+    }
     
     &:focus {
-      border-color: #4fd081;
+      border-color: $background-color-main;
       outline: none;
+      &::placeholder {
+        color: transparent;
+        transform: translateX(10px);
+      }
     }
   }
 
@@ -1472,6 +1480,19 @@ $btn-colors: (
     &::placeholder {
       font-style: italic;
       color: #aaa;
+    }
+  }
+
+  &__progress-bar {
+    background-color: #e0e0e0;
+    height: 15px;
+    border-radius: $border-radius-main;
+    overflow: hidden;
+    box-shadow: $box-shadow-inset;
+    &__fill {
+      height: 100%;
+      background-color: var(--color-green);
+      transition: width 0.3s ease-in-out;
     }
   }
 
