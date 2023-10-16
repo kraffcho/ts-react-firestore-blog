@@ -296,7 +296,7 @@ const PostCalendar: React.FC = () => {
             ref={modalContentRef}
             className="modal-content animate__animated animate__bounceInUp"
           >
-            <h3>{displaySelectedDateInfo()}</h3>
+            {displaySelectedDateInfo()}
             {selectedDatePosts.map((post) => (
               <div key={post.id} className="post-info">
                 <Link

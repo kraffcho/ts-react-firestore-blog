@@ -57,106 +57,107 @@ body {
     color: $font-color-secondary;
   }
   nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    padding: 0 20px;
+    padding: 15px 20px;
     background-color: $nav-background;
     box-shadow: $box-shadow;
     z-index: 1;
-    ul.nav-container {
-      max-width: calc($container-width - 40px);
+    .nav-wrapper {
       margin: 0 auto;
-      padding: 15px 0;
-      list-style: none;
       display: flex;
-      gap: 20px;
-      align-items: center;
       justify-content: space-between;
+      gap: 15px;
+      width: 100%;
+      max-width: calc($container-width - 40px);
       background-color: $nav-background;
-      li.nav-link {
+      ul.nav-container {
+        width: 100%;
         display: flex;
-        text-transform: uppercase;
-        &:nth-child(2) {
-          flex: 1;
-        }
-        a {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          font-size: clamp(14px, 2.5vw, 20px);
-          font-weight: $font-weight-main;
-          color: $font-color-secondary;
-          text-decoration: none;
-          transition: .2s ease-in-out;
-  
-          &:hover {
-            color: yellowgreen;
+        gap: 20px;
+        list-style: none;
+        background-color: $nav-background;
+        li.nav-link {
+          display: flex;
+          text-transform: uppercase;
+          &:nth-child(3) {
+            flex: 1;
+          }
+          a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 20px;
+            font-weight: $font-weight-main;
+            color: $font-color-secondary;
+            text-decoration: none;
+            transition: .2s ease-in-out;
+            &:hover {
+              color: yellowgreen;
+            }
           }
         }
       }
-      li.nav-search {
-        .search-container {
-          position: relative;
+      .search-container {
+        position: relative;
+        width: 100%;
+        max-width: 220px;
+        label {
+          display: none;
+        }
+        .search-input {
           width: 100%;
-          max-width: 220px;
-      
-          label {
-            display: none;
+          padding: 4px 12px;
+          font-size: 1rem;
+          color: $font-color-secondary;
+          outline: none;
+          border: 1px solid $font-color-main;
+          border-radius: 4px;
+          background-color: $font-color-main;
+          transition: background-color 0.3s;
+          &:focus {
+            background-color: lighten($color: $font-color-main, $amount: 10%)
           }
-      
-          .search-input {
-            width: 100%;
-            padding: 4px 12px;
-            font-size: 1rem;
+        }
+        .search-results {
+          position: absolute;
+          top: 48px;
+          right: 0;
+          padding-top: 8px;
+          width: calc(100vw - 40px);
+          max-width: max-content;
+          max-height: calc(100vh - 200px);
+          overflow-y: auto;
+          background-color: $nav-background;
+          border-radius: 0 0 $border-radius-main $border-radius-main;
+          .no-results {
+            padding: 6px 12px;
+            font-size: 14px;
             color: $font-color-secondary;
-            outline: none;
-            border: 1px solid $font-color-main;
-            border-radius: 4px;
-            background-color: $font-color-main;
-            transition: background-color 0.3s;
-      
-            &:focus {
-              background-color: lighten($color: $font-color-main, $amount: 10%)
-            }
           }
-      
-          .search-results {
-            position: absolute;
-            top: 48px;
-            right: 0;
-            padding-top: 8px;
-            width: calc(100vw - 40px);
-            max-width: max-content;
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-            background-color: $nav-background;
-            border-radius: 0 0 $border-radius-main $border-radius-main;
-            .no-results {
-              padding: 6px 12px;
-              font-size: 14px;
-              color: $font-color-secondary;
+          .search-result-item {
+            border-bottom: 1px solid $font-color-main;
+            font-size: 14px;
+            padding: 3px;
+            a {
+              display: block;
+              padding: 8px 10px;
+              color: lighten($color: $link-color, $amount: 30%);
+              line-height: 1;
+              text-decoration: none;
+              transition: .3s;
+              &:hover {
+                color: #eee;
+                background-color: darken($color: $nav-background, $amount: 3%);
+              }
             }
-            .search-result-item {
-              border-bottom: 1px solid $font-color-main;
-              font-size: 14px;
-              padding: 3px;
-              a {
-                display: block;
-                padding: 8px 10px;
-                color: lighten($color: $link-color, $amount: 30%);
-                line-height: 1;
-                text-decoration: none;
-                transition: .3s;
-                &:hover {
-                  color: #eee;
-                  background-color: darken($color: $nav-background, $amount: 3%);
-                }
-              }
-      
-              &:last-child {
-                border-bottom: none;
-              }
+            &:last-child {
+              border-bottom: none;
             }
           }
         }
@@ -1505,10 +1506,11 @@ $btn-colors: (
     margin-bottom: 15px;
     font-size: clamp(18px, 5vw, 24px);
     font-weight: 500;
-    text-align: center;
-    padding: 10px;
     color: $font-color-secondary;
-    background-color: lighten($color: $font-color-main, $amount: 10%);
+    text-align: center;
+    text-shadow: 0 0 2px $font-color-main;
+    padding: 10px;
+    background: linear-gradient(0deg, #319f3e, #5ace67);
     border-radius: $border-radius-main;
   }
 
@@ -1630,8 +1632,11 @@ $btn-colors: (
   body {
     padding-bottom: 50px;
 
-    nav>ul {
-      padding: 10px 0;
+    nav .nav-wrapper ul.nav-container {
+      gap: 10px;
+      li.nav-link a {
+        font-size: 15px;
+      }
     }
 
     .container {
