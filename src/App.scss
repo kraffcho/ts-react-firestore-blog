@@ -1449,14 +1449,14 @@ $btn-colors: (
   &__title {
     font-size: clamp(18px, 5vw, 24px);
     font-weight: 500;
-    text-align: center;
     text-wrap: balance;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
   &__logged {
     font-size: 14px;
     color: $font-color-main;
+    margin-bottom: 5px;
     strong {
       font-weight: 600;
     }
@@ -1548,7 +1548,6 @@ $btn-colors: (
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &__title {
-    margin-bottom: 15px;
     font-size: clamp(18px, 5vw, 24px);
     font-weight: 500;
     color: $font-color-secondary;
@@ -1559,16 +1558,10 @@ $btn-colors: (
     border-radius: $border-radius-main;
   }
 
-  &__comments {
-    font-size: clamp(14px, 4vw, 24px);
-    font-weight: 600;
-    color: lighten($color: $font-color-main, $amount: 20%);
-  }
-
   &__item {
     position: relative;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
     border: 1px solid lighten($color: $background-color-main, $amount: 40%);
     background-color: #fff;
     border-radius: $border-radius-main;
@@ -1582,6 +1575,19 @@ $btn-colors: (
     font-weight: 700;
     font-size: 18px;
     border-radius: $border-radius-main;
+    &-label {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      padding: 0 5px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #333;
+      background-color: $font-color-secondary;
+      border: 1px solid lighten($color: $background-color-main, $amount: 40%);
+      border-radius: $border-radius-main;
+      transform: translateY(-50%);
+    }
   }
 
   &__content {
@@ -1592,6 +1598,11 @@ $btn-colors: (
 
   &__timestamp {
     font-size: 12px;
+  }
+
+  &__edited {
+    margin-left: 5px;
+    color: #aaa;
   }
 
   &__edit {

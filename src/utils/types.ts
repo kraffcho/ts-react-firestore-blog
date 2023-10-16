@@ -15,6 +15,7 @@ export interface Post {
 }
 
 export type Comment = {
+  editedAt: any;
   id: string;
   uid: string;
   postId: string;

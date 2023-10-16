@@ -267,17 +267,17 @@ const PostPage: React.FC = () => {
     return (
       <div className="comment-form">
         <h2 className="comment-form__title">
-          {comments.length > 0
-            ? "Leave a Comment"
-            : "No comments yet. Be the first one to share your thoughts."}
           <p className="comment-form__logged">
-            (logged in as: <strong>{userName}</strong>)
+            (Logged in as <strong>{userName}</strong>)
           </p>
+          {comments.length > 0
+            ? "You have some thoughts? Share them below!"
+            : "No comments yet. Be the first one to share your thoughts."}
         </h2>
         <textarea
           ref={contentRef}
           className="comment-form__textarea"
-          placeholder="Start typing..."
+          placeholder="Start typing ..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
           style={{
@@ -338,6 +338,7 @@ const PostPage: React.FC = () => {
         const commentRef = doc(db, "comments", commentId);
         await updateDoc(commentRef, {
           content: editedContent,
+          editedAt: serverTimestamp(),
         });
 
         // Update the local comments state with the new content
@@ -356,13 +357,13 @@ const PostPage: React.FC = () => {
     };
     return (
       <div className="comment-list" id="comments">
-        <h2 className="comment-list__title">Join the Discussion Below</h2>
-        <h3 className="comment-list__comments">
-          {comments.length} comment{comments.length !== 1 && "s"} added:
-        </h3>
+        <h2 className="comment-list__title">
+          There {comments.length === 1 ? "is" : "are"} {comments.length} {comments.length === 1 ? "comment" : "comments"} added:
+        </h2>
         {comments.map((comment) => (
           <div key={comment.id} id={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
+              {currentUser && currentUser.uid === comment.uid && (<span className="comment-list__author-label">author</span>)}
               {comment.author} says:
             </strong>
             {editingCommentId === comment.id ? (
@@ -379,6 +380,12 @@ const PostPage: React.FC = () => {
             )}
             <p className="comment-list__timestamp">
               Posted: {formatDate(comment.timestamp.toDate())}
+              {comment.editedAt &&
+                comment.timestamp.seconds !== comment.editedAt.seconds && (
+                  <span className="comment-list__edited">
+                    (edited: {formatDate(comment.editedAt.toDate())})
+                  </span>
+                )}
             </p>
             {currentUser && currentUser.uid === comment.uid && (
               <div className="comment-list__buttons">
