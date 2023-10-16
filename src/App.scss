@@ -120,13 +120,22 @@ body {
           border-radius: 4px;
           background-color: $font-color-main;
           transition: background-color 0.3s;
+          &::placeholder {
+            transition: .5s;
+          }
           &:focus {
-            background-color: lighten($color: $font-color-main, $amount: 10%)
+            background-color: lighten($color: $font-color-main, $amount: 5%);
+            border-color: $background-color-main;
+            outline: none;
+            &::placeholder {
+              color: transparent;
+              transform: translateX(10px);
+            }
           }
         }
         .search-results {
           position: absolute;
-          top: 48px;
+          top: 50px;
           right: 0;
           padding-top: 8px;
           width: calc(100vw - 40px);
@@ -268,6 +277,7 @@ body {
           font-size: 16px;
           line-height: 1.4;
           color: $font-color-main;
+          text-wrap: balance;
           background-color: #fff;
           border-radius: $border-radius-main;
           box-shadow: $box-shadow-inset;
@@ -1026,6 +1036,7 @@ body {
           font-weight: 600;
           &:hover {
             color: $link-color;
+            text-decoration: underline;
           }
         }
         .post-description {
@@ -1484,15 +1495,28 @@ $btn-colors: (
   }
 
   &__progress-bar {
-    background-color: #e0e0e0;
     height: 15px;
-    border-radius: $border-radius-main;
-    overflow: hidden;
+    font-size: 11px;
+    font-weight: 500;
+    color: $font-color-secondary;
+    border-radius: 3px;
+    background-color: #e0e0e0;
     box-shadow: $box-shadow-inset;
+    overflow: hidden;
     &__fill {
+      position: relative;
       height: 100%;
       background-color: var(--color-green);
       transition: width 0.3s ease-in-out;
+      .limit {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        padding: 0 5px;
+        color: #fff;
+        text-shadow: 0 0 1px #333;
+        transform: translateY(-50%);
+      }
     }
   }
 
@@ -1618,7 +1642,7 @@ $btn-colors: (
   border-bottom: 1px solid darken($color: $font-color-main, $amount: 10%);
   box-shadow: $box-shadow;
   position: fixed;
-  top: 63px;
+  top: 66px;
   left: 0;
   z-index: 999999;
 

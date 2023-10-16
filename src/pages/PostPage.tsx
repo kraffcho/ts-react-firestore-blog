@@ -156,6 +156,7 @@ const PostPage: React.FC = () => {
         className="comment-form__progress-bar__fill"
         style={{
           width: `${(value / max) * 100}%`,
+          maxWidth: "100%",
           // if the comment is too short or too long, change the color
           backgroundColor: `${
             value < MIN_COMMENT_LENGTH || value > MAX_COMMENT_LENGTH
@@ -163,7 +164,9 @@ const PostPage: React.FC = () => {
               : "#2ecc71"
           }`,
         }}
-      ></div>
+      >
+          <span className="limit">{value}/{max}</span>
+      </div>
     </div>
   );
 

@@ -30,23 +30,23 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
           <li className="nav-link">
             <Link to="/">
               <span className="material-symbols-outlined">house</span>
-              <span className="link-text">Home</span>
+              <span className="link-text">Posts</span>
             </Link>
           </li>
           {user && (
             <>
-              <li className="nav-link">
-                <Link to="/add-post">
-                  <span className="material-symbols-outlined">post_add</span>
-                  <span className="link-text">Add Post</span>
-                </Link>
-              </li>
               <li className="nav-link">
                 <Link to="/saved">
                   <span className="material-symbols-outlined">
                     bookmark_added
                   </span>
                   <span className="link-text">Saved</span>
+                </Link>
+              </li>
+              <li className="nav-link">
+                <Link to="/add-post">
+                  <span className="material-symbols-outlined">post_add</span>
+                  <span className="link-text">Add Post</span>
                 </Link>
               </li>
             </>
