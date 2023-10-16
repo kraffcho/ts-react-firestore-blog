@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppDispatch } from "../store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import categoriesList from "../utils/categoriesList";
 import useTextareaHeight from "../hooks/useTextareaHeight";
 import RichTextToolbar from "../components/RichTextToolbar";
 import HeightAdjuster from "../components/HeightAdjuster";
+import { getAuth } from "firebase/auth";
 
 const AddPostPage: React.FC = () => {
   const {
@@ -26,14 +27,25 @@ const AddPostPage: React.FC = () => {
   } = useEditorStateManagement();
 
   const [localError, setLocalError] = useState<string | null>(null);
-
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
     useTextareaHeight(250);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const userId = user ? user.uid : null;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const onSavePostClicked = () => {
     const result = validateAndSerializeContent();
+
+    if (!userId) {
+      setLocalError("User not logged in");
+      return;
+    }
 
     if (
       result &&
@@ -42,7 +54,7 @@ const AddPostPage: React.FC = () => {
       !result.startsWith("Content should") &&
       category
     ) {
-      dispatch(addPost({ title, content: result, category }));
+      dispatch(addPost({ title, content: result, category, userId }));
       setTitle("");
       setEditorState(EditorState.createEmpty());
       setCategory(undefined);

@@ -30,9 +30,14 @@ import {
   fetchAllPosts,
 } from "../utils/api";
 
+// Minimum comment length in characters (not words) to be valid and posted
+const MIN_COMMENT_LENGTH = 30;
+
 const PostPage: React.FC = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
+  const userEmail = currentUser?.email;
+  const userName = userEmail?.split("@")[0];
   const { id } = useParams<any>();
   const { hash } = useLocation();
   const [post, setPost] = useState<Post | null>(null);
@@ -144,9 +149,8 @@ const PostPage: React.FC = () => {
     postId: string;
     setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
   }> = ({ postId, setComments }) => {
-    const [author, setAuthor] = useState("");
+    const [author, setAuthor] = useState(userName!);
     const [content, setContent] = useState("");
-    const authorRef = React.useRef<HTMLInputElement>(null);
     const contentRef = React.useRef<HTMLTextAreaElement>(null);
     const [notification, setNotification] = useState<string | null>(null);
 
@@ -156,16 +160,9 @@ const PostPage: React.FC = () => {
         return;
       }
 
-      if (!author.trim()) {
-        setNotification("Please enter your name.");
-        setTimeout(() => setNotification(null), 5000);
-        authorRef.current?.focus();
-        return;
-      }
-
-      if (!content.trim() || content.trim().length < 30) {
-        setNotification("Comment must be at least 30 characters long.");
-        setTimeout(() => setNotification(null), 5000);
+      if (!content.trim() || content.trim().length < MIN_COMMENT_LENGTH) {
+        setNotification("Comment must be at least " + MIN_COMMENT_LENGTH + " characters long! You have " + content.trim().length + " characters. Please add " + (MIN_COMMENT_LENGTH - content.trim().length) + " more characters at least.");
+        setTimeout(() => setNotification(null), 10000);
         contentRef.current?.focus();
         return;
       }
@@ -223,25 +220,21 @@ const PostPage: React.FC = () => {
           {comments.length > 0
             ? "Leave a Comment"
             : "No comments yet. Be the first one to share your thoughts."}
+          <p className="comment-form__logged">
+            (logged in as: <strong>{userName}</strong>)
+          </p>
         </h2>
-        <input
-          ref={authorRef}
-          className="comment-form__input"
-          placeholder="Name"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
         <textarea
           ref={contentRef}
           className="comment-form__textarea"
-          placeholder="Your comment"
+          placeholder="Start typing..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
         {notification && (
           <TimedNotification
             message={notification}
-            time={5000}
+            time={10000}
             classes="comment-form__notification animate__animated animate__fadeIn"
           />
         )}
@@ -271,6 +264,11 @@ const PostPage: React.FC = () => {
     };
 
     const handleSaveComment = async (commentId: string) => {
+      // check if the comment length is still valid after editing
+      if (editedContent.trim().length < MIN_COMMENT_LENGTH) {
+        alert("Comment must be at least " + MIN_COMMENT_LENGTH + " characters long!");
+        return;
+      }
       try {
         const commentRef = doc(db, "comments", commentId);
         await updateDoc(commentRef, {
@@ -395,9 +393,14 @@ const PostPage: React.FC = () => {
                 </span>
               )}
             </div>
-            <Link to={`/edit-post/${id}`} className="edit-post">
-              Manage
-            </Link>
+            {
+              // Only show the edit link if the user is logged in and is the author of the post
+              currentUser && currentUser.uid === post.userId && (
+                <Link to={`/edit-post/${id}`} className="edit-post">
+                  Manage
+                </Link>
+              )
+            }
           </div>
         </div>
       </div>

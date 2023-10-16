@@ -20,12 +20,14 @@ interface Post {
   commentCount: number;
   viewCount?: number;
   savedBy?: string[];
+  userId: string;
 }
 
 interface NewPostPayload {
   title: string;
   content: string;
   category: string;
+  userId: string;
 }
 
 interface UpdatePostPayload {
@@ -33,6 +35,7 @@ interface UpdatePostPayload {
   title: string;
   content: string;
   category: string;
+  userId?: string;
 }
 
 interface InitialState {
@@ -63,6 +66,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
       updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : "N/A",
       commentCount: data.commentCount || 0,
       viewCount: data.viewCount || 0,
+      userId: data.userId,
     } as Post);
   });
   return posts;
@@ -111,6 +115,7 @@ export const getPost = createAsyncThunk("posts/get", async (postId: string) => {
     const data = postDoc.data();
     return {
       ...data,
+      userId: data.userId,
       publishedAt: data.publishedAt
         ? data.publishedAt.toDate().toISOString()
         : "N/A",

@@ -10,6 +10,7 @@ import useTextareaHeight from "../hooks/useTextareaHeight";
 import categoriesList from "../utils/categoriesList";
 import RichTextToolbar from "../components/RichTextToolbar";
 import HeightAdjuster from "../components/HeightAdjuster";
+import { getAuth } from "firebase/auth";
 
 const EditPostPage: React.FC = () => {
   const { id } = useParams();
@@ -19,6 +20,10 @@ const EditPostPage: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+
   const { textareaHeight, increaseHeight, decreaseHeight } =
     useTextareaHeight(250);
 
@@ -38,6 +43,7 @@ const EditPostPage: React.FC = () => {
   const [localError, setLocalError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!currentUser) navigate("/login");
     if (!id) return;
     if (post) {
       setTitle(post.title);

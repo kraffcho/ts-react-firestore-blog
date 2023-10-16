@@ -9,7 +9,12 @@ const SearchBar: React.FC = () => {
   const [results, setResults] = useState<Post[]>([]);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const searchTermRef = useRef(searchTerm);
   const timeoutId = useRef<any>(null);
+
+  useEffect(() => {
+    searchTermRef.current = searchTerm;
+  }, [searchTerm]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,7 +30,8 @@ const SearchBar: React.FC = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target as Node)
+        !searchContainerRef.current.contains(event.target as Node) &&
+        searchTermRef.current !== ""
       ) {
         clearSearch();
       }
