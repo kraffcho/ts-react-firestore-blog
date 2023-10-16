@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { fetchPosts } from "../postSlice";
-import { RootState, AppDispatch } from "../store";
+import { fetchPosts } from "../redux/postSlice";
+import { RootState, AppDispatch } from "../redux/store";
 import { formatDate } from "../utils/formatDate";
 import { Helmet } from "react-helmet-async";
 import { categoryNameToColor } from "../utils/categoriesColors";

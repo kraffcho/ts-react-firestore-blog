@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { getAuth } from "firebase/auth";
@@ -24,18 +26,18 @@ import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
 import ShareButtons from "../components/ShareButtons";
 import TimedNotification from "../components/Notification";
-import {
-  fetchPostById,
-  fetchCommentsByPostId,
-  fetchAllPosts,
-} from "../utils/api";
-
-// Minimum and maximum comment length in characters
-const MIN_COMMENT_LENGTH = 30;
-const MAX_COMMENT_LENGTH = 1000;
-const SHOW_PROGRESS_BAR = true;
+import { fetchPostById, fetchCommentsByPostId, fetchAllPosts } from "../utils/api";
 
 const PostPage: React.FC = () => {
+  const minCommentLength = useSelector(
+    (state: RootState) => state.settings.minCommentLength
+  );
+  const maxCommentLength = useSelector(
+    (state: RootState) => state.settings.maxCommentLength
+  );
+  const showProgressBar = useSelector(
+    (state: RootState) => state.settings.showProgressBar
+  );
   const auth = getAuth();
   const currentUser = auth.currentUser;
   const userEmail = currentUser?.email;
@@ -159,7 +161,7 @@ const PostPage: React.FC = () => {
           maxWidth: "100%",
           // if the comment is too short or too long, change the color
           backgroundColor: `${
-            value < MIN_COMMENT_LENGTH || value > MAX_COMMENT_LENGTH
+            value < minCommentLength || value > maxCommentLength
               ? "tomato"
               : "#2ecc71"
           }`,
@@ -185,14 +187,14 @@ const PostPage: React.FC = () => {
         return;
       }
 
-      if (!content.trim() || content.trim().length < MIN_COMMENT_LENGTH) {
+      if (!content.trim() || content.trim().length < minCommentLength) {
         setNotification(
           "Comment must be at least " +
-            MIN_COMMENT_LENGTH +
+            minCommentLength +
             " characters long! You have " +
             content.trim().length +
             " characters. Please add " +
-            (MIN_COMMENT_LENGTH - content.trim().length) +
+            (minCommentLength - content.trim().length) +
             " more characters at least."
         );
         setTimeout(() => setNotification(null), 10000);
@@ -200,14 +202,14 @@ const PostPage: React.FC = () => {
         return;
       }
 
-      if (content.trim().length > MAX_COMMENT_LENGTH) {
+      if (content.trim().length > maxCommentLength) {
         setNotification(
           "Comment cannot exceed " +
-            MAX_COMMENT_LENGTH +
+            maxCommentLength +
             " characters! You have " +
             content.trim().length +
             " characters. Please remove " +
-            (content.trim().length - MAX_COMMENT_LENGTH) +
+            (content.trim().length - maxCommentLength) +
             " characters."
         );
         setTimeout(() => setNotification(null), 10000);
@@ -282,8 +284,8 @@ const PostPage: React.FC = () => {
             borderColor: `${notification ? "tomato" : ""}`,
           }}
         />
-        {SHOW_PROGRESS_BAR && (
-          <ProgressBar value={content.length} max={MAX_COMMENT_LENGTH} />
+        {showProgressBar && (
+          <ProgressBar value={content.length} max={maxCommentLength} />
         )}
         {notification && (
           <TimedNotification
@@ -319,15 +321,15 @@ const PostPage: React.FC = () => {
 
     const handleSaveComment = async (commentId: string) => {
       // check if the comment length is still valid after editing
-      if (editedContent.trim().length < MIN_COMMENT_LENGTH) {
+      if (editedContent.trim().length < minCommentLength) {
         alert(
-          "Comment must be at least " + MIN_COMMENT_LENGTH + " characters long!"
+          "Comment must be at least " + minCommentLength + " characters long!"
         );
         return;
       }
-      if (editedContent.trim().length > MAX_COMMENT_LENGTH) {
+      if (editedContent.trim().length > maxCommentLength) {
         alert(
-          "Comment cannot exceed " + MAX_COMMENT_LENGTH + " characters long! You have " + editedContent.trim().length + " characters. Please remove " + (editedContent.trim().length - MAX_COMMENT_LENGTH) + " characters."
+          "Comment cannot exceed " + maxCommentLength + " characters long! You have " + editedContent.trim().length + " characters. Please remove " + (editedContent.trim().length - maxCommentLength) + " characters."
         );
         return;
       }

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { serverTimestamp, deleteDoc } from "firebase/firestore";
 import {
   collection,

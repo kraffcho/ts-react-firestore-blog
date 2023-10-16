@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { AppDispatch } from "../store";
+import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addPost } from "../postSlice";
+import { addPost } from "../redux/postSlice";
 import { Helmet } from "react-helmet-async";
 import { Editor, EditorState } from "draft-js";
 import { useEditorStateManagement } from "../hooks/useEditorStateManagement";
