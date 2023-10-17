@@ -4,12 +4,13 @@ import { Helmet } from "react-helmet-async";
 import {
   getAuth,
   browserLocalPersistence,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [formError, setFormError] = useState("");
 
   const MIN_PASS_LENGTH = 8;
@@ -19,12 +20,17 @@ const LoginPage: React.FC = () => {
     return emailPattern.test(email);
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError("");
 
     if (!isValidEmail(email)) {
       setFormError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password !== repeatPassword) {
+      setFormError("Passwords do not match.");
       return;
     }
 
@@ -38,7 +44,7 @@ const LoginPage: React.FC = () => {
     const auth = getAuth();
     auth.setPersistence(browserLocalPersistence);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       if (error instanceof Error) {
         setFormError(error.message);
@@ -49,16 +55,16 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container animate__animated animate__jackInTheBox">
+    <div className="register-container animate__animated animate__jackInTheBox">
       <Helmet>
-        <title>Login Page</title>
+        <title>Create Account</title>
         <meta
           name="description"
-          content="Login to the blog. Enter your email address and password to login."
+          content="Register for the blog. Enter your email address and choose a password to sign up."
         />
       </Helmet>
-      <h2 className="title">Login to Your Account</h2>
-      <form onSubmit={handleLogin}>
+      <h2 className="title">Create Account</h2>
+      <form onSubmit={handleRegister}>
         <input
           id="email"
           type="email"
@@ -75,14 +81,20 @@ const LoginPage: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
-        <button type="submit" className="btn green stretch extra-padding">
-          Login
+        <input
+          id="repeat-password"
+          type="password"
+          placeholder="Repeat Password"
+          value={repeatPassword}
+          onChange={(e) => setRepeatPassword(e.target.value)}
+          className="input"
+        />
+        <button type="submit" className="btn yellow stretch extra-padding">
+          Register
         </button>
       </form>
       <p className="info">
-        Don't have an account?
-        <br />
-        <Link to="/register">Register</Link>
+        Already have an account?<br /><Link to="/login">Login</Link>
       </p>
       {formError && (
         <p className="error animate__animated animate__bounceIn">{formError}</p>
@@ -91,4 +103,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

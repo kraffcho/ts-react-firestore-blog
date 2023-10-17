@@ -11,6 +11,7 @@ import AddPostPage from "./pages/AddPostPage";
 import EditPostPage from "./pages/EditPostPage";
 import PostPage from "./pages/PostPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import SavedPage from "./pages/SavedPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -67,6 +68,10 @@ function App() {
         <Route
           path="/login"
           element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
+        />
+        <Route
+          path="/register"
+          element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
         />
         <Route
           path="/add-post"
