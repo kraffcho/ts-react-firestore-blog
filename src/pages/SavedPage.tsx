@@ -83,7 +83,7 @@ const SavedPage: React.FC = () => {
         </p>
       )}
       {loading ? (
-        <div className="loading">Loading...</div>
+        <p>Dusting off your treasured posts... 📚</p>
       ) : (
         <>
           <div className="saved-posts__list animate__animated animate__fadeIn">

@@ -1,8 +1,10 @@
 import { useState, useRef, useCallback } from "react";
+import { useSelector } from "react-redux";
 import { EditorState, RichUtils, convertFromRaw, convertToRaw } from "draft-js";
+import { RootState } from "../redux/store";
 
 type UseEditorStateManagementProps = {
-  postContent?: string; // Initial content (for editing)
+  postContent?: string;
 };
 
 type UseEditorStateManagementReturn = {
@@ -34,6 +36,13 @@ export const useEditorStateManagement = ({
   const titleRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
 
+  const TITLE_MIN_LENGTH = useSelector(
+    (state: RootState) => state.settings.minPostTitleLength
+  );
+  const CONTENT_MIN_LENGTH = useSelector(
+    (state: RootState) => state.settings.minPostContentLength
+  );
+
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -47,8 +56,6 @@ export const useEditorStateManagement = ({
     const contentRaw = editorState.getCurrentContent();
     const contentString = contentRaw.getPlainText();
     const serializedContent = JSON.stringify(convertToRaw(contentRaw));
-    const TITLE_MIN_LENGTH = 30;
-    const CONTENT_MIN_LENGTH = 1000;
 
     if (title.length < TITLE_MIN_LENGTH) {
       return `Title should be at least ${TITLE_MIN_LENGTH} symbols! You have ${

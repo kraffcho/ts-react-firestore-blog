@@ -15,6 +15,9 @@ import MostViewedPosts from "../components/MostViewedPosts";
 import Poll from "../components/Poll";
 
 const HomePage: React.FC = () => {
+  const postSummaryLength = useSelector(
+    (state: RootState) => state.settings.postSummaryLength
+  );
   const dispatch = useDispatch<AppDispatch>();
   const posts = useSelector((state: RootState) => state.posts.posts);
   const status = useSelector((state: RootState) => state.posts.status);
@@ -73,18 +76,18 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const truncateSummary = (content: string, maxLength = 120): string => {
+  const truncateSummary = (content: string, summary: number): string => {
     try {
       const contentObject = parseDraftJsContent(content);
       const contentHTML = convertDraftJsContentToHTML(contentObject);
-      if (contentHTML.length <= maxLength) return contentHTML;
+      if (contentHTML.length <= summary) return contentHTML;
 
-      let endIndex = maxLength;
+      let endIndex = summary;
       while (endIndex > 0 && contentHTML[endIndex] !== " ") {
         endIndex--;
       }
 
-      if (endIndex === 0) endIndex = maxLength;
+      if (endIndex === 0) endIndex = summary;
 
       return contentHTML.slice(0, endIndex) + "...";
     } catch (e) {
@@ -206,7 +209,7 @@ const HomePage: React.FC = () => {
                 <p
                   className="post-summary"
                   dangerouslySetInnerHTML={{
-                    __html: truncateSummary(post.content),
+                    __html: truncateSummary(post.content, postSummaryLength),
                   }}
                 ></p>
                 <div className="labels-wrapper">

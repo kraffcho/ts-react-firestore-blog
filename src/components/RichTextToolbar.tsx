@@ -40,7 +40,7 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
             : "1px solid #ccc",
         }}
       >
-        H1
+        H2
       </button>
       <button
         type="button"
@@ -51,7 +51,7 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
             : "1px solid #ccc",
         }}
       >
-        H2
+        H3
       </button>
       <button
         type="button"
@@ -62,7 +62,7 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
             : "1px solid #ccc",
         }}
       >
-        H3
+        H4
       </button>
       <button
         type="button"

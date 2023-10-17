@@ -469,7 +469,7 @@ const PostPage: React.FC = () => {
               // Only show the edit link if the user is logged in and is the author of the post
               currentUser && currentUser.uid === post.userId && (
                 <Link to={`/edit-post/${id}`} className="edit-post">
-                  Manage
+                  <span className="material-symbols-outlined">edit_document</span>
                 </Link>
               )
             }

@@ -566,7 +566,8 @@ body {
           }
       
           .edit-post {
-            padding: 2px 8px;
+            display: flex;
+            padding: 3px 4px;
             text-align: center;
             font-size: 14px;
             color: $font-color-main;
@@ -575,6 +576,11 @@ body {
             border: 1px solid #ddd;
             border-radius: $border-radius-main;
             transition: .3s;
+
+            .material-symbols-outlined {
+              font-size: 18px;
+              color: $background-color-main;
+            }
       
             &:hover {
               border-color: #aaa;
@@ -675,7 +681,7 @@ body {
         .post-summary {
           margin-top: 5px;
           padding: 0 10px;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 1.2;
           text-wrap: balance;
           overflow: hidden;
@@ -848,7 +854,6 @@ body {
           box-shadow: $box-shadow-elegant;
           transition: .3s;
           z-index: 1;
-          cursor: pointer;
           .percentage-background {
             position: absolute;
             bottom: 0;
@@ -1168,7 +1173,7 @@ body {
       justify-content: center;
       text-align: center;
       span {
-        font-size: 13px;
+        font-size: 14px;
         color: #aaa;
         .author {
           display: flex;
@@ -1404,12 +1409,15 @@ $btn-colors: (
 }
 
 .scroll-to-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 40px;
+  bottom: 0;
+  right: 40px;
+  width: 45px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 50% 50% 0 0;
   background-color: $nav-background;
   box-shadow: $box-shadow;
   transition: .3s;
@@ -1417,8 +1425,13 @@ $btn-colors: (
   &:hover {
     background-color: darken($color: $nav-background, $amount: 10%);
   }
-  svg {
-    fill: $font-color-secondary;
+  .material-symbols-outlined {
+    padding-bottom: 5px;
+    color: darken($color: $font-color-secondary, $amount: 20%);
+    transition: .3s;
+    &:hover {
+      color: $font-color-secondary;
+    }
   }
 }
 
@@ -1454,9 +1467,10 @@ $btn-colors: (
   }
 
   &__logged {
-    font-size: 14px;
-    color: $font-color-main;
     margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: $font-color-main;
     strong {
       font-weight: 600;
     }
@@ -1572,7 +1586,7 @@ $btn-colors: (
   }
 
   &__author {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 18px;
     border-radius: $border-radius-main;
     &-label {
@@ -1715,11 +1729,6 @@ $btn-colors: (
             padding: 3px;
           }
         }
-      
-        .latest-comments,
-        .most-viewed-posts {
-          padding: 10px;
-        }
         aside {
           margin-top: 10px;
         }
@@ -1745,13 +1754,17 @@ $btn-colors: (
           }
         }
       }
+
+      .latest-comments {
+        margin-top: 10px;
+      }
     }
 
     .footer-container {
       .footer-content {
         span {
-          font-size: 12px;
           text-wrap: balance;
+          line-height: 1.4;
         }
       }
     }
@@ -1761,7 +1774,7 @@ $btn-colors: (
 @media only screen and (max-width: 640px) {
   body {
     ul.nav-container li.nav-link {
-      flex: 1;
+      // flex: 1;
       a {
         .material-symbols-outlined {
           font-size: 28px;
