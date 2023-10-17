@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container animate__animated animate__jackInTheBox">
+    <div className="login-container animate__animated animate__bounceIn">
       <Helmet>
         <title>Login Page</title>
         <meta
@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
           content="Login to the blog. Enter your email address and password to login."
         />
       </Helmet>
-      <h2 className="title">Login to Your Account</h2>
+      <h2 className="title">Login Page</h2>
       <form onSubmit={handleLogin}>
         <input
           id="email"

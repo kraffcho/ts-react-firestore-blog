@@ -55,7 +55,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="register-container animate__animated animate__jackInTheBox">
+    <div className="register-container animate__animated animate__fadeInDown">
       <Helmet>
         <title>Create Account</title>
         <meta
@@ -94,7 +94,9 @@ const RegisterPage: React.FC = () => {
         </button>
       </form>
       <p className="info">
-        Already have an account?<br /><Link to="/login">Login</Link>
+        Already have an account?
+        <br />
+        <Link to="/login">Login</Link>
       </p>
       {formError && (
         <p className="error animate__animated animate__bounceIn">{formError}</p>
