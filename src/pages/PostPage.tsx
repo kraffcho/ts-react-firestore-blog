@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
+import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 import { Post, Comment } from "../utils/types";
 import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
@@ -89,7 +90,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
       } catch (e) {
         setError("Error fetching post");
       } finally {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        smoothScrollToTop();
       }
     };
 
@@ -114,7 +115,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         const element = document.getElementById(hash.substring(1));
         if (element) {
           element.scrollIntoView();
-          window.scrollBy(0, -80);
+          window.scrollBy(0, -20);
         }
       }, 500);
 

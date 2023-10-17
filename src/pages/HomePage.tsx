@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetchPosts } from "../redux/postSlice";
 import { RootState, AppDispatch } from "../redux/store";
 import { formatDate } from "../utils/formatDate";
+import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 import { Helmet } from "react-helmet-async";
 import { categoryNameToColor } from "../utils/categoriesColors";
 import { convertFromRaw } from "draft-js";
@@ -104,10 +105,11 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     setCurrentPage(1);
+    smoothScrollToTop();
   }, [categoryName]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    smoothScrollToTop();
   }, [currentPage]);
 
   if (error) return <p>Error: {error}</p>;

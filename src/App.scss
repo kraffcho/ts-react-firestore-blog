@@ -219,7 +219,7 @@ body {
         box-shadow: $box-shadow-elegant;
       
         .input {
-          padding: 7px 12px;
+          padding: 8px 12px;
         
           &:focus {
             outline: none;
@@ -328,7 +328,7 @@ body {
     &.saved-posts-wrapper {
       width: calc(100% - 60px);
       max-width: calc($container-width - 40px);
-      margin: 30px auto;
+      margin: 30px auto 0;
       font-size: 16px;
       background-color: #eee;
       border-radius: $border-radius-main;
@@ -1439,6 +1439,7 @@ $btn-colors: (
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999999;
   .modal-content {
     background-color: $font-color-secondary;
     padding: 30px 20px;
@@ -1761,7 +1762,7 @@ $btn-colors: (
     }
 
     .container {
-      padding: 10px 20px;
+      padding: 10px 20px 100px;
       h1.post-page-title {
         margin-top: 10px;
       }

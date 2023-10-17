@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { Post } from "../utils/types";
 import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
 import { formatDate } from "../utils/formatDate";
+import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 import { categoryNameToColor } from "../utils/categoriesColors";
 
 const MostViewedPosts: React.FC = () => {
@@ -36,13 +37,6 @@ const MostViewedPosts: React.FC = () => {
     };
     fetchMostViewedPosts();
   }, []);
-
-  const smoothScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <div className="most-viewed-posts animate__animated animate__fadeIn">

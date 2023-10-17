@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer-container animate__animated animate__fadeIn animate__delay-2s">
+    <footer className="footer-container animate__animated animate__fadeIn animate__delay-1s">
       <div className="footer-content">
         <span>
           A serverless microblogging platform built with React, TypeScript,
