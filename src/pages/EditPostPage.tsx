@@ -12,7 +12,11 @@ import RichTextToolbar from "../components/RichTextToolbar";
 import HeightAdjuster from "../components/HeightAdjuster";
 import { getAuth } from "firebase/auth";
 
-const EditPostPage: React.FC = () => {
+type EditPageProps = {
+  userRoles: { [key: string]: string };
+};
+
+const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
   const { id } = useParams();
   const post = useSelector((state: RootState) =>
     state.posts.posts.find((p) => p.id === id)

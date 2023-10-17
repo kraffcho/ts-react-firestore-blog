@@ -476,14 +476,15 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
                 </span>
               )}
             </div>
-            {
-              // Only show the edit link if the user is logged in and is the author of the post
-              currentUser && currentUser.uid === post.userId && (
+            {currentUser &&
+              (currentUser.uid === post.userId ||
+                userRoles[currentUser.uid] === "admin") && (
                 <Link to={`/edit-post/${id}`} className="edit-post">
-                  <span className="material-symbols-outlined">edit_document</span>
+                  <span className="material-symbols-outlined">
+                    edit_document
+                  </span>
                 </Link>
-              )
-            }
+              )}
           </div>
         </div>
       </div>

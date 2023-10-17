@@ -81,7 +81,11 @@ function App() {
         <Route
           path="/edit-post/:id"
           element={
-            isAuthenticated ? <EditPostPage /> : <Navigate to="/login" />
+            isAuthenticated ? (
+              <EditPostPage userRoles={userRoles} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
