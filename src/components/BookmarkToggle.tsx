@@ -18,7 +18,7 @@ const BookmarkToggle: React.FC<BookmarkToggleProps> = ({
     null
   );
   const [loading, setLoading] = useState(false);
-  const [notificationKey, setNotificationKey] = useState<number>(0); // new state
+  const [notificationKey, setNotificationKey] = useState<number>(0);
 
   const auth = getAuth();
   const currentUser = auth.currentUser;
@@ -46,7 +46,7 @@ const BookmarkToggle: React.FC<BookmarkToggleProps> = ({
         setIsBookmarked(true);
         setNotificationMessage("Added to Saved");
       }
-      setNotificationKey((prevKey) => prevKey + 1); // increment key
+      setNotificationKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error("Error updating bookmark:", error);
       setNotificationMessage("Error updating bookmark. Please try again.");

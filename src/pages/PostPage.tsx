@@ -28,7 +28,11 @@ import ShareButtons from "../components/ShareButtons";
 import TimedNotification from "../components/Notification";
 import { fetchPostById, fetchCommentsByPostId, fetchAllPosts } from "../utils/api";
 
-const PostPage: React.FC = () => {
+type PostPageProps = {
+  userRoles: { [key: string]: string };
+};
+
+const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
   const minCommentLength = useSelector(
     (state: RootState) => state.settings.minCommentLength
   );
@@ -159,7 +163,6 @@ const PostPage: React.FC = () => {
         style={{
           width: `${(value / max) * 100}%`,
           maxWidth: "100%",
-          // if the comment is too short or too long, change the color
           backgroundColor: `${
             value < minCommentLength || value > maxCommentLength
               ? "tomato"
@@ -276,6 +279,7 @@ const PostPage: React.FC = () => {
         </h2>
         <textarea
           ref={contentRef}
+          id="comment-content"
           className="comment-form__textarea"
           placeholder="Start typing ..."
           value={content}
@@ -358,13 +362,16 @@ const PostPage: React.FC = () => {
     return (
       <div className="comment-list" id="comments">
         <h2 className="comment-list__title">
-          There {comments.length === 1 ? "is" : "are"} {comments.length} {comments.length === 1 ? "comment" : "comments"} added:
+          There {comments.length === 1 ? "is" : "are"} {comments.length}{" "}
+          {comments.length === 1 ? "comment" : "comments"} added:
         </h2>
         {comments.map((comment) => (
           <div key={comment.id} id={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
-              {currentUser && currentUser.uid === comment.uid && (<span className="comment-list__author-label">author</span>)}
-              {comment.author} says:
+              {comment.uid === post?.userId && (
+                <span className="comment-list__author-label">author</span>
+              )}
+              {comment.author}:
             </strong>
             {editingCommentId === comment.id ? (
               <div className="comment-list__edit">
@@ -387,31 +394,35 @@ const PostPage: React.FC = () => {
                   </span>
                 )}
             </p>
-            {currentUser && currentUser.uid === comment.uid && (
-              <div className="comment-list__buttons">
-                {editingCommentId === comment.id ? (
+            {currentUser &&
+              (currentUser.uid === comment.uid ||
+                userRoles[currentUser.uid] === "admin") && (
+                <div className="comment-list__buttons">
+                  {editingCommentId === comment.id ? (
+                    <button
+                      className="comment-list__save btn green"
+                      onClick={() => handleSaveComment(comment.id)}
+                    >
+                      <span className="material-symbols-outlined">save</span>
+                    </button>
+                  ) : (
+                    <button
+                      className="comment-list__edit btn yellow"
+                      onClick={() => handleEditComment(comment)}
+                    >
+                      <span className="material-symbols-outlined">
+                        edit_note
+                      </span>
+                    </button>
+                  )}
                   <button
-                    className="comment-list__save btn green"
-                    onClick={() => handleSaveComment(comment.id)}
+                    className="comment-list__delete btn red"
+                    onClick={() => handleDeleteComment(comment.id)}
                   >
-                    <span className="material-symbols-outlined">save</span>
+                    <span className="material-symbols-outlined">delete</span>
                   </button>
-                ) : (
-                  <button
-                    className="comment-list__edit btn yellow"
-                    onClick={() => handleEditComment(comment)}
-                  >
-                    <span className="material-symbols-outlined">edit_note</span>
-                  </button>
-                )}
-                <button
-                  className="comment-list__delete btn red"
-                  onClick={() => handleDeleteComment(comment.id)}
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                </button>
-              </div>
-            )}
+                </div>
+              )}
           </div>
         ))}
       </div>

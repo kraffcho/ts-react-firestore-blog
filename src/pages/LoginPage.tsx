@@ -59,6 +59,7 @@ const LoginPage: React.FC = () => {
       <h2 className="login-title">Login</h2>
       <form onSubmit={handleLogin}>
         <input
+          id="login-email"
           type="email"
           placeholder="Email"
           value={email}
@@ -66,6 +67,7 @@ const LoginPage: React.FC = () => {
           className="login-input"
         />
         <input
+          id="login-password"
           type="password"
           placeholder="Password"
           value={password}

@@ -14,7 +14,6 @@ const ReadingProgressBar = () => {
 
   const handleClose = () => {
     setIsVisible(false);
-    // To prevent it from showing again during the session
     sessionStorage.setItem("hideProgressBar", "true");
   };
 

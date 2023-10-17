@@ -23,3 +23,8 @@ export type Comment = {
   content: string;
   timestamp: Timestamp;
 };
+
+export type UserRole = "admin" | "writer" | "user";
+export type UserRoles = {
+  [uid: string]: UserRole;
+};

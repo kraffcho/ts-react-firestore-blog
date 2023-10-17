@@ -3,12 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export const settingsSlice = createSlice({
   name: "settings",
   initialState: {
-    postSummaryLength: 100, // post summary length
-    minCommentLength: 30, // min comment length
-    maxCommentLength: 1000, // max comment length
-    showProgressBar: true, // show progress when writing comment
-    minPostTitleLength: 30, // min title length for posts
-    minPostContentLength: 1000, // min content length for posts
+    postSummaryLength: 100,
+    minCommentLength: 30,
+    maxCommentLength: 1000,
+    showProgressBar: true,
+    minPostTitleLength: 30,
+    minPostContentLength: 1000,
+    userRoles: {},
   },
   reducers: {
     setPostSummaryLength: (state, action) => {
@@ -29,6 +30,9 @@ export const settingsSlice = createSlice({
     setMinPostContentLength: (state, action) => {
       state.minPostContentLength = action.payload;
     },
+    setUserRoles: (state, action) => {
+      state.userRoles = action.payload;
+    },
   },
 });
 
@@ -37,7 +41,9 @@ export const {
   setMinCommentLength,
   setMaxCommentLength,
   toggleProgressBar,
-  setTitleMinLength,
-  setContentMinLength,
+  setMinPostTitleLength,
+  setMinPostContentLength,
+  setUserRoles,
 } = settingsSlice.actions;
+
 export default settingsSlice.reducer;

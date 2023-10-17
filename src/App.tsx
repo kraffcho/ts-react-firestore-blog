@@ -20,24 +20,30 @@ import {
   browserLocalPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
+import fetchUserRoles from "./utils/fetchUserRoles";
 import { User } from "firebase/auth";
+import { UserRoles } from "./utils/types";
 import "./App.scss";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userRoles, setUserRoles] = useState<UserRoles>({});
 
   useEffect(() => {
     const auth = getAuth();
     auth.setPersistence(browserLocalPersistence);
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setIsAuthenticated(true);
         setUser(currentUser);
+        const roles = await fetchUserRoles();
+        setUserRoles(roles);
       } else {
         setIsAuthenticated(false);
         setUser(null);
+        setUserRoles({});
       }
       setLoading(false);
     });
@@ -45,11 +51,16 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  const canAddPosts = (): boolean => {
+    const role = userRoles[user?.uid || ""];
+    return role === "admin" || role === "writer";
+  };
+
   if (loading) return <p className="loading">Loading</p>;
 
   return (
     <Router>
-      <Navbar user={user} />
+      <Navbar user={user} userRoles={userRoles} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:categoryName" element={<HomePage />} />
@@ -59,7 +70,13 @@ function App() {
         />
         <Route
           path="/add-post"
-          element={isAuthenticated ? <AddPostPage /> : <Navigate to="/login" />}
+          element={
+            isAuthenticated && canAddPosts() ? (
+              <AddPostPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/edit-post/:id"
@@ -72,7 +89,7 @@ function App() {
           element={
             <>
               <ReadingProgressBar />
-              <PostPage />
+              <PostPage userRoles={userRoles} />
             </>
           }
         />

@@ -6,9 +6,10 @@ import LogoutModal from "./LogoutModal";
 
 type NavbarProps = {
   user: any | null;
+  userRoles: { [key: string]: string };
 };
 
-const Navbar: React.FC<NavbarProps> = ({ user }) => {
+const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = (event: React.MouseEvent) => {
@@ -21,6 +22,12 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
       .catch((error) => {
         console.error("Error logging out:", error);
       });
+  };
+
+  const canAddPost = () => {
+    if (!user || !user.uid) return false;
+    const role = userRoles[user.uid];
+    return role === "admin" || role === "writer";
   };
 
   return (
@@ -43,12 +50,14 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                   <span className="link-text">Saved</span>
                 </Link>
               </li>
-              <li className="nav-link">
-                <Link to="/add-post">
-                  <span className="material-symbols-outlined">post_add</span>
-                  <span className="link-text">Add Post</span>
-                </Link>
-              </li>
+              {canAddPost() && (
+                <li className="nav-link">
+                  <Link to="/add-post">
+                    <span className="material-symbols-outlined">post_add</span>
+                    <span className="link-text">Add Post</span>
+                  </Link>
+                </li>
+              )}
             </>
           )}
           <li className="nav-link">

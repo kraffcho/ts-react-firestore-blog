@@ -64,7 +64,6 @@ const EditPostPage: React.FC = () => {
         await dispatch(updatePost({ id, title, content: result, category }));
         navigate(`/post/${id}`);
       } else {
-        // Handle error (result contains an error message)
         setLocalError(result);
       }
     }
