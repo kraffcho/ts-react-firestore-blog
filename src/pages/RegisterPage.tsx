@@ -55,7 +55,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="register-container animate__animated animate__fadeInDown">
+    <div className="container login-register animate__animated animate__flipInX">
       <Helmet>
         <title>Create Account</title>
         <meta

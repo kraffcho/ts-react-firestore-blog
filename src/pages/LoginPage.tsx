@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container animate__animated animate__bounceIn">
+    <div className="container login-register animate__animated animate__bounceIn">
       <Helmet>
         <title>Login Page</title>
         <meta

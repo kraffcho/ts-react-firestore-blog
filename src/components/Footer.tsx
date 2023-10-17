@@ -1,16 +1,8 @@
 import React from "react";
-import useScrollFade from "../hooks/useScrollFade";
 
 const Footer: React.FC = () => {
-  const isFooterFaded = useScrollFade(25);
   return (
-    <footer
-      className={`footer-container${
-        isFooterFaded
-          ? " animate__animated animate__fadeOutDown"
-          : " animate__animated animate__fadeInUp"
-      }`}
-    >
+    <footer className="footer-container animate__animated animate__fadeIn animate__delay-2s">
       <div className="footer-content">
         <span>
           A serverless microblogging platform built with React, TypeScript,

@@ -23,10 +23,14 @@ $font-size-main: 16px;
   font-family: $font-family-main;
 }
 
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
 body {
-  margin: 0;
-  padding: 0 0 40px;
   background-color: $background-color-main;
+  background: linear-gradient(90deg, #444, #666, #777, #666, #444);
   color: $font-color-main;
   overflow-x: hidden;
   ::-webkit-scrollbar {
@@ -175,8 +179,9 @@ body {
   }
   .container {
     max-width: $container-width;
+    min-height: calc(100vh - 140px);
     margin: 0 auto;
-    padding: 30px 20px 40px;
+    padding: 30px 20px 100px;
 
     &.home-grid {
       display: grid;
@@ -184,6 +189,74 @@ body {
       grid-template-rows: 1fr;
       grid-column-gap: 20px;
       grid-row-gap: 0px;
+    }
+
+    &.login-register {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+
+      .title {
+        margin-bottom: 15px;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1;
+        color: $font-color-secondary;
+        text-shadow: 1px 1px 2px $font-color-main;
+      }
+    
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        max-width: 360px;
+        padding: 20px 20px 25px;
+        border-radius: $border-radius-main;
+        background-color: darken($color: $background-color-main, $amount: 10%);
+        box-shadow: $box-shadow-elegant;
+      
+        .input {
+          padding: 7px 12px;
+        
+          &:focus {
+            outline: none;
+            border-color: $font-color-main;
+          }
+        
+          &::placeholder {
+            color: $background-color-main;
+          }
+        }
+      }
+    
+      .info {
+        margin-top: 15px;
+        font-size: 16px;
+        line-height: 1.3;
+        text-align: center;
+        color: $font-color-secondary;
+        transition: color 0.3s ease;
+        a {
+          color: $font-color-secondary;
+          font-weight: 600;
+          text-decoration: underline;
+          text-transform: uppercase;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+      .error {
+        margin-top: 16px;
+        padding: 0 20px;
+        color: #fff;
+        font-weight: 600;
+        font-size: clamp(14px, 4vw, 20px);
+        line-height: 1.3;
+      }
     }
 
     .share-buttons {
@@ -864,7 +937,7 @@ body {
     .poll-container {
       position: -webkit-sticky;
       position: sticky;
-      top: 80px;
+      top: 20px;
       .poll-question {
         margin-bottom: 10px;
         font-size: 16px;
@@ -1198,12 +1271,12 @@ body {
   }
 
   .footer-container {
-    background: linear-gradient(0deg, darken($font-color-main, 15%), #1a1a1a, $font-color-main);
-    padding: 10px;
-    position: fixed;
-    left: 0;
+    position: absolute;
     bottom: 0;
+    padding: 10px;
     width: 100%;
+    min-height: 70px;
+    background: linear-gradient(0deg, darken($font-color-main, 15%), #1a1a1a, $font-color-main);
     .footer-content {
       display: flex;
       flex-direction: column;
@@ -1299,81 +1372,6 @@ body {
   ol ol {
     margin-top: 0;
     margin-bottom: 0;
-  }
-}
-
-.login-container,
-.register-container {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .title {
-    margin-bottom: 15px;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1;
-    color: $font-color-secondary;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 90%;
-    max-width: 310px;
-    padding: 20px 20px 25px;
-    border-radius: $border-radius-main;
-    background-color: darken($color: $background-color-main, $amount: 10%);
-    box-shadow: $box-shadow-elegant;
-
-    .input {
-      width: 100%;
-      padding: 6px 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      box-shadow: $box-shadow-elegant;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: $font-color-main;
-      }
-
-      &::placeholder {
-        color: $background-color-main;
-      }
-    }
-  }
-
-  .info {
-    margin-top: 15px;
-    font-size: 16px;
-    line-height: 1.3;
-    text-align: center;
-    color: $font-color-secondary;
-    transition: color 0.3s ease;
-    a {
-      color: $font-color-secondary;
-      font-weight: 600;
-      text-decoration: underline;
-      text-transform: uppercase;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-  .error {
-    margin-top: 16px;
-    padding: 0 20px;
-    color: #fff;
-    font-weight: 600;
-    font-size: clamp(14px, 4vw, 20px);
-    line-height: 1.3;
   }
 }
 
@@ -1474,12 +1472,12 @@ $btn-colors: (
   width: 45px;
   height: 40px;
   border-radius: 50% 50% 0 0;
-  background-color: $nav-background;
+  background-color: lighten($color: $nav-background, $amount: 5%);
   box-shadow: $box-shadow;
   transition: .3s;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: $nav-background, $amount: 10%);
+    background-color: lighten($color: $nav-background, $amount: 10%);
   }
   .material-symbols-outlined {
     padding-bottom: 5px;
@@ -1718,12 +1716,10 @@ $btn-colors: (
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 8px;
-  background-color: $font-color-main;
-  border-bottom: 1px solid darken($color: $font-color-main, $amount: 10%);
-  box-shadow: $box-shadow;
+  height: 4px;
+  background-color: $nav-background;
   position: fixed;
-  top: 66px;
+  top: 0;
   left: 0;
   z-index: 999999;
 
@@ -1736,6 +1732,7 @@ $btn-colors: (
   .close-btn {
     cursor: pointer;
     position: absolute;
+    top: 100%;
     right: 0;
     padding: 2px;
     color: $font-color-secondary;
@@ -1756,8 +1753,6 @@ $btn-colors: (
 
 @media only screen and (max-width: 960px) {
   body {
-    padding-bottom: 50px;
-
     nav .nav-wrapper ul.nav-container {
       gap: 10px;
       li.nav-link a {
@@ -1830,7 +1825,6 @@ $btn-colors: (
 @media only screen and (max-width: 640px) {
   body {
     ul.nav-container li.nav-link {
-      // flex: 1;
       a {
         .material-symbols-outlined {
           font-size: 28px;
@@ -1843,6 +1837,14 @@ $btn-colors: (
     .container {
       ul.list-posts {
         display: block;
+      }
+    }
+    .scroll-to-top {
+      right: 20px;
+      width: 40px;
+      height: 30px;
+      .material-symbols-outlined {
+        font-size: 16px;
       }
     }
   }

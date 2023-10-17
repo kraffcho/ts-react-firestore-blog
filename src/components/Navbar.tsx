@@ -3,6 +3,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import LogoutModal from "./LogoutModal";
+import useScrollFade from "../hooks/useScrollFade";
 
 type NavbarProps = {
   user: any | null;
@@ -11,6 +12,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
   const [showModal, setShowModal] = useState(false);
+  const isNavbarFaded = useScrollFade(200);
 
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -31,7 +33,13 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
   };
 
   return (
-    <nav>
+    <nav
+      className={`nav-container${
+        !isNavbarFaded
+          ? " animate__animated animate__fadeInDown"
+          : " animate__animated animate__fadeOutUp"
+      }`}
+    >
       <div className="nav-wrapper">
         <ul className="nav-container">
           <li className="nav-link">
