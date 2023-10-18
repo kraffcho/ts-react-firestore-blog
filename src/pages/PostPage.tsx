@@ -444,7 +444,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         />
       </Helmet>
       <h1 className="post-page-title">
-        <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />
+        {currentUser && <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />}
         {post.title}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (

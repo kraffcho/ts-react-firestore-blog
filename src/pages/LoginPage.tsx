@@ -127,7 +127,6 @@ const LoginPage: React.FC = () => {
       </form>
       <p className="info">
         Don't have an account?
-        <br />
         <Link to="/register" aria-label="Register for a new account">
           Register
         </Link>

@@ -132,8 +132,7 @@ const RegisterPage: React.FC = () => {
         </button>
       </form>
       <p className="info">
-        Already an account?
-        <br />
+        Already have an account?
         <Link to="/login" aria-label="Login to your account">
           Login
         </Link>

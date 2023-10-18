@@ -55,7 +55,7 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
     } else {
       dispatch(getPost(id));
     }
-  }, [post, dispatch, id, setTitle, setCategory]);
+  }, [post, dispatch, id, setTitle, setCategory, currentUser, navigate]);
 
   const onSavePostClicked = async () => {
     const result = validateAndSerializeContent();
