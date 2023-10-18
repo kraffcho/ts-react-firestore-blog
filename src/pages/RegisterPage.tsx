@@ -88,6 +88,9 @@ const RegisterPage: React.FC = () => {
       </Helmet>
       <h2 className="title">Create Account</h2>
       <form onSubmit={handleRegister}>
+        <label htmlFor="email" className="visually-hidden">
+          Email Address
+        </label>
         <input
           id="email"
           type="email"
@@ -98,6 +101,9 @@ const RegisterPage: React.FC = () => {
           aria-label="Email"
           ref={emailRef}
         />
+        <label htmlFor="password" className="visually-hidden">
+          Password
+        </label>
         <input
           id="password"
           type="password"
@@ -108,6 +114,9 @@ const RegisterPage: React.FC = () => {
           aria-label="Password"
           ref={passwordRef}
         />
+        <label htmlFor="repeat-password" className="visually-hidden">
+          Repeat Password
+        </label>
         <input
           id="repeat-password"
           type="password"
@@ -123,12 +132,17 @@ const RegisterPage: React.FC = () => {
         </button>
       </form>
       <p className="info">
-        Already have an account?
+        Already an account?
         <br />
-        <Link to="/login">Login</Link>
+        <Link to="/login" aria-label="Login to your account">
+          Login
+        </Link>
       </p>
       {formError && (
-        <p className="error animate__animated animate__bounceIn" role="alert">
+        <p
+          className="error animate__animated animate__bounceIn"
+          aria-live="polite"
+        >
           {formError}
         </p>
       )}
