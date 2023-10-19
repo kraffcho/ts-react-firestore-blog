@@ -12,7 +12,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
   const [showModal, setShowModal] = useState(false);
-  const isNavbarFaded = useScrollFade(200);
+  const isNavbarFaded = useScrollFade(400);
 
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();

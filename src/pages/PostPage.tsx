@@ -5,19 +5,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  doc,
-  getDocs,
-  serverTimestamp,
-  orderBy,
-  increment,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, addDoc, query, where, doc, getDocs, serverTimestamp, orderBy, increment, updateDoc, deleteDoc } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
 import { smoothScrollToTop } from "../utils/smoothScrollToTop";
@@ -370,7 +358,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           <div key={comment.id} id={comment.id} className="comment-list__item">
             <strong className="comment-list__author">
               {comment.uid === post?.userId && (
-                <span className="comment-list__author-label">author</span>
+                <span className="comment-list__author-label">post author</span>
               )}
               {comment.author}:
             </strong>

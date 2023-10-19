@@ -9,7 +9,7 @@ import { formatDate } from "../utils/formatDate";
 const LatestComments: React.FC = () => {
   const [latestComments, setLatestComments] = useState<Comment[]>([]);
   const [posts, setPosts] = useState<{ [key: string]: Post }>({});
-  const LIMIT_COMMENTS = 6;
+  const LIMIT_COMMENTS = 10;
   const TRUNCATE_LENGTH = 200;
 
   useEffect(() => {

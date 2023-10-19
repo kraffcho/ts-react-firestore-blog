@@ -611,7 +611,7 @@ body {
             margin-right: 0;
           }
           &:hover {
-            background-color: darken($color: $font-color-secondary, $amount: 3%);
+            background-color: #fffcb2;
           }
         }
       }
@@ -736,7 +736,7 @@ body {
         font-weight: $font-weight-main;
         line-height: 1.2;
         text-decoration: none;
-        background-color: #f1f1f1;
+        background-color: #fff;
         border-radius: $border-radius-main;
         box-shadow: $box-shadow;
         border: 3px solid #fff;
@@ -746,7 +746,7 @@ body {
         }
         &:hover {
           color: $font-color-main;
-          background-color: #fff;
+          background-color: #f1f1f1;
         }
         &:nth-child(2) {
           text-align: right;
@@ -768,7 +768,7 @@ body {
         border-radius: $border-radius-main;
         border: 3px solid #fff;
         transition: .5s;
-        box-shadow: $box-shadow;
+        box-shadow: $box-shadow-inset, $box-shadow-elegant;
         &:hover {
           background-color: #fcf9da;
           a.post-title {
@@ -1667,7 +1667,7 @@ $btn-colors: (
   &__title {
     font-size: clamp(18px, 5vw, 24px);
     font-weight: 500;
-    color: $font-color-secondary;
+    color: #fff;
     text-align: center;
     text-shadow: 0 0 2px $font-color-main;
     padding: 10px;
@@ -1683,6 +1683,7 @@ $btn-colors: (
     background-color: #fff;
     border-radius: $border-radius-main;
     box-shadow: $box-shadow-elegant;
+    text-wrap: balance;
     &:hover button {
       opacity: 1;
     }

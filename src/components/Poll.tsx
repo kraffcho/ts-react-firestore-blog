@@ -138,8 +138,8 @@ const Poll: React.FC<PollProps> = ({ pollId }) => {
       {hasVoted ? (
         <p className="voted-message">Your vote has been counted. Thanks!</p>
       ) : (
-        <button className="vote-button btn green" onClick={handleVote}>
-          Cast Your Vote Now!
+        <button className="vote-button btn green extra-padding" onClick={handleVote}>
+          Cast Your Vote
         </button>
       )}
     </div>
