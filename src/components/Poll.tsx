@@ -1,95 +1,66 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase";
-
-interface Option {
-  text: string;
-  votes: number;
-}
+import { fetchIP, fetchPollData, updatePollVote } from "../utils/fetchPoll";
+import { PollData } from "../utils/types";
 
 interface PollProps {
   pollId: string;
 }
 
-interface PollData {
-  question: string;
-  options: {
-    [key: string]: Option;
-  };
-  votedIPs: string[];
-}
-
-const getVoteString = (votes: number) =>
-  `${votes} ${votes === 1 ? "vote" : "votes"}`;
-
 const Poll: React.FC<PollProps> = ({ pollId }) => {
   const [poll, setPoll] = useState<PollData | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [userIP, setUserIP] = useState<string | null>(null);
-  const hasVoted = userIP && poll?.votedIPs.includes(userIP);
-  const totalVotes = Object.values(poll?.options || {}).reduce(
-    (acc, option) => acc + option.votes,
-    0
-  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchIP = async () => {
-    try {
-      const response = await fetch("https://api.ipify.org?format=json");
-      const data = await response.json();
-      setUserIP(data.ip);
-    } catch (error) {
-      console.error("Error fetching IP:", error);
-    }
-  };
-
-  const fetchPoll = async () => {
-    const docRef = doc(db, "polls", pollId);
-    try {
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setPoll(docSnap.data() as PollData);
-      } else {
-        console.log("Poll not found!");
-      }
-    } catch (error) {
-      console.error("Error fetching poll:", error);
-    }
-  };
-
+  const { options = {}, votedIPs = [] } = poll || {};
+  const hasVoted = userIP && votedIPs.includes(userIP);
+  const totalVotes = Object.values(options).reduce((acc, option) => acc + option.votes, 0);
+  const getVoteString = (votes: number) => `${votes} ${votes === 1 ? "vote" : "votes"}`;
   const handleVote = async () => {
-    if (poll && selectedOption && userIP) {
-      if (poll.votedIPs.includes(userIP)) {
-        console.log("You have already voted.");
-        return;
-      }
+    if (!poll || !selectedOption || !userIP || votedIPs.includes(userIP)) {
+      console.log("You have already voted or data is missing.");
+      return;
+    }
 
-      const updatedPoll = { ...poll };
-      updatedPoll.options[selectedOption].votes += 1;
-      updatedPoll.votedIPs.push(userIP);
-
+    try {
+      const updatedPoll = await updatePollVote(poll, selectedOption, userIP, pollId);
       setPoll(updatedPoll);
-
-      const pollDocRef = doc(db, "polls", pollId);
-      try {
-        await updateDoc(pollDocRef, {
-          [`options.${selectedOption}.votes`]:
-            updatedPoll.options[selectedOption].votes,
-          votedIPs: updatedPoll.votedIPs,
-        });
-      } catch (error) {
-        console.error("Error updating vote:", error);
-      }
+    } catch (error) {
+      console.error("Error updating vote:", error);
+      setError('Failed to update your vote. Please try again.');
     }
   };
 
   useEffect(() => {
-    fetchIP();
-    fetchPoll();
-  }, []);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const ip = await fetchIP();
+        const pollData = await fetchPollData(pollId);
+        
+        setUserIP(ip);
+        setPoll(pollData);
+      } catch (err) {
+        setError('Failed to fetch data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [pollId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!poll) {
-    return null;
+    return <div>No poll data available.</div>;
   }
 
   return (

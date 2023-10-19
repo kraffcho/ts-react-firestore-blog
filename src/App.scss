@@ -1016,7 +1016,7 @@ body {
             bottom: 0;
             left: 0;
             height: 4px;
-            background-color: rgba(76, 175, 80, 0.3);
+            background-color: rgba(76, 175, 80, 0.5);
             z-index: -1;
           }
           &:hover {
@@ -1701,10 +1701,11 @@ $btn-colors: (
       font-size: 10px;
       font-weight: 500;
       color: #333;
-      background-color: $font-color-secondary;
-      border: 1px solid lighten($color: $background-color-main, $amount: 40%);
+      background-color: #fffaed;
+      border: 2px solid #fff;
       border-radius: $border-radius-main;
       transform: translateY(-50%);
+      box-shadow: 0 0px 3px #c5c5c5;
     }
   }
 

@@ -28,3 +28,19 @@ export type UserRole = "admin" | "writer" | "user";
 export type UserRoles = {
   [uid: string]: UserRole;
 };
+
+interface Option {
+  text: string;
+  votes: number;
+}
+
+interface PollData {
+  id: string;
+  question: string;
+  options: {
+    [key: string]: Option;
+  };
+  votedIPs: string[];
+}
+
+export type { Option, PollData };
