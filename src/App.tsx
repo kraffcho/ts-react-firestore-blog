@@ -63,8 +63,11 @@ function App() {
     <Router>
       <Navbar user={user} userRoles={userRoles} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/category/:categoryName" element={<HomePage />} />
+        <Route
+          path="/"
+          element={<HomePage user={user} userRoles={userRoles} />}
+        />
+        <Route path="/category/:categoryName" element={<HomePage user={user} userRoles={userRoles} />} />
         <Route
           path="/login"
           element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}

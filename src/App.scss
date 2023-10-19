@@ -189,6 +189,11 @@ body {
       grid-template-rows: 1fr;
       grid-column-gap: 20px;
       grid-row-gap: 0px;
+      aside {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
     }
 
     &.login-register {
@@ -523,7 +528,7 @@ body {
       
           &.inactive {
             &:hover {
-              background-color: darken($color: $font-color-secondary, $amount: 10%);
+              background-color: #fdffc8;
             }
           }
         }
@@ -853,11 +858,9 @@ body {
       }
     }
 
-    // Latest comments and most viewed posts widgets
     // Define a mixin for common widget styles
     @mixin widgetStyles {
       padding: 20px;
-      margin-bottom: 20px;
       background-color: $font-color-secondary;
       border-radius: $border-radius-main;
       box-shadow: $box-shadow;
@@ -939,15 +942,39 @@ body {
     .latest-comments {
       @include widgetStyles;
     
-      .item > strong {
-        display: block;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      h2 {
+        grid-column: span 2;
         margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: 600;
-        color: $font-color-main;
+      }
+      .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        text-align: left;
+        .author-content {
+          > strong {
+            padding: 7px 10px 6px;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1;
+            color: $font-color-main;
+            border-radius: $border-radius-main;
+            background: linear-gradient(45deg, $font-color-secondary, transparent 80%);
+          }
+        }
+        .metadata {
+          align-items: flex-start;
+        }
       }
     }
 
+    .user-profile,
     .most-viewed-posts,
     .poll-container {
       @include widgetStyles;
@@ -1016,7 +1043,6 @@ body {
 
     .post-calendar {
       padding: 20px;
-      margin-bottom: 20px;
       background-color: $font-color-secondary;
       border-radius: $border-radius-main;
       box-shadow: $box-shadow;
@@ -1074,7 +1100,7 @@ body {
         border: 1px solid #aaa;
         border-radius: 3px;
         span {
-          flex-basis: 13.6%; // Roughly 1/7 for a 7-day week
+          flex-basis: 13.6%;
           text-align: center;
           &:nth-child(6),
           &:nth-child(7) {
@@ -1089,7 +1115,7 @@ body {
         gap: 2px;
         
         span {
-          flex-basis: 13.6%; // Roughly 1/7 for a 7-day week
+          flex-basis: 13.6%;
           padding: 5px;
           box-sizing: border-box;
           text-align: center;
@@ -1100,7 +1126,6 @@ body {
           border: 1px solid #aaa;
           border-radius: 3px;
           &:hover:not(.future, .padding-day) {
-            // background-color: #e5e5e5;
             border-color: #333;
           }
         }
@@ -1259,7 +1284,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 40px;
-    color: $font-color-secondary;
+    color: darken($color: $font-color-secondary, $amount: 3%);
   }
 
   .loading::after {
@@ -1406,7 +1431,6 @@ $btn-colors: (
   yellow: (#f1c40f, #D8AB00)
 );
 
-// Loop through the $btn-colors map and create a class for each color
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1805,7 +1829,7 @@ $btn-colors: (
           }
         }
         aside {
-          margin-top: 10px;
+          margin-top: 20px;
         }
       }
 
@@ -1859,8 +1883,12 @@ $btn-colors: (
       }
     }
     .container {
-      ul.list-posts {
+      ul.list-posts,
+      .latest-comments {
         display: block;
+      }
+      .latest-comments h2 {
+        margin-bottom: 15px;
       }
     }
     .scroll-to-top {

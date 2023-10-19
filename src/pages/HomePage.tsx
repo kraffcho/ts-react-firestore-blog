@@ -14,8 +14,14 @@ import PostCalendar from "../components/PostCalendar";
 import LatestComments from "../components/LatestComments";
 import MostViewedPosts from "../components/MostViewedPosts";
 import Poll from "../components/Poll";
+import UserProfile from "../components/UserProfile";
 
-const HomePage: React.FC = () => {
+type HomePageProps = {
+  user: any | null;
+  userRoles: { [key: string]: string };
+};
+
+const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
   const postSummaryLength = useSelector(
     (state: RootState) => state.settings.postSummaryLength
   );
@@ -279,6 +285,7 @@ const HomePage: React.FC = () => {
         <LatestComments />
       </main>
       <aside>
+        <UserProfile user={user} roles={userRoles} />
         <PostCalendar />
         <MostViewedPosts />
         <Poll pollId="d1byEhAWOGtvVq5I0UrA" />

@@ -9,7 +9,7 @@ import { formatDate } from "../utils/formatDate";
 const LatestComments: React.FC = () => {
   const [latestComments, setLatestComments] = useState<Comment[]>([]);
   const [posts, setPosts] = useState<{ [key: string]: Post }>({});
-  const LIMIT_COMMENTS = 5;
+  const LIMIT_COMMENTS = 6;
   const TRUNCATE_LENGTH = 200;
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const LatestComments: React.FC = () => {
       <h2>
         <span className="material-symbols-outlined">comment</span> Latest Comments
       </h2>
-      {latestComments.map((comment, index) => {
+      {latestComments.map((comment) => {
         const truncatedContent =
           comment.content.length > TRUNCATE_LENGTH
             ? comment.content.substring(0, TRUNCATE_LENGTH) + "... (truncated)"
@@ -67,7 +67,9 @@ const LatestComments: React.FC = () => {
             key={comment.id}
             className={`item animate__animated animate__fadeIn`}
           >
-            <strong>{comment.author}</strong> {truncatedContent}
+            <div className="author-content">
+              <strong>{comment.author}</strong> {truncatedContent}
+            </div>
             <div className="metadata">
               <div className="date">
                 <span className="material-symbols-outlined">
