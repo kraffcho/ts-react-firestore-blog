@@ -979,6 +979,30 @@ body {
     .poll-container {
       @include widgetStyles;
     }
+
+    .user-profile {
+      &__greetings {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      &__details p {
+        display: flex;
+        gap: 5px;
+        justify-content: space-between;
+        strong {
+          flex: 0 0 45%;
+          font-weight: 600;
+          text-align: right;
+        }
+        span {
+          flex: 0 0 55%;
+          text-align: left;
+          &.role {
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
     
     .poll-container {
       position: -webkit-sticky;
