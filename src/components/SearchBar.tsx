@@ -85,8 +85,8 @@ const SearchBar: React.FC = () => {
           ? results.map((post, index) => (
               <div
                 key={post.id}
-                className="search-result-item animate__animated animate__fadeInDown"
-                style={{ animationDelay: `${index * 0.025}s` }}
+                className="search-result-item animate__animated animate__fadeIn"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <Link to={`/post/${post.id}`} onClick={clearSearch}>
                   {post.title}
