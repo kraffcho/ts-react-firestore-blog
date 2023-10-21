@@ -85,7 +85,10 @@ const useNarration = () => {
     }
 
     const pureContent = stripHtml(extractTextFromContent(parsedContent));
-    const utterance = new SpeechSynthesisUtterance(pureContent);
+    const narrationEndMessage =
+      "The narration for this post has ended. Thank you for listening!";
+    const utteranceContent = `${pureContent} ${narrationEndMessage}`;
+    const utterance = new SpeechSynthesisUtterance(utteranceContent);
     utterance.voice = getFemaleVoice();
     utterance.onend = () => setIsNarrating(false);
 
