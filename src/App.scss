@@ -1523,6 +1523,13 @@ $btn-colors: (
     padding: 7px 16px;
     font-size: clamp(20px, 3vw, 24px);
   }
+
+  &.narration-btn {
+    display: flex;
+    gap: 8px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
 }
 
 .modal-overlay {

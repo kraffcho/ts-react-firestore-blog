@@ -15,6 +15,7 @@ import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
 import ShareButtons from "../components/ShareButtons";
 import TimedNotification from "../components/Notification";
+import useNarration from "../hooks/useNarration";
 import { fetchPostById, fetchCommentsByPostId, fetchAllPosts } from "../utils/api";
 
 type PostPageProps = {
@@ -45,6 +46,12 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  const { toggleNarration, getButtonLabel } =
+    useNarration();
+
+  const handleNarrationClick = (content: string) => {
+    toggleNarration(content);
+  };
 
   useEffect(() => {
     if (post && post.content) {
@@ -159,7 +166,9 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           }`,
         }}
       >
-          <span className="limit">{value}/{max}</span>
+        <span className="limit">
+          {value}/{max}
+        </span>
       </div>
     </div>
   );
@@ -322,7 +331,13 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
       }
       if (editedContent.trim().length > maxCommentLength) {
         alert(
-          "Comment cannot exceed " + maxCommentLength + " characters long! You have " + editedContent.trim().length + " characters. Please remove " + (editedContent.trim().length - maxCommentLength) + " characters."
+          "Comment cannot exceed " +
+            maxCommentLength +
+            " characters long! You have " +
+            editedContent.trim().length +
+            " characters. Please remove " +
+            (editedContent.trim().length - maxCommentLength) +
+            " characters."
         );
         return;
       }
@@ -432,12 +447,19 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         />
       </Helmet>
       <h1 className="post-page-title">
-        {currentUser && <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />}
+        {currentUser && (
+          <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />
+        )}
         {post.title}
+        <button
+          className="btn dark-gray narration-btn"
+          onClick={() => handleNarrationClick(post?.content || "")}
+        >
+          {getButtonLabel()}
+        </button>
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
             <>
-              <br />
               <span className="title-updated">
                 Updated: {formatDate(post.updatedAt.toDate())}
               </span>
