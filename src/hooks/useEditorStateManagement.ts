@@ -73,7 +73,13 @@ export const useEditorStateManagement = ({
       } more symbols.`;
     }
     return serializedContent;
-  }, [title, category, editorState]);
+  }, [
+    editorState,
+    title.length,
+    category,
+    TITLE_MIN_LENGTH,
+    CONTENT_MIN_LENGTH,
+  ]);
 
   return {
     title,

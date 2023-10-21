@@ -78,7 +78,7 @@ const SavedPage: React.FC = () => {
           symbol or simply toggle the bookmark symbol on an already saved
           article.
           <button onClick={handleCloseSummary} className="btn yellow">
-            Close this tip!
+            OK, GOT IT!
           </button>
         </p>
       )}
