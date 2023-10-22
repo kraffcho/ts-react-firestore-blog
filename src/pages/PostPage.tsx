@@ -46,12 +46,15 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const { toggleNarration, getButtonLabel } =
-    useNarration();
-
-  const handleNarrationClick = (content: string) => {
-    toggleNarration(content);
-  };
+  const {
+    toggleNarration,
+    getButtonLabel,
+    currentVoice,
+    isNarrating,
+    availableVoices,
+    changeSelectedVoice,
+    selectedVoice,
+  } = useNarration();
 
   useEffect(() => {
     if (post && post.content) {
@@ -451,12 +454,46 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           <BookmarkToggle postId={id!} isInitiallyBookmarked={isBookmarked} />
         )}
         {post.title}
-        <button
-          className="btn dark-gray narration-btn"
-          onClick={() => handleNarrationClick(post?.content || "")}
-        >
-          {getButtonLabel()}
-        </button>
+        {availableVoices.length > 0 && (
+          <div className="narration-wrapper">
+            <div className="voice-select-wrapper">
+              <label htmlFor="voiceSelection" className="sr-only">
+                Select Narrator Voice
+              </label>
+              <select
+                id="voiceSelection"
+                className="voice-dropdown btn dark-gray"
+                onChange={(e) => {
+                  const voice = availableVoices.find(
+                    (v) => v.name === e.target.value
+                  );
+                  if (voice) {
+                    changeSelectedVoice(voice);
+                  }
+                }}
+                value={selectedVoice?.name || ""}
+              >
+                <option value="">Pick a voice...</option>
+                {availableVoices.map((voice) => (
+                  <option key={voice.name} value={voice.name}>
+                    {voice.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              className="btn dark-gray narration-btn"
+              onClick={() => toggleNarration(post?.content || "")}
+            >
+              {getButtonLabel()}
+            </button>
+          </div>
+        )}
+        {currentVoice && isNarrating && (
+          <p className="narrator animate__animated animate__fadeInDown">
+            Currently Narrating with: {currentVoice.name}
+          </p>
+        )}
         {post.updatedAt &&
           post.publishedAt.seconds !== post.updatedAt.seconds && (
             <>

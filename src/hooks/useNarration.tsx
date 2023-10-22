@@ -15,48 +15,48 @@ const stripHtml = (html: string) => {
 };
 
 const useNarration = () => {
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [isNarrating, setIsNarrating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<
     SpeechSynthesisVoice[]
   >([]);
-
-  const getFemaleVoice = (): SpeechSynthesisVoice | null => {
-    return (
-      availableVoices.find((voice) =>
-        voice.name.includes("Google US English Female")
-      ) ||
-      availableVoices[0] ||
-      null
-    );
-  };
+  const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(
+    null
+  );
 
   const location = useLocation();
 
   useEffect(() => {
-    // Stop the narration if the route changes
     window.speechSynthesis.cancel();
     setIsNarrating(false);
     setIsPaused(false);
+    setCurrentVoice(null);
   }, [location.pathname]);
 
   useEffect(() => {
-    if ("speechSynthesis" in window) {
-      const populateVoices = () => {
-        setAvailableVoices(window.speechSynthesis.getVoices());
-      };
-
-      window.speechSynthesis.onvoiceschanged = populateVoices;
-      populateVoices(); // Call once immediately
-    }
-
-    // This function will be called when the component using the hook is unmounted
-    return () => {
-      if (isNarrating) {
-        window.speechSynthesis.cancel(); // Stops the current narration
+    const populateVoices = () => {
+      const voices = window.speechSynthesis
+        .getVoices()
+        .filter((voice) => voice.lang === "en-US");
+      setAvailableVoices(voices);
+      if (!selectedVoice && voices.length) {
+        setSelectedVoice(voices[0]);
       }
     };
-  }, [isNarrating]); // Re-run the effect if `isNarrating` state changes
+    populateVoices();
+    window.speechSynthesis.onvoiceschanged = populateVoices;
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null; // Cleanup the event listener
+    };
+  }, [selectedVoice]);
+
+  const getRandomVoice = (): SpeechSynthesisVoice | null => {
+    if (!availableVoices.length) return null;
+
+    const randomIndex = Math.floor(Math.random() * availableVoices.length);
+    return availableVoices[randomIndex];
+  };
 
   const toggleNarration = (text: string) => {
     if (isNarrating && !isPaused) {
@@ -64,13 +64,11 @@ const useNarration = () => {
       setIsPaused(true);
       return;
     }
-
     if (isNarrating && isPaused) {
       window.speechSynthesis.resume();
       setIsPaused(false);
       return;
     }
-
     if (isNarrating) {
       window.speechSynthesis.cancel();
       setIsNarrating(false);
@@ -89,39 +87,65 @@ const useNarration = () => {
       "The narration for this post has ended. Thank you for listening!";
     const utteranceContent = `${pureContent} ${narrationEndMessage}`;
     const utterance = new SpeechSynthesisUtterance(utteranceContent);
-    utterance.voice = getFemaleVoice();
-    utterance.onend = () => setIsNarrating(false);
 
+    const chosenVoice = selectedVoice || getRandomVoice();
+    if (chosenVoice) {
+      setCurrentVoice(chosenVoice);
+      utterance.voice = chosenVoice;
+    } else {
+      console.warn("No English (US) voices available!");
+      return;
+    }
+
+    utterance.onend = () => setIsNarrating(false);
     window.speechSynthesis.speak(utterance);
     setIsNarrating(true);
   };
 
   const getButtonLabel = () => {
-    if (isNarrating && isPaused)
+    if (isNarrating && isPaused) {
       return (
         <>
           <span className="material-symbols-outlined">voice_over_off</span>
-          Resume Narration
+          Resume
         </>
       );
-
-    if (isNarrating)
+    }
+    if (isNarrating) {
       return (
         <>
           <span className="material-symbols-outlined">record_voice_over</span>
-          Pause Narration
+          Pause
         </>
       );
-
+    }
     return (
       <>
         <span className="material-symbols-outlined">play_arrow</span>
-        Start Narration
+        Narrate
       </>
     );
   };
 
-  return { isNarrating, isPaused, toggleNarration, getButtonLabel };
+  const changeSelectedVoice = (voice: SpeechSynthesisVoice) => {
+    setSelectedVoice(voice);
+
+    if (isNarrating) {
+      window.speechSynthesis.cancel(); // Stop the current narration
+      setIsNarrating(false); // Set narration state to false
+    }
+  };
+
+  return {
+    isNarrating,
+    isPaused,
+    toggleNarration,
+    getButtonLabel,
+    currentVoice,
+    availableVoices,
+    changeSelectedVoice,
+    selectedVoice,
+  };
 };
 
 export default useNarration;

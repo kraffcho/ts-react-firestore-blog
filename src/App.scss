@@ -488,6 +488,44 @@ body {
         transform: translateX(-50%);
         text-shadow: none;
       }
+      .narrator {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ddd;
+      }
+      .narration-wrapper {
+        opacity: .5;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        margin: 10px auto 0;
+        max-width: 340px;
+        transition: .3s ease-in-out;
+        &:hover {
+          opacity: 1;
+        }
+        button, .voice-select-wrapper {
+          flex: 1;
+        }
+        .voice-select-wrapper {
+          display: contents;
+          .voice-dropdown {
+            padding: 2px 10px;
+            width: 100%;
+          }
+        }
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        border: 0;
+      }
     }
     h2.heading {
       margin-bottom: 15px;
@@ -1493,7 +1531,7 @@ $btn-colors: (
   border-radius: 5px;
   border: none;
   outline: none;
-  text-shadow: 0 1px 1px #999;
+  text-shadow: 0 1px 1px #555;
   transition: .2s;
   cursor: pointer;
 
@@ -1527,8 +1565,6 @@ $btn-colors: (
   &.narration-btn {
     display: flex;
     gap: 8px;
-    margin: 0 auto;
-    margin-top: 10px;
   }
 }
 
