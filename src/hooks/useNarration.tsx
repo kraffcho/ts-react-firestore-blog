@@ -14,31 +14,33 @@ const stripHtml = (html: string) => {
   return html.replace(/<\/?[^>]+(>|$)/g, "");
 };
 
+const excludedVoices = ["Google US English"];
+
 const useNarration = () => {
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [isNarrating, setIsNarrating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [availableVoices, setAvailableVoices] = useState<
-    SpeechSynthesisVoice[]
-  >([]);
-  const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(
-    null
-  );
-
+  const [availableVoices, setAvailableVoices] = useState< SpeechSynthesisVoice[] >([]);
+  const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
   const location = useLocation();
 
   useEffect(() => {
-    window.speechSynthesis.cancel();
-    setIsNarrating(false);
-    setIsPaused(false);
-    setCurrentVoice(null);
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+      setIsNarrating(false);
+      setIsPaused(false);
+      setCurrentVoice(null);
+    }
   }, [location.pathname]);
 
   useEffect(() => {
     const populateVoices = () => {
       const voices = window.speechSynthesis
         .getVoices()
-        .filter((voice) => voice.lang === "en-US");
+        .filter(
+          (voice) =>
+            voice.lang === "en-US" && !excludedVoices.includes(voice.name)
+        );
       setAvailableVoices(voices);
       if (!selectedVoice && voices.length) {
         setSelectedVoice(voices[0]);
@@ -47,13 +49,12 @@ const useNarration = () => {
     populateVoices();
     window.speechSynthesis.onvoiceschanged = populateVoices;
     return () => {
-      window.speechSynthesis.onvoiceschanged = null; // Cleanup the event listener
+      window.speechSynthesis.onvoiceschanged = null;
     };
   }, [selectedVoice]);
 
   const getRandomVoice = (): SpeechSynthesisVoice | null => {
     if (!availableVoices.length) return null;
-
     const randomIndex = Math.floor(Math.random() * availableVoices.length);
     return availableVoices[randomIndex];
   };
@@ -131,8 +132,8 @@ const useNarration = () => {
     setSelectedVoice(voice);
 
     if (isNarrating) {
-      window.speechSynthesis.cancel(); // Stop the current narration
-      setIsNarrating(false); // Set narration state to false
+      window.speechSynthesis.cancel();
+      setIsNarrating(false);
     }
   };
 

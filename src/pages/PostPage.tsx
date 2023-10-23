@@ -325,7 +325,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
     };
 
     const handleSaveComment = async (commentId: string) => {
-      // check if the comment length is still valid after editing
+      // Check if the comment length is still valid after editing
       if (editedContent.trim().length < minCommentLength) {
         alert(
           "Comment must be at least " + minCommentLength + " characters long!"
@@ -373,7 +373,11 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           {comments.length === 1 ? "comment" : "comments"} added:
         </h2>
         {comments.map((comment) => (
-          <div key={comment.id} id={comment.id} className="comment-list__item">
+          <div
+            key={comment.id}
+            id={comment.id}
+            className="comment-list__item animate__animated animate__fadeIn"
+          >
             <strong className="comment-list__author">
               {comment.uid === post?.userId && (
                 <span className="comment-list__author-label">post author</span>

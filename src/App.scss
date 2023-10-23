@@ -896,7 +896,6 @@ body {
       }
     }
 
-    // Define a mixin for common widget styles
     @mixin widgetStyles {
       padding: 20px;
       background-color: $font-color-secondary;

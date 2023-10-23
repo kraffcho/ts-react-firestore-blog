@@ -10,7 +10,6 @@ const fetchUserRoles = async (): Promise<UserRoles> => {
     if (rolesDocSnapshot.exists()) {
       const data = rolesDocSnapshot.data();
       if (!data) throw new Error("Roles data is undefined");
-      // Cast the document data to UserRoles type
       return data as UserRoles;
     } else {
       throw new Error("Roles document doesn't exist");
