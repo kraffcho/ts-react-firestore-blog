@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,13 +20,13 @@ import {
   getAuth,
   browserLocalPersistence,
   onAuthStateChanged,
+  User,
 } from "firebase/auth";
 import fetchUserRoles from "./utils/fetchUserRoles";
-import { User } from "firebase/auth";
 import { UserRoles } from "./utils/types";
 import "./App.scss";
 
-function App() {
+function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,64 +52,83 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  return { isAuthenticated, user, loading, userRoles };
+}
+
+function AppRoutes({ isAuthenticated, user, userRoles }: any) {
   const canAddPosts = (): boolean => {
     const role = userRoles[user?.uid || ""];
     return role === "admin" || role === "writer";
   };
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<HomePage user={user} userRoles={userRoles} />}
+      />
+      <Route
+        path="/category/:categoryName"
+        element={<HomePage user={user} userRoles={userRoles} />}
+      />
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
+      />
+      <Route
+        path="/register"
+        element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
+      />
+      <Route
+        path="/add-post"
+        element={
+          isAuthenticated && canAddPosts() ? (
+            <AddPostPage />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/edit-post/:id"
+        element={
+          isAuthenticated ? (
+            <EditPostPage userRoles={userRoles} />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/post/:id"
+        element={
+          <>
+            <ReadingProgressBar />
+            <PostPage userRoles={userRoles} />
+          </>
+        }
+      />
+      <Route
+        path="/saved"
+        element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
+      />
+    </Routes>
+  );
+}
+
+function App() {
+  const { isAuthenticated, user, loading, userRoles } = useAuth();
 
   if (loading) return <p className="loading">Loading</p>;
 
   return (
     <Router>
       <Navbar user={user} userRoles={userRoles} />
-      <Routes>
-        <Route
-          path="/"
-          element={<HomePage user={user} userRoles={userRoles} />}
-        />
-        <Route path="/category/:categoryName" element={<HomePage user={user} userRoles={userRoles} />} />
-        <Route
-          path="/login"
-          element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
-        />
-        <Route
-          path="/register"
-          element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
-        />
-        <Route
-          path="/add-post"
-          element={
-            isAuthenticated && canAddPosts() ? (
-              <AddPostPage />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/edit-post/:id"
-          element={
-            isAuthenticated ? (
-              <EditPostPage userRoles={userRoles} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/post/:id"
-          element={
-            <>
-              <ReadingProgressBar />
-              <PostPage userRoles={userRoles} />
-            </>
-          }
-        />
-        <Route
-          path="/saved"
-          element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
-        />
-      </Routes>
+      <AppRoutes
+        isAuthenticated={isAuthenticated}
+        user={user}
+        userRoles={userRoles}
+      />
       <Footer />
       <ScrollToTop />
     </Router>
