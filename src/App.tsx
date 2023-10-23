@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,13 +6,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
-import AddPostPage from "./pages/AddPostPage";
-import EditPostPage from "./pages/EditPostPage";
-import PostPage from "./pages/PostPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import SavedPage from "./pages/SavedPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import ReadingProgressBar from "./components/ReadingProgressBar";
@@ -25,6 +18,15 @@ import {
 import fetchUserRoles from "./utils/fetchUserRoles";
 import { UserRoles } from "./utils/types";
 import "./App.scss";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const AddPostPage = lazy(() => import("./pages/AddPostPage"));
+const EditPostPage = lazy(() => import("./pages/EditPostPage"));
+const PostPage = lazy(() => import("./pages/PostPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const SavedPage = lazy(() => import("./pages/SavedPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -52,83 +54,84 @@ function useAuth() {
     return () => unsubscribe();
   }, []);
 
-  return { isAuthenticated, user, loading, userRoles };
-}
-
-function AppRoutes({ isAuthenticated, user, userRoles }: any) {
   const canAddPosts = (): boolean => {
     const role = userRoles[user?.uid || ""];
     return role === "admin" || role === "writer";
   };
 
+  return { isAuthenticated, user, loading, userRoles, canAddPosts };
+}
+
+function AppRoutes(props: any) {
+  const { isAuthenticated, user, userRoles, canAddPosts } = props;
+
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={<HomePage user={user} userRoles={userRoles} />}
-      />
-      <Route
-        path="/category/:categoryName"
-        element={<HomePage user={user} userRoles={userRoles} />}
-      />
-      <Route
-        path="/login"
-        element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
-      />
-      <Route
-        path="/register"
-        element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
-      />
-      <Route
-        path="/add-post"
-        element={
-          isAuthenticated && canAddPosts() ? (
-            <AddPostPage />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-      <Route
-        path="/edit-post/:id"
-        element={
-          isAuthenticated ? (
-            <EditPostPage userRoles={userRoles} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-      <Route
-        path="/post/:id"
-        element={
-          <>
-            <ReadingProgressBar />
-            <PostPage userRoles={userRoles} />
-          </>
-        }
-      />
-      <Route
-        path="/saved"
-        element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
-      />
-    </Routes>
+    <Suspense fallback={<p className="loading">Loading...</p>}>
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage user={user} userRoles={userRoles} />}
+        />
+        <Route
+          path="/category/:categoryName"
+          element={<HomePage user={user} userRoles={userRoles} />}
+        />
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
+        />
+        <Route
+          path="/register"
+          element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
+        />
+        <Route
+          path="/add-post"
+          element={
+            isAuthenticated && canAddPosts() ? (
+              <AddPostPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/edit-post/:id"
+          element={
+            isAuthenticated ? (
+              <EditPostPage userRoles={userRoles} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/post/:id"
+          element={
+            <>
+              <ReadingProgressBar />
+              <PostPage userRoles={userRoles} />
+            </>
+          }
+        />
+        <Route
+          path="/saved"
+          element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function App() {
-  const { isAuthenticated, user, loading, userRoles } = useAuth();
+  const auth = useAuth();
 
-  if (loading) return <p className="loading">Loading</p>;
+  if (auth.loading) return <p className="loading">Loading...</p>;
 
   return (
     <Router>
-      <Navbar user={user} userRoles={userRoles} />
-      <AppRoutes
-        isAuthenticated={isAuthenticated}
-        user={user}
-        userRoles={userRoles}
-      />
+      <Navbar user={auth.user} userRoles={auth.userRoles} />
+      <AppRoutes {...auth} />
       <Footer />
       <ScrollToTop />
     </Router>
