@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { fetchSavedPosts } from "../utils/api";
@@ -10,19 +10,69 @@ import { db } from "../firebase";
 import Cookies from "js-cookie";
 import { Helmet } from "react-helmet-async";
 
+const SavedSummary: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <p className="saved-posts__summary animate__animated animate__fadeIn">
+    Monitor the articles you've bookmarked, whether for future reading or for
+    convenient access. Use the bookmark symbol on an article to add it to your
+    list. If you wish to unsave an article, click on the trash bin symbol or
+    simply toggle the bookmark symbol on an already saved article.
+    <button onClick={onClose} className="btn yellow">
+      OK, GOT IT!
+    </button>
+  </p>
+);
+
+type SavedPostItemProps = {
+  post: Post;
+  onRemove: (id: string) => void;
+  getLinkStyle: (category?: string | null) => { color: string };
+};
+
+const SavedPostItem: React.FC<SavedPostItemProps> = ({
+  post,
+  onRemove,
+  getLinkStyle,
+}) => (
+  <div className="saved-posts__item">
+    <div className="saved-posts__info">
+      <Link to={`/post/${post.id}`} style={getLinkStyle(post.category)}>
+        {post.title}
+      </Link>
+      <p className="published">
+        Published: {formatDate(post.publishedAt.toDate())} in{" "}
+        <Link
+          to={`/category/${post.category}`}
+          style={getLinkStyle(post.category)}
+        >
+          {post.category ?? "Uncategorized"}
+        </Link>
+      </p>
+    </div>
+    <button
+      className="btn red"
+      onClick={() => onRemove(post.id)}
+      aria-label="Delete saved post"
+    >
+      <span className="material-symbols-outlined">delete</span>
+    </button>
+  </div>
+);
+
 const SavedPage: React.FC = () => {
   const [savedPosts, setSavedPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [showSummary, setShowSummary] = useState<boolean>(
-    !Cookies.get("hideSummary")
-  );
+  const [error, setError] = useState<string | null>(null);
+  const showSummary = !Cookies.get("hideSummary");
 
   const auth = getAuth();
-  const currentUser = auth.currentUser;
+  const { currentUser } = auth;
 
-  const getLinkStyle = (category?: string | null) => ({
-    color: category ? categoryNameToColor(category) : "#333",
-  });
+  const getLinkStyle = useCallback(
+    (category?: string | null) => ({
+      color: category ? categoryNameToColor(category) : "#333",
+    }),
+    []
+  );
 
   useEffect(() => {
     if (!currentUser) return;
@@ -30,35 +80,31 @@ const SavedPage: React.FC = () => {
     setLoading(true);
 
     fetchSavedPosts(currentUser.uid)
-      .then((fetchedPosts) => {
-        setSavedPosts(fetchedPosts);
-      })
+      .then((fetchedPosts) => setSavedPosts(fetchedPosts))
       .catch((e) => {
         console.error("Error fetching saved posts:", e);
+        setError("Failed to load saved posts.");
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   }, [currentUser]);
 
-  const removeSavedPost = async (postId: string) => {
-    if (!currentUser) return;
+  const removeSavedPost = useCallback(
+    async (postId: string) => {
+      if (!currentUser) return;
 
-    const postRef = doc(db, "posts", postId);
-    try {
-      await updateDoc(postRef, {
-        savedBy: arrayRemove(currentUser.uid),
-      });
-      setSavedPosts((prev) => prev.filter((post) => post.id !== postId));
-    } catch (e) {
-      console.error("Error removing saved post:", e);
-    }
-  };
+      const postRef = doc(db, "posts", postId);
+      try {
+        await updateDoc(postRef, { savedBy: arrayRemove(currentUser.uid) });
+        setSavedPosts((prev) => prev.filter((post) => post.id !== postId));
+      } catch (e) {
+        console.error("Error removing saved post:", e);
+      }
+    },
+    [currentUser]
+  );
 
-  const handleCloseSummary = () => {
-    setShowSummary(false);
+  const handleCloseSummary = () =>
     Cookies.set("hideSummary", "true", { expires: 365 });
-  };
 
   return (
     <div className="container saved-posts-wrapper animate__animated animate__fadeIn">
@@ -70,65 +116,34 @@ const SavedPage: React.FC = () => {
         />
       </Helmet>
       <h1 className="saved-posts__header">Saved Posts ({savedPosts.length})</h1>
-      {showSummary && (
-        <p className="saved-posts__summary animate__animated animate__fadeIn">
-          Monitor the articles you've bookmarked, whether for future reading or
-          for convenient access. Use the bookmark symbol on an article to add it
-          to your list. If you wish to unsave an article, click on the trash bin
-          symbol or simply toggle the bookmark symbol on an already saved
-          article.
-          <button onClick={handleCloseSummary} className="btn yellow">
-            OK, GOT IT!
-          </button>
-        </p>
-      )}
+
+      {showSummary && <SavedSummary onClose={handleCloseSummary} />}
+
+      {error && <p className="error-message">{error}</p>}
+
       {loading ? (
         <p>Dusting off your treasured posts... 📚</p>
+      ) : savedPosts.length === 0 ? (
+        <p className="saved-posts__empty-message">
+          <strong>You have no saved posts.</strong> To add a post to your
+          collection of saved posts, click the bookmark icon on the post.
+        </p>
       ) : (
         <>
           <div className="saved-posts__list animate__animated animate__fadeIn">
             {savedPosts.map((post) => (
-              <div key={post.id} className="saved-posts__item">
-                <div className="saved-posts__info">
-                  <Link
-                    to={`/post/${post.id}`}
-                    className="saved-posts__link"
-                    style={getLinkStyle(post.category || null)}
-                  >
-                    {post.title}
-                  </Link>
-                  <p className="published">
-                    Published: {formatDate(post.publishedAt.toDate())} in{" "}
-                    <Link
-                      to={`/category/${post.category}`}
-                      style={getLinkStyle(post.category || null)}
-                    >
-                      {post.category ?? "Uncategorized"}
-                    </Link>
-                  </p>
-                </div>
-                <button
-                  className="btn red"
-                  onClick={() => removeSavedPost(post.id)}
-                  aria-label="Delete saved post"
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                </button>
-              </div>
+              <SavedPostItem
+                key={post.id}
+                post={post}
+                onRemove={removeSavedPost}
+                getLinkStyle={getLinkStyle}
+              />
             ))}
-            {savedPosts.length > 0 && (
-              <span>
-                You have a total of {savedPosts.length} saved{" "}
-                {savedPosts.length > 1 ? "posts" : "post"}.
-              </span>
-            )}
+            <span>
+              You have a total of {savedPosts.length} saved{" "}
+              {savedPosts.length > 1 ? "posts" : "post"}.
+            </span>
           </div>
-          {!savedPosts.length && (
-            <p className="saved-posts__empty-message">
-              <strong>You have no saved posts.</strong> To add a post to your
-              collection of saved posts, click the bookmark icon on the post.
-            </p>
-          )}
         </>
       )}
     </div>

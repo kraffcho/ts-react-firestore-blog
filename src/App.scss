@@ -411,12 +411,14 @@ body {
           .published {
             font-size: 13px;
           }
-        }
-
-        &__link {
-          text-decoration: none;
-          font-weight: 600;
-          line-height: 1.2;
+          a {
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 1.2;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
         }
         
         &__empty-message {
