@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LoginPrompt: React.FC = () => {
   return (
-    <div className="user-profile animate__animated animate__fadeIn">
+    <section className="user-profile animate__animated animate__fadeIn">
       <h2>
         <span className="material-symbols-outlined">emoji_people</span>
         Welcome to our blog!
@@ -19,7 +19,7 @@ const LoginPrompt: React.FC = () => {
           <span className="material-symbols-outlined">person_add</span>Register
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

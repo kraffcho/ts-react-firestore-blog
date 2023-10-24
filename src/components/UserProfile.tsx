@@ -61,7 +61,7 @@ const UserProfile: React.FC<ReduxState> = ({ user, roles }) => {
     : "Unknown";
 
   return (
-    <div className="user-profile animate__animated animate__fadeIn">
+    <section className="user-profile animate__animated animate__fadeIn">
       {showModal && <LogoutModal onClose={() => setShowModal(false)} />}
       <h2>
         <span className="material-symbols-outlined">emoji_people</span>
@@ -76,7 +76,7 @@ const UserProfile: React.FC<ReduxState> = ({ user, roles }) => {
       />
       <p>{user.email}</p>
       <ActionButtons logoutHandler={logoutHandler} />
-    </div>
+    </section>
   );
 };
 

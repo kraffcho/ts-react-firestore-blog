@@ -281,7 +281,7 @@ const PostCalendar: React.FC = () => {
   };
 
   return (
-    <div className="post-calendar">
+    <section className="post-calendar animate__animated animate__fadeIn">
       <h2>
         <span className="material-symbols-outlined">calendar_month</span>
         {getMonthName(currentMonth)} {currentYear}
@@ -289,12 +289,12 @@ const PostCalendar: React.FC = () => {
       {renderMonth(currentMonth, currentYear)}
       {isModalVisible && (
         <div
-          className="modal-posts-background animate__animated animate__fadeIn"
+          className="modal-posts-background"
           onClick={handleOutsideClick}
         >
           <div
             ref={modalContentRef}
-            className="modal-content animate__animated animate__bounceInUp"
+            className="modal-content"
           >
             {displaySelectedDateInfo()}
             {selectedDatePosts.map((post) => (
@@ -332,7 +332,7 @@ const PostCalendar: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

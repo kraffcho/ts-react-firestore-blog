@@ -30,14 +30,14 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
 
   return (
     <>
-      <nav
-        className={`nav-container${
+      <header
+        className={`header-container${
           !isNavbarFaded
             ? " animate__animated animate__fadeInDown"
             : " animate__animated animate__fadeOutUp"
         }`}
       >
-        <div className="nav-wrapper">
+        <nav className="nav-wrapper">
           <ul className="nav-container">
             <li className="nav-link">
               <Link to="/">
@@ -82,8 +82,8 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
             </li>
           </ul>
           <SearchBar />
-        </div>
-      </nav>
+        </nav>
+      </header>
       {showModal && <LogoutModal onClose={() => setShowModal(false)} />}
     </>
   );

@@ -39,46 +39,42 @@ const MostViewedPosts: React.FC = () => {
   }, []);
 
   return (
-    <div className="most-viewed-posts animate__animated animate__fadeIn">
+    <section className="most-viewed-posts animate__animated animate__fadeIn">
       <h2>
-        <span className="material-symbols-outlined">visibility</span> Most Viewed
-        Posts
+        <span className="material-symbols-outlined">visibility</span> Most
+        Viewed Posts
       </h2>
-      {mostViewed.map((post, index) => {
-        return (
-          <div
-            key={post.id}
-            className={`item animate__animated animate__fadeIn`}
-          >
-            <Link
-              to={`/post/${post.id}`}
+      {mostViewed.map((post) => (
+        <MostViewedPostItem key={post.id} post={post} />
+      ))}
+    </section>
+  );
+};
+
+const MostViewedPostItem: React.FC<{ post: Post }> = ({ post }) => {
+  return (
+    <div className="item animate__animated animate__fadeIn">
+      <Link
+        to={`/post/${post.id}`}
+        style={{ color: categoryNameToColor(post.category!) }}
+      >
+        {post.title}
+      </Link>
+      <div className="metadata">
+        <div className="date">
+          <span className="material-symbols-outlined">pending_actions</span>
+          {formatDate(post.publishedAt.toDate())} in{" "}
+          <Link to={`/category/${post.category}`} onClick={smoothScrollToTop}>
+            <span
+              className="category"
               style={{ color: categoryNameToColor(post.category!) }}
             >
-              {post.title}
-            </Link>
-            <div className="metadata">
-              <div className="date">
-                <span className="material-symbols-outlined">
-                  pending_actions
-                </span>
-                {formatDate(post.publishedAt.toDate())} in{" "}
-                <Link
-                  to={`/category/${post.category}`}
-                  onClick={smoothScrollToTop}
-                >
-                  <span
-                    className="category"
-                    style={{ color: categoryNameToColor(post.category!) }}
-                  >
-                    {post.category}
-                  </span>
-                </Link>
-              </div>
-              <div className="views">{post.viewCount} views</div>
-            </div>
-          </div>
-        );
-      })}
+              {post.category}
+            </span>
+          </Link>
+        </div>
+        <div className="views">{post.viewCount} views</div>
+      </div>
     </div>
   );
 };

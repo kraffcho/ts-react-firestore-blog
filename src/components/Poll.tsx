@@ -88,7 +88,7 @@ const PollLayout: React.FC<{
   handleVote: () => void;
   setSelectedOption: (key: string) => void;
 }> = ({ poll, totalVotes, hasVoted, handleVote, setSelectedOption }) => (
-  <div className="poll-container animate__animated animate__fadeIn">
+  <section className="poll-container animate__animated animate__fadeIn">
     <h2 className="poll-title">
       <span className="material-symbols-outlined">ballot</span>
       Poll Question
@@ -116,7 +116,7 @@ const PollLayout: React.FC<{
         Cast Your Vote
       </button>
     )}
-  </div>
+  </section>
 );
 
 const PollOption: React.FC<{
