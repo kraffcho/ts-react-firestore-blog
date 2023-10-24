@@ -1011,6 +1011,10 @@ body {
           align-items: flex-start;
         }
       }
+      .show-more-comments {
+        grid-column: span 2;
+        margin-top: 10px;
+      }
     }
 
     .user-profile,
@@ -1532,7 +1536,7 @@ $btn-colors: (
   border-radius: 5px;
   border: none;
   outline: none;
-  text-shadow: 0 1px 1px #555;
+  text-shadow: 0 1px 1px #777;
   transition: .2s;
   cursor: pointer;
 
@@ -1981,8 +1985,14 @@ $btn-colors: (
       .latest-comments {
         display: block;
       }
-      .latest-comments h2 {
-        margin-bottom: 15px;
+      .latest-comments {
+        h2 {
+          margin-bottom: 15px;
+        }
+        .show-more-comments {
+          margin-top: 15px;
+          width: 100%;
+        }
       }
     }
     .scroll-to-top {
