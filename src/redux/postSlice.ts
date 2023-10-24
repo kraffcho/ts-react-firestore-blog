@@ -146,11 +146,7 @@ const postSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        action.payload.forEach((newPost) => {
-          if (!state.posts.find((post) => post.id === newPost.id)) {
-            state.posts.push(newPost);
-          }
-        });
+        state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";

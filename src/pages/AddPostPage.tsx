@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { AppDispatch } from "../redux/store";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addPost } from "../redux/postSlice";
 import { Helmet } from "react-helmet-async";
-import { Editor, EditorState } from "draft-js";
+import { Editor, EditorState, RichUtils } from "draft-js";
+import { getAuth } from "firebase/auth";
+import { AppDispatch } from "../redux/store";
+import { addPost } from "../redux/postSlice";
 import { useEditorStateManagement } from "../hooks/useEditorStateManagement";
 import categoriesList from "../utils/categoriesList";
 import useTextareaHeight from "../hooks/useTextareaHeight";
 import RichTextToolbar from "../components/RichTextToolbar";
 import HeightAdjuster from "../components/HeightAdjuster";
-import { getAuth } from "firebase/auth";
 
 const AddPostPage: React.FC = () => {
   const {
@@ -20,9 +20,6 @@ const AddPostPage: React.FC = () => {
     setEditorState,
     category,
     setCategory,
-    titleRef,
-    categoryRef,
-    handleKeyCommand,
     validateAndSerializeContent,
   } = useEditorStateManagement();
 
@@ -31,37 +28,78 @@ const AddPostPage: React.FC = () => {
   const navigate = useNavigate();
   const { textareaHeight, increaseHeight, decreaseHeight } =
     useTextareaHeight(250);
-  const auth = getAuth();
-  const user = auth.currentUser;
+
+  const user = getAuth().currentUser;
   const userId = user ? user.uid : null;
+  const titleRef = useRef<HTMLInputElement | null>(null);
+  const categoryRef = useRef<HTMLSelectElement | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const onSavePostClicked = () => {
+  const validateFormData = () => {
     const result = validateAndSerializeContent();
+    if (!userId) return "User not logged in";
+    if (result.startsWith("Title should")) return result;
+    if (result.startsWith("Please choose")) return result;
+    if (result.startsWith("Content should")) return result;
+    if (!category) return "Please select a category";
+    return null;
+  };
+
+  const onSavePostClicked = () => {
+    const validationResult = validateFormData();
 
     if (!userId) {
       setLocalError("User not logged in");
       return;
     }
 
-    if (
-      result &&
-      !result.startsWith("Title should") &&
-      !result.startsWith("Please choose") &&
-      !result.startsWith("Content should") &&
-      category
-    ) {
-      dispatch(addPost({ title, content: result, category, userId }));
+    if (!validationResult) {
+      const payload = {
+        title,
+        content: validateAndSerializeContent(),
+        category: category || "",
+        userId,
+      };
+
+      dispatch(addPost(payload));
       setTitle("");
       setEditorState(EditorState.createEmpty());
       setCategory(undefined);
       navigate("/");
     } else {
-      setLocalError(result);
+      setLocalError(validationResult);
     }
+  };
+
+  const handleKeyCommand = (
+    command: string,
+    editorState: EditorState
+  ): "handled" | "not-handled" => {
+    let newState;
+
+    switch (command) {
+      case "bold":
+        newState = RichUtils.toggleInlineStyle(editorState, "BOLD");
+        break;
+      case "italic":
+        newState = RichUtils.toggleInlineStyle(editorState, "ITALIC");
+        break;
+      case "underline":
+        newState = RichUtils.toggleInlineStyle(editorState, "UNDERLINE");
+        break;
+      default:
+        return "not-handled";
+    }
+
+    if (newState) {
+      setEditorState(newState);
+      return "handled";
+    }
+
+    return "not-handled";
   };
 
   return (
@@ -121,7 +159,9 @@ const AddPostPage: React.FC = () => {
           <Editor
             editorState={editorState}
             onChange={setEditorState}
-            handleKeyCommand={handleKeyCommand}
+            handleKeyCommand={(command) =>
+              handleKeyCommand(command, editorState)
+            }
           />
         </div>
         {localError && (
