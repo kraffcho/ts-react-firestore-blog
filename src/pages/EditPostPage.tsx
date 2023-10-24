@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootState, AppDispatch } from "../redux/store";
 import { getPost, updatePost, deletePost } from "../redux/postSlice";
+import { AppDispatch, RootState } from "../redux/store";
 import { Helmet } from "react-helmet-async";
 import { Editor } from "draft-js";
 import { useEditorStateManagement } from "../hooks/useEditorStateManagement";
@@ -21,12 +21,9 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
   const post = useSelector((state: RootState) =>
     state.posts.posts.find((p) => p.id === id)
   );
-
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+  const currentUser = getAuth().currentUser;
 
   const { textareaHeight, increaseHeight, decreaseHeight } =
     useTextareaHeight(250);
@@ -38,8 +35,6 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
     setEditorState,
     category,
     setCategory,
-    titleRef,
-    categoryRef,
     handleKeyCommand,
     validateAndSerializeContent,
   } = useEditorStateManagement({ postContent: post?.content });
@@ -48,27 +43,47 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
 
   useEffect(() => {
     if (!currentUser) navigate("/login");
-    if (!id) return;
+  }, [currentUser, navigate]);
+
+  useEffect(() => {
     if (post) {
       setTitle(post.title);
       setCategory(post.category);
-    } else {
+    } else if (id) {
       dispatch(getPost(id));
     }
-  }, [post, dispatch, id, setTitle, setCategory, currentUser, navigate]);
+  }, [post, dispatch, id, setTitle, setCategory]);
+
+  const isValidForm = () => {
+    const result = validateAndSerializeContent();
+    if (
+      title &&
+      category &&
+      id &&
+      !result.startsWith("Title should") &&
+      !result.startsWith("Please choose") &&
+      !result.startsWith("Content should")
+    ) {
+      return true;
+    }
+    setLocalError(result);
+    return false;
+  };
 
   const onSavePostClicked = async () => {
-    const result = validateAndSerializeContent();
-    if (result && title && category && id) {
-      if (
-        !result.startsWith("Title should") &&
-        !result.startsWith("Please choose") &&
-        !result.startsWith("Content should")
-      ) {
-        await dispatch(updatePost({ id, title, content: result, category }));
+    if (isValidForm()) {
+      if (id && title && category) {
+        await dispatch(
+          updatePost({
+            id,
+            title,
+            content: validateAndSerializeContent(),
+            category,
+          })
+        );
         navigate(`/post/${id}`);
       } else {
-        setLocalError(result);
+        setLocalError("Required fields are missing");
       }
     }
   };
@@ -78,6 +93,16 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
       await dispatch(deletePost(id));
       navigate("/");
     }
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    setLocalError(null);
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+    setLocalError(null);
   };
 
   return (
@@ -99,11 +124,7 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
               id="postTitle"
               name="postTitle"
               value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-                setLocalError(null);
-              }}
-              ref={titleRef}
+              onChange={handleTitleChange}
             />
           </div>
           <div className="category-wrapper">
@@ -112,11 +133,7 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
               id="postCategory"
               name="postCategory"
               value={category || ""}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                setLocalError(null);
-              }}
-              ref={categoryRef}
+              onChange={handleCategoryChange}
             >
               {categoriesList.map((cat) => (
                 <option key={cat.value} value={cat.value}>
