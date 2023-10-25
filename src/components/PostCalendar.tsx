@@ -289,12 +289,12 @@ const PostCalendar: React.FC = () => {
       {renderMonth(currentMonth, currentYear)}
       {isModalVisible && (
         <div
-          className="modal-posts-background"
+          className="modal-posts-background animate__animated animate__fadeIn"
           onClick={handleOutsideClick}
         >
           <div
             ref={modalContentRef}
-            className="modal-content"
+            className="modal-content animate__animated animate__zoomInUp"
           >
             {displaySelectedDateInfo()}
             {selectedDatePosts.map((post) => (

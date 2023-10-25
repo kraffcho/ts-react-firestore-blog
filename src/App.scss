@@ -993,6 +993,7 @@ body {
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        font-size: 15px;
         text-align: left;
         .author-content {
           > strong {
@@ -1796,8 +1797,8 @@ $btn-colors: (
       padding: 0 5px;
       font-size: 10px;
       font-weight: 500;
-      color: #333;
-      background-color: #fffaed;
+      color: $font-color-secondary;
+      background-color: lighten($color: $font-color-main, $amount: 20%);
       border: 2px solid #fff;
       border-radius: $border-radius-main;
       transform: translateY(-50%);
