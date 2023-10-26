@@ -1515,12 +1515,12 @@ body {
 }
 
 $btn-colors: (
-  red: (#e74c3c, #CE3323),
-  green: (#2ecc71, #15B358),
-  blue: (#55acee, #3C93D5),
-  yellow: (#f1c40f, #D8AB00),
-  light-gray: (#a9a9a9, #7f7f7f),
-  dark-gray: (#696969, #505050)
+  "red": (#e74c3c, #CE3323),
+  "green": (#2ecc71, #15B358),
+  "blue": (#55acee, #3C93D5),
+  "yellow": (#f1c40f, #D8AB00),
+  "light-gray": (#a9a9a9, #7f7f7f),
+  "dark-gray": (#696969, #505050)
 );
 
 .btn {
