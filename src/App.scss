@@ -1,5 +1,5 @@
-$font-family-main: 'Baloo Da 2', cursive;
-$font-family-secondary: 'Titillium Web', sans-serif;
+$font-family-main: "Baloo Da 2", cursive;
+$font-family-secondary: "Titillium Web", sans-serif;
 $font-color-main: #333;
 $font-color-secondary: #eee;
 $link-color: #275ad1;
@@ -7,16 +7,22 @@ $background-color-main: #666;
 $nav-background: #222;
 $box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 $box-shadow-elegant: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
-$box-shadow-inset: inset 1px 3px 7px lighten($color: $font-color-main, $amount: 40%);
+$box-shadow-inset: inset 1px 3px 7px
+  lighten(
+    $color: $font-color-main,
+    $amount: 40%,
+  );
 $container-width: 1240px;
 $border-radius-main: 5px;
 $font-weight-main: 600;
 $font-size-main: 16px;
 
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&display=swap");
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -30,7 +36,7 @@ $font-size-main: 16px;
 
 body {
   background-color: $background-color-main;
-  background: linear-gradient(165deg, #76b852, #8DC26F);
+  background: linear-gradient(165deg, #76b852, #8dc26f);
   color: $font-color-main;
   overflow-x: hidden;
   ::-webkit-scrollbar {
@@ -100,7 +106,7 @@ body {
             font-weight: $font-weight-main;
             color: $font-color-secondary;
             text-decoration: none;
-            transition: .2s ease-in-out;
+            transition: 0.2s ease-in-out;
             &:hover {
               color: yellowgreen;
             }
@@ -125,7 +131,7 @@ body {
           background-color: $font-color-main;
           transition: background-color 0.3s;
           &::placeholder {
-            transition: .5s;
+            transition: 0.5s;
           }
           &:focus {
             background-color: lighten($color: $font-color-main, $amount: 5%);
@@ -163,7 +169,7 @@ body {
               color: lighten($color: $link-color, $amount: 30%);
               line-height: 1;
               text-decoration: none;
-              transition: .3s;
+              transition: 0.3s;
               &:hover {
                 color: #eee;
                 background-color: darken($color: $nav-background, $amount: 3%);
@@ -210,7 +216,7 @@ body {
         color: $font-color-secondary;
         text-shadow: 1px 1px 2px $font-color-main;
       }
-    
+
       form {
         display: flex;
         flex-direction: column;
@@ -235,21 +241,21 @@ body {
           white-space: nowrap;
           word-wrap: normal;
         }
-      
+
         .input {
           padding: 8px 12px;
-        
+
           &:focus {
             outline: none;
             border-color: $font-color-main;
           }
-        
+
           &::placeholder {
             color: $background-color-main;
           }
         }
       }
-    
+
       .info {
         display: flex;
         flex-direction: column;
@@ -305,40 +311,40 @@ body {
         &:hover {
           border-color: #ccc;
         }
-      
+
         &.twitter {
-          background-color: #1DA1F2;
+          background-color: #1da1f2;
           color: white;
 
           &:hover {
-            background-color: darken(#1DA1F2, 10%);
+            background-color: darken(#1da1f2, 10%);
           }
         }
-      
+
         &.facebook {
-          background-color: #1877F2;
+          background-color: #1877f2;
           color: white;
-        
+
           &:hover {
-            background-color: darken(#1877F2, 10%);
+            background-color: darken(#1877f2, 10%);
           }
         }
-      
+
         &.linkedin {
-          background-color: #0A66C2;
+          background-color: #0a66c2;
           color: white;
-        
+
           &:hover {
-            background-color: darken(#0A66C2, 10%);
+            background-color: darken(#0a66c2, 10%);
           }
         }
-      
+
         &.whatsapp {
-          background-color: #25D366;
+          background-color: #25d366;
           color: white;
-        
+
           &:hover {
-            background-color: darken(#25D366, 10%);
+            background-color: darken(#25d366, 10%);
           }
         }
       }
@@ -352,7 +358,7 @@ body {
       background-color: #eee;
       border-radius: $border-radius-main;
       box-shadow: $box-shadow;
-      
+
       .saved-posts {
         &__header {
           font-size: 2em;
@@ -377,7 +383,7 @@ body {
             width: max-content;
           }
         }
-        
+
         &__list {
           display: flex;
           flex-direction: column;
@@ -420,7 +426,7 @@ body {
             }
           }
         }
-        
+
         &__empty-message {
           display: flex;
           flex-direction: column;
@@ -430,7 +436,7 @@ body {
         }
       }
     }
-      
+
     h1.post-page-title {
       position: relative;
       width: 100%;
@@ -452,7 +458,7 @@ body {
         top: 5px;
         left: 5px;
         color: darken($color: $font-color-secondary, $amount: 20%);
-        transition: .3s;
+        transition: 0.3s;
         cursor: pointer;
         &:hover {
           color: $font-color-secondary;
@@ -497,17 +503,18 @@ body {
         color: #ddd;
       }
       .narration-wrapper {
-        opacity: .5;
+        opacity: 0.5;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 5px;
         margin: 10px auto 0;
         max-width: 340px;
-        transition: .3s ease-in-out;
+        transition: 0.3s ease-in-out;
         &:hover {
           opacity: 1;
         }
-        button, .voice-select-wrapper {
+        button,
+        .voice-select-wrapper {
           flex: 1;
         }
         .voice-select-wrapper {
@@ -525,7 +532,7 @@ body {
         padding: 0;
         margin: -1px;
         overflow: hidden;
-        clip: rect(0,0,0,0);
+        clip: rect(0, 0, 0, 0);
         border: 0;
       }
     }
@@ -557,15 +564,15 @@ body {
           border: 1px solid transparent;
           border-radius: $border-radius-main;
           box-shadow: $box-shadow;
-          transition: .3s;
+          transition: 0.3s;
           text-transform: capitalize;
-      
+
           &.active {
             color: #fff;
             background-color: lighten($color: $nav-background, $amount: 10%);
             border-color: $nav-background;
           }
-      
+
           &.inactive {
             &:hover {
               background-color: #fdffc8;
@@ -594,33 +601,25 @@ body {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            background-image:
-              linear-gradient(45deg, transparent 50%, gray 50%),
+            background-image: linear-gradient(45deg, transparent 50%, gray 50%),
               linear-gradient(135deg, gray 50%, transparent 50%),
               linear-gradient(to right, #ccc, #ccc);
-            background-position:
-              calc(100% - 20px) calc(1em + 6px),
-              calc(100% - 15px) calc(1em + 6px),
-              calc(100% - 2.5em) .8em;
-            background-size:
-              5px 5px,
-              5px 5px,
-              1px 1.5em;
+            background-position: calc(100% - 20px) calc(1em + 6px),
+              calc(100% - 15px) calc(1em + 6px), calc(100% - 2.5em) 0.8em;
+            background-size: 5px 5px, 5px 5px, 1px 1.5em;
             background-repeat: no-repeat;
 
             &:focus {
-              background-image:
-                linear-gradient(45deg, $font-color-main 50%, transparent 50%),
+              background-image: linear-gradient(
+                  45deg,
+                  $font-color-main 50%,
+                  transparent 50%
+                ),
                 linear-gradient(135deg, transparent 50%, $font-color-main 50%),
                 linear-gradient(to right, #ccc, #ccc);
-              background-position:
-                calc(100% - 15px) calc(1em + 6px),
-                calc(100% - 20px) calc(1em + 6px),
-                calc(100% - 2.5em) 0.8em;
-              background-size:
-                5px 5px,
-                5px 5px,
-                1px 1.5em;
+              background-position: calc(100% - 15px) calc(1em + 6px),
+                calc(100% - 20px) calc(1em + 6px), calc(100% - 2.5em) 0.8em;
+              background-size: 5px 5px, 5px 5px, 1px 1.5em;
               background-repeat: no-repeat;
               border-color: green;
               outline: 0;
@@ -645,7 +644,7 @@ body {
           background-color: #fff;
           border: none;
           border-radius: $border-radius-main;
-          transition: .3s;
+          transition: 0.3s;
           cursor: pointer;
           &:last-of-type {
             margin-right: 0;
@@ -683,11 +682,12 @@ body {
           }
         }
       }
-      textarea, .DraftEditor-root {
+      textarea,
+      .DraftEditor-root {
         margin-bottom: 0;
         height: 100%;
         resize: vertical;
-        transition: .3s;
+        transition: 0.3s;
         overflow: auto;
       }
       .error {
@@ -730,12 +730,12 @@ body {
             color: $font-color-main;
             background: linear-gradient(45deg, #eee, transparent);
             border-radius: $border-radius-main;
-      
+
             .category {
               color: $link-color;
             }
           }
-      
+
           .edit-post {
             display: flex;
             padding: 3px 4px;
@@ -746,13 +746,13 @@ body {
             background: #eee;
             border: 1px solid #ddd;
             border-radius: $border-radius-main;
-            transition: .3s;
+            transition: 0.3s;
 
             .material-symbols-outlined {
               font-size: 18px;
               color: $background-color-main;
             }
-      
+
             &:hover {
               border-color: #aaa;
             }
@@ -780,7 +780,7 @@ body {
         border-radius: $border-radius-main;
         box-shadow: $box-shadow;
         border: 3px solid #fff;
-        transition: .3s;
+        transition: 0.3s;
         .next-prev-title {
           color: $font-color-main;
         }
@@ -807,7 +807,7 @@ body {
         margin-bottom: 10px;
         border-radius: $border-radius-main;
         border: 3px solid #fff;
-        transition: .5s;
+        transition: 0.5s;
         box-shadow: $box-shadow-inset, $box-shadow-elegant;
         &:hover {
           background-color: #fcf9da;
@@ -826,12 +826,12 @@ body {
           color: $link-color;
           font-size: 18px;
           text-decoration: none;
-          transition: .3s;
+          transition: 0.3s;
           line-height: 1;
           text-wrap: balance;
           font-weight: 700;
           &:after {
-            content: '';
+            content: "";
             position: absolute;
             width: 100%;
             height: 2px;
@@ -905,7 +905,7 @@ body {
       box-shadow: $box-shadow;
       text-wrap: balance;
       text-align: center;
-    
+
       h2 {
         display: flex;
         align-items: center;
@@ -921,7 +921,7 @@ body {
         background-color: lighten($color: $font-color-main, $amount: 15%);
         border-radius: $border-radius-main;
       }
-    
+
       .item {
         padding: 15px 10px;
         margin-bottom: 10px;
@@ -931,8 +931,8 @@ body {
         line-height: 1.3;
         border-radius: $border-radius-main;
         box-shadow: $box-shadow-elegant;
-        transition: .3s ease-in-out;
-      
+        transition: 0.3s ease-in-out;
+
         &:hover {
           border-color: lighten($color: $background-color-main, $amount: 30%);
         }
@@ -940,17 +940,17 @@ body {
         &:last-of-type {
           margin-bottom: 0;
         }
-      
+
         a {
           font-weight: 600;
           color: $link-color;
           text-decoration: none;
-        
+
           &:hover {
             text-decoration: underline;
           }
         }
-      
+
         .metadata {
           display: flex;
           flex-direction: column;
@@ -961,16 +961,17 @@ body {
           color: #888;
           line-height: 1;
 
-          .date, .views {
+          .date,
+          .views {
             display: flex;
             align-items: center;
             gap: 3px;
-          
+
             .category {
               font-weight: 600;
             }
           }
-        
+
           .material-symbols-outlined {
             font-size: 14px;
           }
@@ -980,7 +981,7 @@ body {
 
     .latest-comments {
       @include widgetStyles;
-    
+
       display: grid;
       gap: 10px;
       grid-template-columns: repeat(2, 1fr);
@@ -1005,7 +1006,11 @@ body {
             line-height: 1;
             color: $font-color-main;
             border-radius: $border-radius-main;
-            background: linear-gradient(45deg, $font-color-secondary, transparent 80%);
+            background: linear-gradient(
+              45deg,
+              $font-color-secondary,
+              transparent 80%
+            );
           }
         }
         .metadata {
@@ -1069,7 +1074,7 @@ body {
         margin: 5px 0;
       }
     }
-    
+
     .poll-container {
       position: -webkit-sticky;
       position: sticky;
@@ -1099,7 +1104,7 @@ body {
           border: 1px solid #aaa;
           border-radius: $border-radius-main;
           box-shadow: $box-shadow-elegant;
-          transition: .3s;
+          transition: 0.3s;
           z-index: 1;
           .percentage-background {
             position: absolute;
@@ -1151,7 +1156,7 @@ body {
           background-color: #fff;
           border: 1px solid #aaa;
           border-radius: $border-radius-main;
-          transition: .3s;
+          transition: 0.3s;
           cursor: pointer;
           &:disabled {
             opacity: 0.5;
@@ -1203,7 +1208,7 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         gap: 2px;
-        
+
         span {
           flex-basis: 13.6%;
           padding: 5px;
@@ -1212,7 +1217,7 @@ body {
           font-size: 14px;
           color: $font-color-main;
           background-color: #fff;
-          transition: .3s;
+          transition: 0.3s;
           border: 1px solid #aaa;
           border-radius: 3px;
           &:hover:not(.future, .padding-day) {
@@ -1236,7 +1241,7 @@ body {
         }
         .future,
         .padding-day {
-          opacity: .6;
+          opacity: 0.6;
           color: #aaa;
           border-color: #ccc;
         }
@@ -1282,7 +1287,7 @@ body {
           color: $font-color-main;
           line-height: 1.2;
           text-decoration: none;
-          transition: .3s;
+          transition: 0.3s;
           font-weight: 600;
           &:hover {
             color: $link-color;
@@ -1378,7 +1383,7 @@ body {
   }
 
   .loading::after {
-    content: '.';
+    content: ".";
     animation: dots 1s steps(5, end) infinite;
   }
 
@@ -1386,26 +1391,18 @@ body {
     0%,
     20% {
       color: rgba(0, 0, 0, 0);
-      text-shadow:
-        .25em 0 0 rgba(0, 0, 0, 0),
-        .5em 0 0 rgba(0, 0, 0, 0);
+      text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
     }
     40% {
       color: #eee;
-      text-shadow:
-        .25em 0 0 rgba(0, 0, 0, 0),
-        .5em 0 0 rgba(0, 0, 0, 0);
+      text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
     }
     60% {
-      text-shadow:
-        .25em 0 0 #aaa,
-        .5em 0 0 rgba(0, 0, 0, 0);
+      text-shadow: 0.25em 0 0 #aaa, 0.5em 0 0 rgba(0, 0, 0, 0);
     }
     80%,
     100% {
-      text-shadow:
-        .25em 0 0 #ddd,
-        .5em 0 0 #ddd;
+      text-shadow: 0.25em 0 0 #ddd, 0.5em 0 0 #ddd;
     }
   }
 
@@ -1415,7 +1412,12 @@ body {
     padding: 10px;
     width: 100%;
     min-height: 70px;
-    background: linear-gradient(0deg, darken($font-color-main, 15%), #1a1a1a, $font-color-main);
+    background: linear-gradient(
+      0deg,
+      darken($font-color-main, 15%),
+      #1a1a1a,
+      $font-color-main
+    );
     .footer-content {
       display: flex;
       flex-direction: column;
@@ -1459,19 +1461,21 @@ body {
     font-size: 1.17em;
     font-weight: bold;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     margin: 16px 0;
     line-height: 1.3;
     font-weight: bold;
   }
   h1 {
-    font-size: 1.60em;
+    font-size: 1.6em;
   }
   h2 {
     font-size: 1.45em;
   }
   h3 {
-    font-size: 1.30em;
+    font-size: 1.3em;
   }
   blockquote {
     margin: 10px;
@@ -1515,12 +1519,30 @@ body {
 }
 
 $btn-colors: (
-  "red": (#e74c3c, #CE3323),
-  "green": (#2ecc71, #15B358),
-  "blue": (#55acee, #3C93D5),
-  "yellow": (#f1c40f, #D8AB00),
-  "light-gray": (#a9a9a9, #7f7f7f),
-  "dark-gray": (#696969, #505050)
+  "red": (
+    #e74c3c,
+    #ce3323,
+  ),
+  "green": (
+    #2ecc71,
+    #15b358,
+  ),
+  "blue": (
+    #55acee,
+    #3c93d5,
+  ),
+  "yellow": (
+    #f1c40f,
+    #d8ab00,
+  ),
+  "light-gray": (
+    #a9a9a9,
+    #7f7f7f,
+  ),
+  "dark-gray": (
+    #696969,
+    #505050,
+  ),
 );
 
 .btn {
@@ -1538,7 +1560,7 @@ $btn-colors: (
   border: none;
   outline: none;
   text-shadow: 0 1px 1px #777;
-  transition: .2s;
+  transition: 0.2s;
   cursor: pointer;
 
   @each $color, $values in $btn-colors {
@@ -1620,7 +1642,7 @@ $btn-colors: (
   border-radius: 50% 50% 0 0;
   background-color: lighten($color: $nav-background, $amount: 5%);
   box-shadow: $box-shadow;
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
   &:hover {
     background-color: lighten($color: $nav-background, $amount: 10%);
@@ -1628,7 +1650,7 @@ $btn-colors: (
   .material-symbols-outlined {
     padding-bottom: 5px;
     color: darken($color: $font-color-secondary, $amount: 20%);
-    transition: .3s;
+    transition: 0.3s;
     &:hover {
       color: $font-color-secondary;
     }
@@ -1675,7 +1697,7 @@ $btn-colors: (
       font-weight: 600;
     }
   }
-  
+
   &__input,
   &__textarea {
     padding: 10px;
@@ -1685,9 +1707,9 @@ $btn-colors: (
     transition: border-color 0.3s ease-in-out;
 
     &::placeholder {
-      transition: .5s;
+      transition: 0.5s;
     }
-    
+
     &:focus {
       border-color: $background-color-main;
       outline: none;
@@ -1874,7 +1896,7 @@ $btn-colors: (
   .progress-indicator {
     height: 100%;
     background-color: yellowgreen;
-    transition: width .3s ease-out;
+    transition: width 0.3s ease-out;
   }
 
   .close-btn {
@@ -1889,7 +1911,7 @@ $btn-colors: (
     margin-right: 20px;
     border-radius: $border-radius-main;
     box-shadow: $box-shadow;
-    transition: .3s;
+    transition: 0.3s;
     &:hover {
       background-color: lighten($color: $font-color-main, $amount: 10%);
     }
@@ -1900,23 +1922,35 @@ $btn-colors: (
 }
 
 .not-found-wrapper {
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .5rem;
-  .magnifier-svg {
-    transform: rotate(-15deg);
-    margin-bottom: 1rem;
-  }
+  gap: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   h2 {
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: clamp(2rem, 3.5vw, 6rem);
   }
   p {
-    color: $font-color-main;
+    color: $font-color-secondary;
     text-align: center;
+    font-size: clamp(1rem, 3.5vw, 1.5rem);
     font-weight: 500;
+    text-shadow: 1px 1px 1px #333;
   }
+}
+
+video {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
 }
 
 @media only screen and (max-width: 960px) {
@@ -1937,12 +1971,12 @@ $btn-colors: (
         display: block;
         .pagination {
           padding: 10px 0 15px;
-      
+
           button,
           span {
             padding: 7px 12px;
           }
-      
+
           .material-symbols-outlined {
             padding: 0;
           }
