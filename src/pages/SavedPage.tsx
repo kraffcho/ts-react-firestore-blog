@@ -62,7 +62,9 @@ const SavedPage: React.FC = () => {
   const [savedPosts, setSavedPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const showSummary = !Cookies.get("hideSummary");
+  const [shouldShowSummary, setShouldShowSummary] = useState<boolean>(
+    !Cookies.get("hideSummary")
+  );
 
   const auth = getAuth();
   const { currentUser } = auth;
@@ -103,8 +105,10 @@ const SavedPage: React.FC = () => {
     [currentUser]
   );
 
-  const handleCloseSummary = () =>
+  const handleCloseSummary = () => {
     Cookies.set("hideSummary", "true", { expires: 365 });
+    setShouldShowSummary(false);
+  }
 
   return (
     <div className="container saved-posts-wrapper animate__animated animate__fadeIn">
@@ -117,7 +121,7 @@ const SavedPage: React.FC = () => {
       </Helmet>
       <h1 className="saved-posts__header">Saved Posts ({savedPosts.length})</h1>
 
-      {showSummary && <SavedSummary onClose={handleCloseSummary} />}
+      {shouldShowSummary && <SavedSummary onClose={handleCloseSummary} />}
 
       {error && <p className="error-message">{error}</p>}
 
