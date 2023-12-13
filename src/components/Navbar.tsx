@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
           <ul className="nav-container">
             <li className="nav-link">
               <Link to="/">
-                <span className="material-symbols-outlined">house</span>
+                <span className="material-symbols-outlined notranslate">house</span>
                 <span className="link-text">Posts</span>
               </Link>
             </li>
@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
               <>
                 <li className="nav-link">
                   <Link to="/saved">
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined notranslate">
                       bookmark_added
                     </span>
                     <span className="link-text">Saved</span>
@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
                 {canAddPost() && (
                   <li className="nav-link">
                     <Link to="/add-post">
-                      <span className="material-symbols-outlined">
+                      <span className="material-symbols-outlined notranslate">
                         post_add
                       </span>
                       <span className="link-text">Add Post</span>
@@ -70,12 +70,12 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
             <li className="nav-link">
               {user ? (
                 <Link to="" onClick={logoutHandler}>
-                  <span className="material-symbols-outlined">logout</span>
+                  <span className="material-symbols-outlined notranslate">logout</span>
                   <span className="link-text">Logout</span>
                 </Link>
               ) : (
                 <Link to="/login">
-                  <span className="material-symbols-outlined">login</span>
+                  <span className="material-symbols-outlined notranslate">login</span>
                   <span className="link-text">Login</span>
                 </Link>
               )}

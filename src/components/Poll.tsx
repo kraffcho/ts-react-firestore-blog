@@ -90,7 +90,7 @@ const PollLayout: React.FC<{
 }> = ({ poll, totalVotes, hasVoted, handleVote, setSelectedOption }) => (
   <section className="poll-container animate__animated animate__fadeIn">
     <h2 className="poll-title">
-      <span className="material-symbols-outlined">ballot</span>
+      <span className="material-symbols-outlined notranslate">ballot</span>
       Poll Question
     </h2>
     <p className="poll-question">{poll.question}</p>

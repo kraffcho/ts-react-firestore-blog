@@ -283,7 +283,7 @@ const PostCalendar: React.FC = () => {
   return (
     <section className="post-calendar animate__animated animate__fadeIn">
       <h2>
-        <span className="material-symbols-outlined">calendar_month</span>
+        <span className="material-symbols-outlined notranslate">calendar_month</span>
         {getMonthName(currentMonth)} {currentYear}
       </h2>
       {renderMonth(currentMonth, currentYear)}
@@ -308,7 +308,7 @@ const PostCalendar: React.FC = () => {
                 </Link>
                 <p className="post-description"></p>
                 <p className="post-date">
-                  <span className="material-symbols-outlined">
+                  <span className="material-symbols-outlined notranslate">
                     pending_actions
                   </span>
                   {formatTime(new Date(post.publishedAt.toDate()))} in{" "}

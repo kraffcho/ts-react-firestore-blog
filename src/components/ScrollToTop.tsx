@@ -18,7 +18,7 @@ const ScrollToTop: React.FC = () => {
 
   return (
     <div onClick={handleScrollToTop} className={classes}>
-      <span className="material-symbols-outlined">vertical_align_top</span>
+      <span className="material-symbols-outlined notranslate">vertical_align_top</span>
     </div>
   );
 };

@@ -59,13 +59,13 @@ const BookmarkToggle: React.FC<BookmarkToggleProps> = ({
     <>
       <div onClick={!loading ? toggleBookmark : undefined} className="bookmark">
         {loading ? (
-          <span className="material-symbols-outlined">bookmark</span>
+          <span className="material-symbols-outlined notranslate">bookmark</span>
         ) : isBookmarked ? (
-          <span className="material-symbols-outlined added">
+          <span className="material-symbols-outlined notranslate added">
             bookmark_added
           </span>
         ) : (
-          <span className="material-symbols-outlined">bookmark</span>
+          <span className="material-symbols-outlined notranslate">bookmark</span>
         )}
       </div>
       {notificationMessage && (

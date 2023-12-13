@@ -172,7 +172,7 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
             onClick={onSavePostClicked}
             className="btn green"
           >
-            <span className="material-symbols-outlined">update</span>Update
+            <span className="material-symbols-outlined notranslate">update</span>Update
           </button>
           <HeightAdjuster
             decreaseHeight={decreaseHeight}
@@ -183,7 +183,7 @@ const EditPostPage: React.FC<EditPageProps> = ({ userRoles }) => {
             onClick={onDeletePostClicked}
             className="btn red"
           >
-            <span className="material-symbols-outlined">delete</span>Delete
+            <span className="material-symbols-outlined notranslate">delete</span>Delete
           </button>
         </div>
       </form>

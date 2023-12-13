@@ -184,11 +184,10 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
             .map((post, index) => (
               <li
                 key={post.id}
-                className={`animate__animated ${
-                  index % 2 === 0
+                className={`animate__animated ${index % 2 === 0
                     ? "animate__zoomInRight"
                     : "animate__zoomInLeft"
-                }`}
+                  }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {post.title ? (
@@ -252,7 +251,7 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
             >
-              <span className="material-symbols-outlined">navigate_before</span>
+              <span className="material-symbols-outlined notranslate">navigate_before</span>
             </button>
 
             {Array.from(
@@ -278,7 +277,7 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
               }
               disabled={currentPage === totalPages}
             >
-              <span className="material-symbols-outlined">navigate_next</span>
+              <span className="material-symbols-outlined notranslate">navigate_next</span>
             </button>
           </div>
         )}

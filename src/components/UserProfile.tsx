@@ -64,7 +64,7 @@ const UserProfile: React.FC<ReduxState> = ({ user, roles }) => {
     <section className="user-profile animate__animated animate__fadeIn">
       {showModal && <LogoutModal onClose={() => setShowModal(false)} />}
       <h2>
-        <span className="material-symbols-outlined">emoji_people</span>
+        <span className="material-symbols-outlined notranslate">emoji_people</span>
         Write, Share, Inspire!
       </h2>
       <Greeting name={name} additionalMessage={additionalMessage} />

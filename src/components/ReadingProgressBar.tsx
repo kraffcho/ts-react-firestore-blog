@@ -45,7 +45,7 @@ const ReadingProgressBar = () => {
           onClick={handleClose}
           className="close-btn animate__animated animate__fadeInRight"
         >
-          <span className="material-symbols-outlined">close</span>
+          <span className="material-symbols-outlined notranslate">close</span>
         </span>
       )}
     </div>

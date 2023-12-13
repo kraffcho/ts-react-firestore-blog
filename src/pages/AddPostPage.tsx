@@ -175,7 +175,7 @@ const AddPostPage: React.FC = () => {
             onClick={onSavePostClicked}
             className="btn green"
           >
-            <span className="material-symbols-outlined">add</span> Add Post
+            <span className="material-symbols-outlined notranslate">add</span> Add Post
           </button>
           <HeightAdjuster
             decreaseHeight={decreaseHeight}

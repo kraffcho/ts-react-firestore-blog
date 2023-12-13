@@ -20,7 +20,7 @@ const useNarration = () => {
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [isNarrating, setIsNarrating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [availableVoices, setAvailableVoices] = useState< SpeechSynthesisVoice[] >([]);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
   const location = useLocation();
 
@@ -107,7 +107,7 @@ const useNarration = () => {
     if (isNarrating && isPaused) {
       return (
         <>
-          <span className="material-symbols-outlined">voice_over_off</span>
+          <span className="material-symbols-outlined notranslate">voice_over_off</span>
           Resume
         </>
       );
@@ -115,14 +115,14 @@ const useNarration = () => {
     if (isNarrating) {
       return (
         <>
-          <span className="material-symbols-outlined">record_voice_over</span>
+          <span className="material-symbols-outlined notranslate">record_voice_over</span>
           Pause
         </>
       );
     }
     return (
       <>
-        <span className="material-symbols-outlined">play_arrow</span>
+        <span className="material-symbols-outlined notranslate">play_arrow</span>
         Narrate
       </>
     );

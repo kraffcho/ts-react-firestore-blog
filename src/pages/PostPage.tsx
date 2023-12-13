@@ -162,11 +162,10 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         style={{
           width: `${(value / max) * 100}%`,
           maxWidth: "100%",
-          backgroundColor: `${
-            value < minCommentLength || value > maxCommentLength
+          backgroundColor: `${value < minCommentLength || value > maxCommentLength
               ? "tomato"
               : "#2ecc71"
-          }`,
+            }`,
         }}
       >
         <span className="limit">
@@ -194,12 +193,12 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
       if (!content.trim() || content.trim().length < minCommentLength) {
         setNotification(
           "Comment must be at least " +
-            minCommentLength +
-            " characters long! You have " +
-            content.trim().length +
-            " characters. Please add " +
-            (minCommentLength - content.trim().length) +
-            " more characters at least."
+          minCommentLength +
+          " characters long! You have " +
+          content.trim().length +
+          " characters. Please add " +
+          (minCommentLength - content.trim().length) +
+          " more characters at least."
         );
         setTimeout(() => setNotification(null), 10000);
         contentRef.current?.focus();
@@ -209,12 +208,12 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
       if (content.trim().length > maxCommentLength) {
         setNotification(
           "Comment cannot exceed " +
-            maxCommentLength +
-            " characters! You have " +
-            content.trim().length +
-            " characters. Please remove " +
-            (content.trim().length - maxCommentLength) +
-            " characters."
+          maxCommentLength +
+          " characters! You have " +
+          content.trim().length +
+          " characters. Please remove " +
+          (content.trim().length - maxCommentLength) +
+          " characters."
         );
         setTimeout(() => setNotification(null), 10000);
         contentRef.current?.focus();
@@ -250,10 +249,10 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         const querySnapshot = await getDocs(q);
         const fetchedComments = querySnapshot.docs.map(
           (doc) =>
-            ({
-              id: doc.id,
-              ...doc.data(),
-            } as Comment)
+          ({
+            id: doc.id,
+            ...doc.data(),
+          } as Comment)
         );
 
         setComments(fetchedComments);
@@ -303,7 +302,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           className="comment-form__submit btn green"
           onClick={handleSubmit}
         >
-          <span className="material-symbols-outlined">add_circle</span>Post
+          <span className="material-symbols-outlined notranslate">add_circle</span>Post
           Comment
         </button>
       </div>
@@ -335,12 +334,12 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
       if (editedContent.trim().length > maxCommentLength) {
         alert(
           "Comment cannot exceed " +
-            maxCommentLength +
-            " characters long! You have " +
-            editedContent.trim().length +
-            " characters. Please remove " +
-            (editedContent.trim().length - maxCommentLength) +
-            " characters."
+          maxCommentLength +
+          " characters long! You have " +
+          editedContent.trim().length +
+          " characters. Please remove " +
+          (editedContent.trim().length - maxCommentLength) +
+          " characters."
         );
         return;
       }
@@ -414,14 +413,14 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
                       className="comment-list__save btn green"
                       onClick={() => handleSaveComment(comment.id)}
                     >
-                      <span className="material-symbols-outlined">save</span>
+                      <span className="material-symbols-outlined notranslate">save</span>
                     </button>
                   ) : (
                     <button
                       className="comment-list__edit btn yellow"
                       onClick={() => handleEditComment(comment)}
                     >
-                      <span className="material-symbols-outlined">
+                      <span className="material-symbols-outlined notranslate">
                         edit_note
                       </span>
                     </button>
@@ -430,7 +429,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
                     className="comment-list__delete btn red"
                     onClick={() => handleDeleteComment(comment.id)}
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <span className="material-symbols-outlined notranslate">delete</span>
                   </button>
                 </div>
               )}
@@ -511,7 +510,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
         <div className="blog-post-body">
           <Editor
             editorState={editorState}
-            onChange={() => {}}
+            onChange={() => { }}
             readOnly={true}
           />
           <div className="blog-post-footer">
@@ -532,7 +531,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
               (currentUser.uid === post.userId ||
                 userRoles[currentUser.uid] === "admin") && (
                 <Link to={`/edit-post/${id}`} className="edit-post">
-                  <span className="material-symbols-outlined">
+                  <span className="material-symbols-outlined notranslate">
                     edit_document
                   </span>
                 </Link>
@@ -552,7 +551,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           You must be logged in to share your thoughts.
           <br />
           <Link to="/login" className="btn green">
-            <span className="material-symbols-outlined">passkey</span>LOGIN
+            <span className="material-symbols-outlined notranslate">passkey</span>LOGIN
           </Link>
         </h2>
       )}

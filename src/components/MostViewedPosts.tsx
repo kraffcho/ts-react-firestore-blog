@@ -41,7 +41,7 @@ const MostViewedPosts: React.FC = () => {
   return (
     <section className="most-viewed-posts animate__animated animate__fadeIn">
       <h2>
-        <span className="material-symbols-outlined">visibility</span> Most
+        <span className="material-symbols-outlined notranslate">visibility</span> Most
         Viewed Posts
       </h2>
       {mostViewed.map((post) => (
@@ -62,7 +62,7 @@ const MostViewedPostItem: React.FC<{ post: Post }> = ({ post }) => {
       </Link>
       <div className="metadata">
         <div className="date">
-          <span className="material-symbols-outlined">pending_actions</span>
+          <span className="material-symbols-outlined notranslate">pending_actions</span>
           {formatDate(post.publishedAt.toDate())} in{" "}
           <Link to={`/category/${post.category}`} onClick={smoothScrollToTop}>
             <span

@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           Redux Toolkit, and Firebase © {new Date().getFullYear()}
           <span className="author">
             Made with
-            <span className="material-symbols-outlined">favorite</span> by
+            <span className="material-symbols-outlined notranslate">favorite</span> by
             <a
               href="https://www.linkedin.com/in/kraffcho/"
               target="_blank"

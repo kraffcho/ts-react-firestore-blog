@@ -19,7 +19,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postTitle }) => {
       </div>
       <div className="metadata">
         <div className="date">
-          <span className="material-symbols-outlined">pending_actions</span>
+          <span className="material-symbols-outlined notranslate">pending_actions</span>
           {formatDate(comment.timestamp.toDate())}
         </div>
         {postTitle && (

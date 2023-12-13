@@ -53,7 +53,7 @@ const SavedPostItem: React.FC<SavedPostItemProps> = ({
       onClick={() => onRemove(post.id)}
       aria-label="Delete saved post"
     >
-      <span className="material-symbols-outlined">delete</span>
+      <span className="material-symbols-outlined notranslate">delete</span>
     </button>
   </div>
 );

@@ -33,7 +33,7 @@ const ReadingTime: React.FC<ReadingTimeProps> = ({ content }) => {
 
   return (
     <span className="reading-time">
-      {message} <span className="material-symbols-outlined">schedule</span>
+      {message} <span className="material-symbols-outlined notranslate">schedule</span>
     </span>
   );
 };
