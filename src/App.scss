@@ -981,7 +981,7 @@ body {
 
     .latest-comments {
       @include widgetStyles;
-
+      margin-top: 10px;
       display: grid;
       gap: 10px;
       grid-template-columns: repeat(2, 1fr);
@@ -1808,15 +1808,36 @@ $btn-colors: (
     }
   }
 
+  &__avatar {
+    vertical-align: middle;
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: $border-radius-main;
+    border: 2px solid #fff;
+    box-shadow: 0 0px 3px #c5c5c5;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: $border-radius-main;
+    }
+  }
+
   &__author {
+    display: flex;
+    align-items: center;
     font-weight: 600;
     font-size: 18px;
+    line-height: 1;
     border-radius: $border-radius-main;
+    text-transform: capitalize;
     &-label {
       position: absolute;
       top: 0;
       left: 10px;
-      padding: 0 5px;
+      padding: 3px 5px;
       font-size: 10px;
       font-weight: 500;
       color: $font-color-secondary;
@@ -1825,6 +1846,15 @@ $btn-colors: (
       border-radius: $border-radius-main;
       transform: translateY(-50%);
       box-shadow: 0 0px 3px #c5c5c5;
+    }
+    .author-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin-top: 6px;
+      span {
+        font-weight: normal;
+        font-size: 10px;
+      }
     }
   }
 
@@ -2005,10 +2035,6 @@ video {
             padding-bottom: 0;
           }
         }
-      }
-
-      .latest-comments {
-        margin-top: 10px;
       }
     }
 

@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { formatDate } from "../utils/formatDate";
 import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 import { Post, Comment } from "../utils/types";
+import Avatar from "../components/UserAvatar";
 import AdjacentPosts from "../components/AdjacentPosts";
 import PostViewTracker from "../components/PostViewTracker";
 import BookmarkToggle from "../components/BookmarkToggle";
@@ -163,8 +164,8 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           width: `${(value / max) * 100}%`,
           maxWidth: "100%",
           backgroundColor: `${value < minCommentLength || value > maxCommentLength
-              ? "tomato"
-              : "#2ecc71"
+            ? "tomato"
+            : "#2ecc71"
             }`,
         }}
       >
@@ -180,6 +181,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
     setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
   }> = ({ postId, setComments }) => {
     const [author, setAuthor] = useState(userName!);
+    const [email, setEmail] = useState(userEmail!);
     const [content, setContent] = useState("");
     const contentRef = React.useRef<HTMLTextAreaElement>(null);
     const [notification, setNotification] = useState<string | null>(null);
@@ -227,6 +229,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
           postId,
           uid: currentUser.uid,
           author,
+          email,
           content,
           timestamp: serverTimestamp(),
         });
@@ -377,12 +380,18 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
             id={comment.id}
             className="comment-list__item animate__animated animate__fadeIn"
           >
-            <strong className="comment-list__author">
+            <div className="comment-list__author">
+              {comment.email && <Avatar email={comment.email} />}
               {comment.uid === post?.userId && (
                 <span className="comment-list__author-label">post author</span>
               )}
-              {comment.author}:
-            </strong>
+              <div className="author-wrapper">
+                {comment.author}<br />
+                <span>
+                  {userRoles[comment.uid] === undefined ? "Member" : userRoles[comment.uid]}
+                </span>
+              </div>
+            </div>
             {editingCommentId === comment.id ? (
               <div className="comment-list__edit">
                 <label htmlFor="comment-edit">Edit your comment:</label>

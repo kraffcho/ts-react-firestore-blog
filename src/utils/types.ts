@@ -1,5 +1,9 @@
 import { Timestamp } from "firebase/firestore";
 
+declare module 'md5' {
+  function md5(value: string): string;
+}
+
 export interface Post {
   userId: string;
   timestamp: any;
@@ -20,6 +24,7 @@ export type Comment = {
   uid: string;
   postId: string;
   author: string;
+  email: string;
   content: string;
   timestamp: Timestamp;
 };
@@ -28,12 +33,10 @@ export type UserRole = "admin" | "writer" | "user";
 export type UserRoles = {
   [uid: string]: UserRole;
 };
-
 interface Option {
   text: string;
   votes: number;
 }
-
 interface PollData {
   id: string;
   question: string;
