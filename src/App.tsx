@@ -38,16 +38,15 @@ function useAuth() {
     const auth = getAuth();
     auth.setPersistence(browserLocalPersistence);
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const roles = await fetchUserRoles();
       if (currentUser) {
         setIsAuthenticated(true);
         setUser(currentUser);
-        const roles = await fetchUserRoles();
-        setUserRoles(roles);
       } else {
         setIsAuthenticated(false);
         setUser(null);
-        setUserRoles({});
       }
+      setUserRoles(roles);
       setLoading(false);
     });
 
