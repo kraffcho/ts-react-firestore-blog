@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Comment } from "../utils/types";
 import { truncate } from "../utils/truncate";
 import { formatDate } from "../utils/formatDate";
+import Avatar from "../components/UserAvatar"
 
 interface CommentItemProps {
   comment: Comment;
@@ -15,7 +16,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postTitle }) => {
   return (
     <div key={comment.id} className="item animate__animated animate__fadeIn">
       <div className="author-content">
-        <strong>{comment.author}</strong> {truncatedContent}
+        <strong>{comment.email && <Avatar email={comment.email} />} {comment.author}</strong> {truncatedContent}
       </div>
       <div className="metadata">
         <div className="date">

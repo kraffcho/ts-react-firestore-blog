@@ -998,12 +998,13 @@ body {
         text-align: left;
         .author-content {
           > strong {
-            padding: 7px 10px 6px;
+            padding: 7px 6px 6px;
             margin-bottom: 10px;
             display: block;
             font-size: 16px;
             font-weight: 600;
             line-height: 1;
+            text-transform: capitalize;
             color: $font-color-main;
             border-radius: $border-radius-main;
             background: linear-gradient(
@@ -1012,6 +1013,9 @@ body {
               transparent 80%
             );
           }
+        }
+        .comment-list__avatar {
+          margin-top: 0;
         }
         .metadata {
           align-items: flex-start;
@@ -1799,7 +1803,6 @@ $btn-colors: (
     padding: 10px;
     margin-top: 20px;
     border: 1px solid lighten($color: $background-color-main, $amount: 40%);
-    background-color: #fff;
     border-radius: $border-radius-main;
     box-shadow: $box-shadow-elegant;
     text-wrap: balance;
