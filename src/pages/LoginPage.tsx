@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getAuth, browserLocalPersistence, signInWithEmailAndPassword } from "firebase/auth";
+import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 
 interface FirebaseError {
   code?: string;
@@ -76,6 +77,8 @@ const LoginPage: React.FC = () => {
           );
       }
       setIsLoading(false);
+    } finally {
+      smoothScrollToTop();
     }
   };
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getAuth, browserLocalPersistence, createUserWithEmailAndPassword } from "firebase/auth";
+import { smoothScrollToTop } from "../utils/smoothScrollToTop";
 
 interface FirebaseError {
   code?: string;
@@ -74,6 +75,8 @@ const RegisterPage: React.FC = () => {
       } else {
         setFormError("An unexpected error occurred.");
       }
+    } finally {
+      smoothScrollToTop();
     }
   };
 
