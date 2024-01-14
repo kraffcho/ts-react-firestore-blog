@@ -36,7 +36,8 @@ $font-size-main: 16px;
 
 body {
   background-color: $background-color-main;
-  background: linear-gradient(165deg, #76b852, #8dc26f);
+  // background: linear-gradient(165deg, #76b852, #8dc26f);
+  background: #F6909E url('../public/assets/images/background.jpg') no-repeat fixed center / cover;
   color: $font-color-main;
   overflow-x: hidden;
   ::-webkit-scrollbar {
@@ -108,7 +109,7 @@ body {
             text-decoration: none;
             transition: 0.2s ease-in-out;
             &:hover {
-              color: yellowgreen;
+              color: #d47ac0;
             }
           }
         }
@@ -226,7 +227,7 @@ body {
         max-width: 360px;
         padding: 20px 20px 25px;
         border-radius: $border-radius-main;
-        background-color: darken($color: $background-color-main, $amount: 10%);
+        background-color: #33333390;
         box-shadow: $box-shadow-elegant;
 
         .visually-hidden {
@@ -263,6 +264,7 @@ body {
         font-size: 16px;
         line-height: 1.3;
         text-align: center;
+        text-shadow: 1px 1px 1px #555;
         color: #fff;
         a {
           color: #fff;
@@ -569,8 +571,8 @@ body {
 
           &.active {
             color: #fff;
-            background-color: lighten($color: $nav-background, $amount: 10%);
-            border-color: $nav-background;
+            background-color: #7F387A;
+            border-color: $font-color-secondary;
           }
 
           &.inactive {
@@ -786,7 +788,7 @@ body {
         }
         &:hover {
           color: $font-color-main;
-          background-color: #f1f1f1;
+          background-color: #eee;
         }
         &:nth-child(2) {
           text-align: right;
@@ -803,7 +805,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-color: #fff;
+        background-color: #ffffffdb;
         margin-bottom: 10px;
         border-radius: $border-radius-main;
         border: 3px solid #fff;
@@ -867,7 +869,7 @@ body {
           align-items: center;
           gap: 5px;
           padding: 10px;
-          background: linear-gradient(0deg, #fff8e6, transparent);
+          background: linear-gradient(0deg, #ffd0ed, transparent);
           border-radius: 0 0 4px 4px;
           .category-label,
           .comments-label {
@@ -900,7 +902,7 @@ body {
 
     @mixin widgetStyles {
       padding: 20px;
-      background-color: $font-color-secondary;
+      background-color: rgb($font-color-secondary, .8);
       border-radius: $border-radius-main;
       box-shadow: $box-shadow;
       text-wrap: balance;
@@ -918,7 +920,7 @@ body {
         line-height: 1.3;
         font-weight: 600;
         color: $font-color-secondary;
-        background-color: lighten($color: $font-color-main, $amount: 15%);
+        background-color: #7F387A;
         border-radius: $border-radius-main;
       }
 
@@ -1009,7 +1011,7 @@ body {
             border-radius: $border-radius-main;
             background: linear-gradient(
               45deg,
-              $font-color-secondary,
+              #ffdcff,
               transparent 80%
             );
           }
@@ -1029,7 +1031,8 @@ body {
 
     .user-profile,
     .most-viewed-posts,
-    .poll-container {
+    .poll-container,
+    .post-calendar {
       @include widgetStyles;
     }
 
@@ -1136,15 +1139,11 @@ body {
         font-size: 14px;
         line-height: 1.3;
         font-weight: 600;
-        color: lighten($color: $font-color-main, $amount: 30%);
+        color: lighten($color: $font-color-main, $amount: 15%);
       }
     }
 
     .post-calendar {
-      padding: 20px;
-      background-color: $font-color-secondary;
-      border-radius: $border-radius-main;
-      box-shadow: $box-shadow;
       .month-header {
         display: flex;
         justify-content: space-between;
@@ -1170,21 +1169,6 @@ body {
             border-color: $font-color-main;
           }
         }
-      }
-      h2 {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        font-size: 20px;
-        padding: 10px;
-        margin-bottom: 15px;
-        text-align: center;
-        line-height: 1.3;
-        font-weight: 600;
-        color: $font-color-secondary;
-        background-color: lighten($color: $font-color-main, $amount: 15%);
-        border-radius: $border-radius-main;
       }
       .day-names {
         display: flex;
@@ -1364,10 +1348,9 @@ body {
 
     span.page-number {
       &.active-page {
-        background-color: $font-color-main;
+        background-color: #7F387A;
         color: #fff;
         cursor: default;
-        border: 1px solid $nav-background;
         box-shadow: none;
       }
 
@@ -1441,7 +1424,8 @@ body {
             color: tomato;
           }
           a {
-            color: yellowgreen;
+            color: bisque;
+            text-decoration: none;
           }
         }
       }

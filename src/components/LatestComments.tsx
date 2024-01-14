@@ -24,7 +24,7 @@ const LatestComments: React.FC = () => {
           className="btn green extra-padding show-more-comments"
           onClick={() => setVisibleCommentsCount((prev) => prev + 4)}
         >
-          Show more comments
+          Show More Comments
         </button>
       )}
     </div>
