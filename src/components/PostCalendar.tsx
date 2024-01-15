@@ -306,7 +306,6 @@ const PostCalendar: React.FC = () => {
                 >
                   {post.title}
                 </Link>
-                <p className="post-description"></p>
                 <p className="post-date">
                   <span className="material-symbols-outlined notranslate">
                     pending_actions
