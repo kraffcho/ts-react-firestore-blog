@@ -355,16 +355,15 @@ body {
     &.saved-posts-wrapper {
       width: calc(100% - 60px);
       max-width: calc($container-width - 40px);
-      margin: 30px auto 0;
+      margin: 10px auto 0;
       font-size: 16px;
-      background-color: #eee;
-      border-radius: $border-radius-main;
-      box-shadow: $box-shadow;
+      color: $font-color-secondary;
 
       .saved-posts {
         &__header {
           font-size: 2em;
-          color: lighten($color: $font-color-main, $amount: 10%);
+          color: $font-color-secondary;
+          text-shadow: 1px 1px 1px #8b1b58;
           margin-bottom: 10px;
         }
 
@@ -380,7 +379,7 @@ body {
           text-wrap: balance;
           background-color: #fff;
           border-radius: $border-radius-main;
-          box-shadow: $box-shadow-inset;
+          box-shadow: $box-shadow;
           button {
             width: max-content;
           }
@@ -390,6 +389,9 @@ body {
           display: flex;
           flex-direction: column;
           gap: 7px;
+          > span {
+            color: $font-color-secondary;
+          }
         }
 
         &__item {
@@ -398,11 +400,11 @@ body {
           gap: 10px;
           justify-content: space-between;
           align-items: center;
-          background-color: #fff;
+          background-color: #ffffffdb;
           border-radius: $border-radius-main;
           box-shadow: $box-shadow-elegant;
           &:nth-child(odd) {
-            background-color: #fefeeb;
+            background-color: #feebf8db;
           }
           button {
             margin-bottom: 3px;
@@ -417,6 +419,7 @@ body {
           flex-direction: column;
           gap: 2px;
           .published {
+            color: $font-color-main;
             font-size: 13px;
           }
           a {
@@ -432,7 +435,7 @@ body {
         &__empty-message {
           display: flex;
           flex-direction: column;
-          color: $background-color-main;
+          color: $font-color-main;
           font-size: 18px;
           line-height: 1.4;
         }
@@ -1396,14 +1399,11 @@ body {
   .footer-container {
     position: absolute;
     bottom: 0;
-    padding: 10px;
+    padding: 15px;
     width: 100%;
     min-height: 70px;
     background: linear-gradient(
-      0deg,
-      darken($font-color-main, 15%),
-      #1a1a1a,
-      $font-color-main
+      0deg,#0d0d0d90,#1a1a1a90,#4b0b3860
     );
     .footer-content {
       display: flex;
@@ -1413,7 +1413,7 @@ body {
       text-align: center;
       span {
         font-size: 14px;
-        color: #aaa;
+        color: #ccc;
         .author {
           display: flex;
           align-items: center;
@@ -1779,7 +1779,7 @@ $btn-colors: (
     text-align: center;
     text-shadow: 0 0 2px $font-color-main;
     padding: 10px;
-    background: linear-gradient(0deg, #319f3e, #5ace67);
+    background: linear-gradient(0deg, #972388, #ce5a9c);
     border-radius: $border-radius-main;
   }
 
@@ -1829,7 +1829,7 @@ $btn-colors: (
       font-size: 10px;
       font-weight: 500;
       color: $font-color-secondary;
-      background-color: lighten($color: $font-color-main, $amount: 20%);
+      background-color: #a32f9b;
       border: 2px solid #fff;
       border-radius: $border-radius-main;
       transform: translateY(-50%);
@@ -2085,6 +2085,13 @@ video {
 
         .blog-post-body {
           padding: 25px 15px 15px;
+        }
+      }
+      &.saved-posts-wrapper {
+        margin-top: 10px;
+        width: 100%;
+        > .saved-posts__list > span {
+          text-align: center;
         }
       }
     }

@@ -381,7 +381,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
             className="comment-list__item animate__animated animate__fadeIn"
             style={{
               background:
-                comment.uid === post?.userId ? "linear-gradient(180deg, rgb(255, 254, 232), #fff)" : "#fff",
+                comment.uid === post?.userId ? "linear-gradient(rgb(255, 210, 245), rgb(255, 255, 255))" : "#fff",
             }}
           >
             <div className="comment-list__author">
