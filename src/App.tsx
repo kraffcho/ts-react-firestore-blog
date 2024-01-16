@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import ReadingProgressBar from "./components/ReadingProgressBar";
+import LoadingIndicator from './components/LoadingIndicator';
 import {
   getAuth,
   browserLocalPersistence,
@@ -65,7 +66,7 @@ function AppRoutes(props: any) {
   const { isAuthenticated, user, userRoles, canAddPosts } = props;
 
   return (
-    <Suspense fallback={<p className="loading">Loading</p>}>
+    <Suspense fallback={<LoadingIndicator />}>
       <Routes>
         <Route
           path="/"
@@ -125,7 +126,9 @@ function AppRoutes(props: any) {
 function App() {
   const auth = useAuth();
 
-  if (auth.loading) return <p className="loading">Loading</p>;
+  if (auth.loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <Router>
