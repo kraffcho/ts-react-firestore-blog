@@ -185,8 +185,8 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
               <li
                 key={post.id}
                 className={`animate__animated ${index % 2 === 0
-                    ? "animate__zoomInRight"
-                    : "animate__zoomInLeft"
+                  ? "animate__zoomInRight"
+                  : "animate__zoomInLeft"
                   }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
@@ -236,8 +236,8 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
                       to={`/post/${post.id}#comments`}
                       className="comments-label"
                     >
-                      {post.commentCount} comment
-                      {post.commentCount !== 1 && "s"}
+                      <i className="material-symbols-outlined notranslate">mode_comment</i>
+                      {post.commentCount}
                     </Link>
                   )}
                   <ReadingTime content={post.content} />

@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import ReadingProgressBar from "./components/ReadingProgressBar";
 import LoadingIndicator from './components/LoadingIndicator';
+import CookieConsent from './components/CookieConsent';
 import {
   getAuth,
   browserLocalPersistence,
@@ -136,6 +137,7 @@ function App() {
       <AppRoutes {...auth} />
       <Footer />
       <ScrollToTop />
+      <CookieConsent />
     </Router>
   );
 }

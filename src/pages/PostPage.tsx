@@ -533,7 +533,7 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
               {post.category && (
                 <span>
                   {" "}
-                  on category:{" "}
+                  in{" "}
                   <Link className="category" to={`/category/${post.category}`}>
                     {post.category}
                   </Link>

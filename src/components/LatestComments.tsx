@@ -21,7 +21,7 @@ const LatestComments: React.FC = () => {
       ))}
       {latestComments.length > visibleCommentsCount && (
         <button
-          className="btn green extra-padding show-more-comments"
+          className="btn purple extra-padding show-more-comments"
           onClick={() => setVisibleCommentsCount((prev) => prev + 4)}
         >
           Show More Comments

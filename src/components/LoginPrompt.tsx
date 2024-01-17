@@ -6,7 +6,7 @@ const LoginPrompt: React.FC = () => {
     <section className="user-profile animate__animated animate__fadeIn">
       <h2>
         <span className="material-symbols-outlined notranslate">emoji_people</span>
-        Welcome to our blog!
+        Start Your Journey
       </h2>
       <p className="user-profile__greetings">
         Join our community and share your thoughts with the world.
