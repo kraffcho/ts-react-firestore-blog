@@ -409,7 +409,10 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
               <p className="comment-list__content">{comment.content}</p>
             )}
             <p className="comment-list__timestamp">
-              Posted: {formatDate(comment.timestamp.toDate())}
+              <span className="material-symbols-outlined notranslate comment-list__icon">
+                pending_actions
+              </span>
+              {formatDate(comment.timestamp.toDate())}
               {comment.editedAt &&
                 comment.timestamp.seconds !== comment.editedAt.seconds && (
                   <span className="comment-list__edited">

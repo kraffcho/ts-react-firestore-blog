@@ -16,7 +16,7 @@ const SavedSummary: React.FC<{ onClose: () => void }> = ({ onClose }) => (
     convenient access. Use the bookmark symbol on an article to add it to your
     list. If you wish to unsave an article, click on the trash bin symbol or
     simply toggle the bookmark symbol on an already saved article.
-    <button onClick={onClose} className="btn yellow">
+    <button onClick={onClose} className="btn green">
       OK, GOT IT!
     </button>
   </p>

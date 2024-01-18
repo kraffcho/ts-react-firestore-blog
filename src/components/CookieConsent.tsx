@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 const CookieConsent: React.FC = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [animateOut, setAnimateOut] = useState(false);
 
   useEffect(() => {
-    // Check if the cookie consent was already accepted
     const consent = localStorage.getItem('cookieConsent');
     if (!consent) {
       setShowBanner(true);
@@ -12,8 +12,9 @@ const CookieConsent: React.FC = () => {
   }, []);
 
   const handleAccept = () => {
+    setAnimateOut(true);
     localStorage.setItem('cookieConsent', 'accepted');
-    setShowBanner(false);
+    setTimeout(() => setShowBanner(false), 1000); // The timeout should match the CSS animation duration
   };
 
   if (!showBanner) {
@@ -21,11 +22,11 @@ const CookieConsent: React.FC = () => {
   }
 
   return (
-    <div className="cookie-consent animate__animated animate__fadeIn animate__delay-3s">
+    <div className={`cookie-consent ${animateOut ? 'animate-out' : 'animate-in'}`}>
       <p className='cookie-consent__content'>
         We use cookies to enhance your browsing experience on our site. By continuing to use our website, you consent to our use of cookies.
       </p>
-      <button className="btn purple" onClick={handleAccept}>
+      <button className="btn green" onClick={handleAccept}>
         Accept
       </button>
     </div>

@@ -36,7 +36,7 @@ $font-size-main: 16px;
 }
 
 body {
-  background: #c6458e url("../public/assets/images/background.jpg") no-repeat
+  background: #262161 url("../public/assets/images/background.jpg") no-repeat
     fixed center / cover;
   color: $font-color-main;
   overflow-x: hidden;
@@ -433,7 +433,7 @@ body {
         &__empty-message {
           display: flex;
           flex-direction: column;
-          color: $font-color-main;
+          color: $font-color-secondary;
           font-size: 18px;
           line-height: 1.4;
         }
@@ -910,6 +910,7 @@ body {
     @mixin widgetStyles {
       padding: 20px;
       background-color: rgb($font-color-secondary, 0.8);
+      border: 1px solid #fff;
       border-radius: $border-radius-main;
       box-shadow: $box-shadow;
       text-wrap: balance;
@@ -994,6 +995,7 @@ body {
       display: grid;
       gap: 10px;
       grid-template-columns: repeat(2, 1fr);
+      border: 1px solid #fff;
       h2 {
         grid-column: span 2;
         margin-bottom: 5px;
@@ -1016,7 +1018,7 @@ body {
             text-transform: capitalize;
             color: $font-color-main;
             border-radius: $border-radius-main;
-            background: linear-gradient(45deg, #ffdcff, transparent 80%);
+            background: linear-gradient(45deg, #ffe7ff, transparent 80%);
           }
         }
         .comment-list__avatar {
@@ -1206,10 +1208,10 @@ body {
           color: $font-color-main;
           background-color: #fff;
           transition: 0.3s;
-          border: 1px solid #a03996;
+          border: 1px solid #d779cd;
           border-radius: 3px;
           &:hover:not(.future, .padding-day) {
-            border-color: #d779cd;
+            border-color: #a03996;
           }
         }
         .day {
@@ -1367,20 +1369,19 @@ body {
       width: 50px;
       height: 50px;
       .path {
-        stroke: #9E3A82;
+        stroke: #9e3a82;
         stroke-linecap: round;
         animation: dash 1.5s ease-in-out infinite;
       }
     }
   }
-  
 
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
     }
   }
-  
+
   @keyframes dash {
     0% {
       stroke-dasharray: 1, 150;
@@ -1809,7 +1810,7 @@ $btn-colors: (
     position: relative;
     padding: 10px;
     margin-top: 20px;
-    border: 1px solid lighten($color: $background-color-main, $amount: 40%);
+    border: 1px solid #fff;
     border-radius: $border-radius-main;
     box-shadow: $box-shadow-elegant;
     text-wrap: balance;
@@ -1875,7 +1876,16 @@ $btn-colors: (
   }
 
   &__timestamp {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-size: 12px;
+    margin: 0;
+    color: #777;
+  }
+
+  &__icon {
+    font-size: 14px;
   }
 
   &__edited {
@@ -2010,6 +2020,32 @@ $btn-colors: (
     line-height: 1.2;
     color: $font-color-main;
     text-wrap: balance;
+  }
+  &.animate-in {
+    animation: fadeIn 2s;
+  }
+
+  &.animate-out {
+    animation: fadeOutMoveDown 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOutMoveDown {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, 20px);
+    }
   }
 }
 

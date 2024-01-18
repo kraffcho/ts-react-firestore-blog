@@ -283,7 +283,7 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
         )}
         <LatestComments />
       </main>
-      <aside>
+      <aside className="animate__animated animate__fadeIn">
         <UserProfile user={user} roles={userRoles} />
         <PostCalendar />
         <MostViewedPosts />
