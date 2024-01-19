@@ -19,6 +19,7 @@ import {
 } from "firebase/auth";
 import fetchUserRoles from "./utils/fetchUserRoles";
 import { UserRoles } from "./utils/types";
+import useParallax from "./hooks/useParallax"
 import "./App.scss";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -125,6 +126,7 @@ function AppRoutes(props: any) {
 }
 
 function App() {
+  useParallax();
   const auth = useAuth();
 
   if (auth.loading) {

@@ -37,9 +37,10 @@ $font-size-main: 16px;
 
 body {
   background: #262161 url("../public/assets/images/background.jpg") no-repeat
-    fixed center / cover;
+    fixed center / 100%;
   color: $font-color-main;
   overflow-x: hidden;
+  transition: background .7s ease-out;
   ::-webkit-scrollbar {
     width: 8px;
   }
