@@ -37,7 +37,7 @@ $font-size-main: 16px;
 
 body {
   background: #262161 url("../public/assets/images/background.jpg") no-repeat
-    fixed center / 100%;
+    fixed center / cover;
   color: $font-color-main;
   overflow-x: hidden;
   transition: background .7s ease-out;
@@ -422,9 +422,10 @@ body {
             font-size: 13px;
           }
           a {
-            text-decoration: none;
             font-weight: 600;
             line-height: 1.2;
+            text-decoration: none;
+            text-wrap: balance;
             &:hover {
               text-decoration: underline;
             }
@@ -654,7 +655,7 @@ body {
             margin-right: 0;
           }
           &:hover {
-            background-color: #fffcb2;
+            background-color: #fcffc1 !important;
           }
         }
       }
@@ -841,7 +842,7 @@ body {
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: lighten($color: $font-color-main, $amount: 30%);
+            background-color: #ccc;
             transform: scaleX(0);
             transform-origin: bottom right;
             transition: transform 0.3s, height 0.1s;
@@ -1228,7 +1229,6 @@ body {
         }
         .today {
           background-color: rgba(247, 133, 230, 0.2);
-          border: 1px solid $font-color-secondary;
         }
         .future,
         .padding-day {
@@ -1476,6 +1476,7 @@ body {
     margin: 12px 0 6px;
     line-height: 1.1;
     font-weight: bold;
+    color: #b14a9e;
   }
   h1 {
     font-size: 1.6em;
@@ -1489,8 +1490,8 @@ body {
   blockquote {
     margin: 10px;
     padding: 10px 15px;
-    border-left: 5px solid #ccc;
-    background-color: #eee;
+    border-left: 5px solid #ef91f3;
+    background-color: #f7f7f7;
     font-style: italic;
     border-radius: 0 $border-radius-main $border-radius-main 0;
   }

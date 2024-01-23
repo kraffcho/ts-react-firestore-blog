@@ -120,11 +120,8 @@ const SavedPage: React.FC = () => {
         />
       </Helmet>
       <h1 className="saved-posts__header">Saved Posts ({savedPosts.length})</h1>
-
       {shouldShowSummary && <SavedSummary onClose={handleCloseSummary} />}
-
       {error && <p className="error-message">{error}</p>}
-
       {loading ? (
         <p>Dusting off your treasured posts... 📚</p>
       ) : savedPosts.length === 0 ? (

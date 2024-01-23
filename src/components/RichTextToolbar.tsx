@@ -36,8 +36,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("header-one")}
         style={{
           border: isActiveBlock("header-one")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveBlock("header-one")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         H2
@@ -47,8 +50,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("header-two")}
         style={{
           border: isActiveBlock("header-two")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveBlock("header-two")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         H3
@@ -58,8 +64,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("header-three")}
         style={{
           border: isActiveBlock("header-three")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveBlock("header-three")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         H4
@@ -68,7 +77,10 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         type="button"
         style={{
           fontWeight: "bold",
-          border: isActiveStyle("BOLD") ? "1px solid #555" : "1px solid #ccc",
+          border: isActiveStyle("BOLD") ? "1px solid #ef91f3" : "1px solid #ccc",
+          backgroundColor: isActiveStyle("BOLD")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
         onClick={() => handleInlineStyle("BOLD")}
       >
@@ -78,7 +90,10 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         type="button"
         style={{
           fontStyle: "italic",
-          border: isActiveStyle("ITALIC") ? "1px solid #555" : "1px solid #ccc",
+          border: isActiveStyle("ITALIC") ? "1px solid #ef91f3" : "1px solid #ccc",
+          backgroundColor: isActiveStyle("ITALIC")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
         onClick={() => handleInlineStyle("ITALIC")}
       >
@@ -89,8 +104,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         style={{
           textDecoration: "underline",
           border: isActiveStyle("UNDERLINE")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveStyle("UNDERLINE")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
         onClick={() => handleInlineStyle("UNDERLINE")}
       >
@@ -101,8 +119,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         style={{
           textDecoration: "line-through",
           border: isActiveStyle("STRIKETHROUGH")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveStyle("STRIKETHROUGH")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
         onClick={() => handleInlineStyle("STRIKETHROUGH")}
       >
@@ -113,8 +134,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("unordered-list-item")}
         style={{
           border: isActiveBlock("unordered-list-item")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveBlock("unordered-list-item")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         UL
@@ -124,8 +148,11 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("ordered-list-item")}
         style={{
           border: isActiveBlock("ordered-list-item")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
+          backgroundColor: isActiveBlock("ordered-list-item")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         OL
@@ -135,11 +162,14 @@ const RichTextToolbar: React.FC<Props> = ({ editorState, setEditorState }) => {
         onClick={() => handleBlockType("blockquote")}
         style={{
           border: isActiveBlock("blockquote")
-            ? "1px solid #555"
+            ? "1px solid #ef91f3"
             : "1px solid #ccc",
-            borderLeft: isActiveBlock("blockquote")
-            ? "5px solid #555"
+          borderLeft: isActiveBlock("blockquote")
+            ? "5px solid #ef91f3"
             : "5px solid #ccc",
+          backgroundColor: isActiveBlock("blockquote")
+            ? "#fdffdc"
+            : "#ffffff",
         }}
       >
         Quote
