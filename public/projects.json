@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "category": "Games",
+    "name": "Slide and Merge: 2048 Game",
+    "description": "Slide & Merge is a modern, customizable React-based game inspired by the 2048 game. It features smooth animations and addictive gameplay, where the objective is to slide numbered tiles on a grid to combine them and create a tile with the number 2048. The game offers multiple themes, including a dark/light theme toggle, and records your high score! Built with a React.js frontend, JavaScript ES6, CSS, and HTML5, Slide & Merge utilizes browser APIs like 'localStorage' and 'sessionStorage' for seamless state persistence, ensuring robust performance and an enhanced gaming experience.",
+    "image": "slide-and-merge.png",
+    "link_github": "https://github.com/kraffcho/Slide-and-Merge-Game-aka-2048",
+    "link_demo": "https://6ytftn.csb.app/",
+    "link_demo_title": "Play"
+  },
+  {
+    "id": 2,
+    "category": "Games",
+    "name": "Tic-Tac-Toe: Wolf vs. Pig Game",
+    "description": "Prepare for an exciting game of Tic-Tac-Toe as a clever pig faces off against a cunning wolf. With dynamic messages, randomized computer moves, and local storage for progress, each match offers unpredictability and lasting enjoyment. Experience immersive audio effects and a responsive UI for seamless gameplay. Track your progress with an interactive progress bar, adding visual excitement to the battle. Enjoy the convenience of easy reset and progressive win tracking for continuous engagement. Get ready to outsmart your opponent and enjoy the timeless fun of Tic-Tac-Toe!",
+    "image": "wolf-vs-pig.png",
+    "link_github": "https://github.com/kraffcho/Tic-Tac-Toe-Wolf-vs-Pig",
+    "link_demo": "https://j7gg99.csb.app/",
+    "link_demo_title": "Play"
+  },
+  {
+    "id": 3,
+    "category": "Apps",
+    "name": "Expense Tracker React App",
+    "description": "Introducing the Expense Tracker React app, a user-friendly solution for managing expenses efficiently. Built with TypeScript and local storage integration, it enables easy addition, editing, and deletion of expense items. This project simplifies expense tracking with features like search by name, date filtering, and sorting options. Data persistence ensures your records are always available, while the app displays the total expense amount for insights into spending habits. Enhance your experience with the Dark/Light theme toggle and enjoy seamless performance across devices with the responsive design.",
+    "image": "expense-tracker.png",
+    "link_github": "https://github.com/kraffcho/Expense-Tracker-with-TypeScript-and-React",
+    "link_demo": "https://zg63fc.csb.app/",
+    "link_demo_title": "Demo"
+  },
+  {
+    "id": 4,
+    "category": "Apps",
+    "name": "Dynamic List (To-Do) App",
+    "description": "Meet the Dynamic List app – your personal assistant for streamlined task management. With features like pagination and local storage integration, this app simplifies organizing your to-dos. Customize list titles, timestamp entries, and effortlessly navigate using search and keyboard shortcuts. Stay organized and productive with seamless editing and dynamic search. Plus, with automatic item saving, your tasks persist across sessions. Whether tackling daily tasks or long-term projects, the Dynamic List app offers the flexibility and functionality to keep you productive on your terms.",
+    "image": "dynamic-list.png",
+    "link_github": "https://github.com/kraffcho/Dynamic-List",
+    "link_demo": "https://3wntlm.csb.app/",
+    "link_demo_title": "Demo"
+  },
+  {
+    "id": 5,
+    "category": "Sites",
+    "name": "Nava Accounting Office",
+    "description": "Built using WordPress, Nava Accounting Firm has been serving businesses since 1997. With 25 years of experience, they provide professional accounting, tax, and consulting services across diverse industries. Their commitment to integrity, confidentiality, and professionalism ensures client satisfaction and success in an ever-changing business landscape. Clients trust Nava for expert guidance and personalized solutions tailored to their business needs, backed by a proven track record of reliability and excellence.",
+    "image": "nava-ood.png",
+    "link_github": "",
+    "link_demo": "https://nava-ood.com/",
+    "link_demo_title": "Visit Site"
+  },
+  {
+    "id": 6,
+    "category": "Apps",
+    "name": "Random Quote Generator App",
+    "description": "Introducing the Random Quote Generator! This app fetches quotes from various categories using the API from api-ninjas.com, presenting them in a sleek interface. Under the hood: Choose from a variety of categories, from \"humor\" to \"inspiration\". Click the \"Generate\" button to smoothly transition to a new quote. A countdown timer ensures a seamless experience while waiting for the next insightful quote. Built with React, this project utilizes hooks and effects for smooth user interactions and seamless integration with the API from api-ninjas.com, offering a diverse range of quotes.",
+    "image": "random-quote-generator.png",
+    "link_github": "",
+    "link_demo": "https://gw88zx.csb.app/",
+    "link_demo_title": "Demo"
+  },
+  {
+    "id": 7,
+    "category": "Sites",
+    "name": "Shopazonia - Gadgets & Toys",
+    "description": "As a personal WordPress project for the Amazon affiliate program, Shopazonia brings you the latest gadgets and toys! Explore cutting-edge tech and curated selections for enthusiasts, gamers, and gift seekers. Access reviews, comparisons, and expert insights for informed purchases. Join our community for trends and discussions. Happy shopping!",
+    "image": "shopazonia.png",
+    "link_github": "",
+    "link_demo": "https://www.shopazonia.com/",
+    "link_demo_title": "Visit Site"
+  },
+  {
+    "id": 8,
+    "category": "Sites",
+    "name": "Blog about Health, Nutrition, and Exercise",
+    "description": "Your Food Journal is a blog created for two master's students in the field of nutritional sciences at the University of Vienna, who have already completed their bachelor's degree in Bonn, Germany. This is the place where they will scientifically present topics focused on one of the most important aspects of each of our lives - nutrition. Your Food Journal will address issues related to food and beverage consumption, as well as acquiring healthy habits. Starting from pregnancy, childbirth, and breastfeeding, they will strive to cover every aspect of our daily lives.",
+    "image": "yourfoodjournal.png",
+    "link_github": "",
+    "link_demo": "https://yourfoodjournal.eu/",
+    "link_demo_title": "Visit Site"
+  }
+]

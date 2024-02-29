@@ -146,7 +146,7 @@ const HomePage: React.FC<HomePageProps> = ({ user, userRoles }) => {
     <div className="container home-grid animate__animated animate__fadeIn">
       <Helmet>
         <title>
-          {categoryName ? `Posts in category: ${categoryName}` : "Latest Posts"}
+          {categoryName ? `Posts in category: ${categoryName}` : "The Newest Posts on Tech & More - Kraffcho.DEV"}
         </title>
         <meta
           name="description"

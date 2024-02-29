@@ -176,6 +176,18 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
     </div>
   );
 
+  const randomSentence = () => {
+    const sentences = [
+      "You have some thoughts? Share them below!",
+      "Feel free to lead the discussion by sharing your thoughts first.",
+      "Be the pioneer in this conversation! Your input is greatly anticipated.",
+      "Let's hear your insights! Be the first to break the silence.",
+      "Join the conversation! Your thoughts are valuable."
+    ];
+    const randomIndex = Math.floor(Math.random() * sentences.length);
+    return sentences[randomIndex];
+  };
+
   const CommentForm: React.FC<{
     postId: string;
     setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
@@ -273,12 +285,14 @@ const PostPage: React.FC<PostPageProps> = ({ userRoles }) => {
     return (
       <div className="comment-form">
         <h2 className="comment-form__title">
-          <p className="comment-form__logged">
+          <p className="comment-form__logged animate__animated animate__fadeIn animate__delay-1s">
             (Logged in as <strong>{userName}</strong>)
           </p>
-          {comments.length > 0
-            ? "You have some thoughts? Share them below!"
-            : "No comments yet. Be the first one to share your thoughts."}
+          <span className="animate__animated animate__fadeIn animate__delay-2s">
+            {comments.length > 0
+              ? "You have some thoughts? Share them below!"
+              : randomSentence()}
+          </span>
         </h2>
         <textarea
           ref={contentRef}

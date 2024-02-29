@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -29,6 +29,7 @@ const PostPage = lazy(() => import("./pages/PostPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const SavedPage = lazy(() => import("./pages/SavedPage"));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function useAuth() {
@@ -118,6 +119,10 @@ function AppRoutes(props: any) {
         <Route
           path="/saved"
           element={isAuthenticated ? <SavedPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/projects"
+          element={<ProjectsPage />}
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

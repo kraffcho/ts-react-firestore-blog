@@ -68,7 +68,7 @@ const SearchBar: React.FC = () => {
         id="search-input"
         type="text"
         value={searchTerm}
-        placeholder="Search for posts..."
+        placeholder="Search..."
         onChange={(e) => {
           const newTerm = e.target.value;
           setSearchTerm(newTerm);
@@ -83,21 +83,21 @@ const SearchBar: React.FC = () => {
       <div className="search-results">
         {results.length > 0
           ? results.map((post, index) => (
-              <div
-                key={post.id}
-                className="search-result-item animate__animated animate__fadeIn"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <Link to={`/post/${post.id}`} onClick={clearSearch}>
-                  {post.title}
-                </Link>
-              </div>
-            ))
+            <div
+              key={post.id}
+              className="search-result-item animate__animated animate__fadeIn"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <Link to={`/post/${post.id}`} onClick={clearSearch}>
+                {post.title}
+              </Link>
+            </div>
+          ))
           : searchTerm && (
-              <div className="no-results animate__animated animate__fadeIn">
-                No results found!
-              </div>
-            )}
+            <div className="no-results animate__animated animate__fadeIn">
+              No results found!
+            </div>
+          )}
       </div>
     </div>
   );

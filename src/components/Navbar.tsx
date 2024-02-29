@@ -31,18 +31,25 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
   return (
     <>
       <header
-        className={`header-container${
-          !isNavbarFaded
-            ? " animate__animated animate__fadeInDown"
-            : " animate__animated animate__fadeOutUp"
-        }`}
+        className={`header-container${!isNavbarFaded
+          ? " animate__animated animate__fadeInDown"
+          : " animate__animated animate__fadeOutUp"
+          }`}
       >
         <nav className="nav-wrapper">
           <ul className="nav-container">
             <li className="nav-link">
               <Link to="/">
                 <span className="material-symbols-outlined notranslate">house</span>
-                <span className="link-text">Posts</span>
+                <span className="link-text">Home</span>
+              </Link>
+            </li>
+            <li className="nav-link">
+              <Link to="/projects">
+                <span className="material-symbols-outlined notranslate">
+                  engineering
+                </span>
+                <span className="link-text">Projects</span>
               </Link>
             </li>
             {user && (
@@ -61,7 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, userRoles }) => {
                       <span className="material-symbols-outlined notranslate">
                         post_add
                       </span>
-                      <span className="link-text">Add Post</span>
+                      <span className="link-text">Publish</span>
                     </Link>
                   </li>
                 )}
