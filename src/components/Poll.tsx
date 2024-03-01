@@ -62,6 +62,14 @@ const Poll: React.FC<PollProps> = ({ pollId }) => {
   if (error) return <ErrorState error={error} />;
   if (!poll) return <NoPollState />;
 
+  // Sorting options based on the number of votes
+const sortedOptions: { [key: string]: { text: string; votes: number } } = Object.entries(poll.options)
+.sort(([, optionA], [, optionB]) => optionB.votes - optionA.votes)
+.reduce((acc, [key, value]) => {
+  acc[key] = value;
+  return acc;
+}, {} as { [key: string]: { text: string; votes: number } });
+
   return (
     <PollLayout
       poll={poll}
@@ -69,6 +77,7 @@ const Poll: React.FC<PollProps> = ({ pollId }) => {
       hasVoted={hasVoted}
       handleVote={handleVote}
       setSelectedOption={setSelectedOption}
+      sortedOptions={sortedOptions}
     />
   );
 };
@@ -87,7 +96,8 @@ const PollLayout: React.FC<{
   hasVoted: boolean;
   handleVote: () => void;
   setSelectedOption: (key: string) => void;
-}> = ({ poll, totalVotes, hasVoted, handleVote, setSelectedOption }) => (
+  sortedOptions: { [key: string]: { text: string; votes: number } };
+}> = ({ poll, totalVotes, hasVoted, handleVote, setSelectedOption, sortedOptions }) => (
   <section className="poll-container animate__animated animate__fadeIn">
     <h2 className="poll-title">
       <span className="material-symbols-outlined notranslate">ballot</span>
@@ -95,7 +105,7 @@ const PollLayout: React.FC<{
     </h2>
     <p className="poll-question">{poll.question}</p>
     <div className="poll-options">
-      {Object.entries(poll.options).map(([key, option]) => (
+      {Object.entries(sortedOptions).map(([key, option]) => (
         <PollOption
           key={key}
           id={key}

@@ -1213,7 +1213,7 @@ body {
           bottom: 0;
           left: 0;
           height: 4px;
-          background-color: rgba(76, 175, 80, 0.5);
+          background-color: rgb(138 25 146 / 50%);
           z-index: -1;
         }
         &:hover {
@@ -2004,8 +2004,7 @@ $btn-colors: (
       resize: vertical;
       font-size: inherit;
       outline: none;
-      border: 1px solid #ccc;
-      background: linear-gradient(90deg, #dbfee3, transparent);
+      border: 1px solid #40d47e;
     }
   }
 

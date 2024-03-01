@@ -225,8 +225,8 @@ const PostCalendar: React.FC = () => {
       const dayClass = isToday(currentDate)
         ? "today"
         : isInFuture(currentDate)
-        ? "future"
-        : "";
+          ? "future"
+          : "";
 
       if (hasPosts(currentDate)) {
         days.push(
@@ -263,7 +263,7 @@ const PostCalendar: React.FC = () => {
           </button>
           <p className="total">
             {postDates.length > 0
-              ? `Found ${postDates.length} Posts`
+              ? `Found ${postDates.length} ${postDates.length === 1 ? 'Post' : 'Posts'}`
               : "No Posts"}
           </p>
           <button

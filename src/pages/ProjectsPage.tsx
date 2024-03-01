@@ -110,7 +110,15 @@ const ProjectsPage: React.FC = () => {
             filteredProjects.map((project, index) => (
               <div key={project.id} className="projects-wrapper__box animate__animated animate__fadeIn" style={{ animationDelay: `${index * 0.1}s` }}>
                 <h3>{project.name}</h3>
-                {project.image && <img src={`/assets/images/projects/${project.image}`} alt={project.name} />}
+                {project.image && (
+                  <a
+                    href={project.link_demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={`/assets/images/projects/${project.image}`} alt={project.name} />
+                  </a>
+                )}
                 <p>
                   {expandedProjectId === project.id
                     ? project.description
