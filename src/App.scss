@@ -421,6 +421,9 @@ body {
         img {
           opacity: 0.9;
           width: 100%;
+          height: auto;
+          aspect-ratio: 1;
+          background-color: rgb(203, 203, 203);
           border: 1px solid #fff;
           border-radius: $border-radius-main;
           transition: all 0.2s ease-in;
@@ -820,7 +823,7 @@ body {
           font-size: 12px;
           line-height: 1.2;
           color: $font-color-main;
-          background: linear-gradient(90deg, #fff, transparent);
+          background: #ffffff;
           border-radius: $border-radius-main;
 
           .category {
@@ -1194,6 +1197,7 @@ body {
       gap: 10px;
       margin-bottom: 10px;
       .poll-option {
+        overflow: hidden;
         position: relative;
         display: flex;
         align-items: center;

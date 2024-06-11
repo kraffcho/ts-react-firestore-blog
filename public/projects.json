@@ -78,5 +78,15 @@
     "link_github": "",
     "link_demo": "https://yourfoodjournal.eu/",
     "link_demo_title": "Visit Site"
+  },
+  {
+    "id": 9,
+    "category": "Sites",
+    "name": "Lake Geneva Investment Partners",
+    "description": "Built the new website for Lake Geneva Investment Partners (LGIP) using React, TypeScript, and Material UI, focusing on creating a modern, responsive, and user-friendly interface. This project included developing a robust admin panel for efficient content management, ensuring the site performs well across all devices. Established in 2007 and headquartered in Geneva, LGIP is a private investment firm that offers asset management and wealth advisory services to private clients, family offices, and institutional investors throughout Europe and Asia. LGIP emphasizes capital preservation and consistent returns, blending extensive experience, principled investment strategies, and advanced technology to achieve their goals.​",
+    "image": "lgip.png",
+    "link_github": "",
+    "link_demo": "https://www.lgip.ch/",
+    "link_demo_title": "Visit Site"
   }
 ]
